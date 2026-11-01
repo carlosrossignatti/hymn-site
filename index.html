@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>HYMN · Agência criativa</title>
 <meta name="description" content="Agência criativa com estúdio e produtora dentro de casa.">
 <meta name="robots" content="noindex, nofollow">
@@ -246,7 +252,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .painel3 .topo-contato { grid-template-columns: 1fr; }
   .roseta3 { order: -1; width: 168px; margin-bottom: 0; }
   .linhas3 { grid-template-columns: 1fr; }
-  .claquete { --abre: -8deg; }
+  .claquete { --abre: -15deg; --fecha: 0.85; margin-top: 76px; }
   .claq-campos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .claq-campos > div { padding: var(--esp-3) var(--esp-4); }
   .claq-campos > div:nth-child(3) { border-left: 0; }
@@ -266,6 +272,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 }
 </style>
 
+</head>
+<body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
 <defs>
 <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
@@ -733,7 +741,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   function moveClaquete() {
     var r = claquete.getBoundingClientRect(), h = window.innerHeight;
     if (r.bottom < -100 || r.top > h + 100) return;
-    var p = Math.min(1, Math.max(0, (h - r.top) / (h * 0.6)));
+    var fecha = parseFloat(getComputedStyle(claquete).getPropertyValue('--fecha')) || 0.6;
+    var p = Math.min(1, Math.max(0, (h - r.top) / (h * fecha)));
     var abre = parseFloat(getComputedStyle(claquete).getPropertyValue('--abre')) || -4;
     haste.style.transform = 'rotate(' + (abre * (1 - p * p)).toFixed(3) + 'deg)';
   }
@@ -763,3 +772,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   noScroll();
 })();
 </script>
+
+</body>
+</html>
