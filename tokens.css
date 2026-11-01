@@ -1,0 +1,123 @@
+/* HYMN · Design system v0.2 · tokens (01/11/2026; v0.2 com a biblioteca de componentes)
+   Fonte única de verdade para cores, tipografia, espaços, cantos e movimento.
+   Cores: aprovadas na apresentação (30 e 31/10). Fontes: PROVISÓRIAS até o material de marca do Junior.
+   Feito com ui-ux-pro-max (estrutura Master) + impeccable (regras de marca). */
+
+:root {
+  /* ---------- Cor: base ---------- */
+  --cor-preto: #000000;          /* fundo principal do site */
+  --cor-branco: #ffffff;         /* texto no preto */
+  --cor-amarelo: #fff21a;        /* destaque: botão principal, seção de contato */
+  --cor-roxo: #d075f8;           /* SÓ o círculo, sobre preto */
+  --cor-roxo-no-amarelo: #9747ff;/* SÓ o círculo, sobre amarelo */
+  --cor-roxo-no-branco: #a64bff; /* SÓ o círculo, sobre branco */
+
+  /* ---------- Cor: apoio ---------- */
+  --cor-cinza: #9b9ba3;          /* texto de apoio no preto (7,6:1) */
+  --cor-apoio-amarelo: #736d0c;  /* texto de apoio no amarelo (4,6:1) */
+  --cor-superficie: #111114;     /* molduras de vídeo, campos */
+  --cor-superficie-2: #1a1a1f;   /* hover de superfície, trilhos */
+  --cor-superficie-3: #24242a;   /* menus, modal, toast, drawer */
+  --cor-linha: rgb(255 255 255 / 14%);
+  --cor-linha-forte: rgb(255 255 255 / 35%);
+  --cor-linha-amarelo: rgb(0 0 0 / 20%);
+  --cor-desativado: #6e6e76;     /* 4,1:1 no preto */
+  --cor-erro: #ff6b5e;           /* 7,5:1 no preto; botão destrutivo */
+  --cor-erro-hover: #ff8a80;     /* botão destrutivo com o mouse em cima */
+  --cor-sucesso: #4fd18b;        /* 10,8:1 no preto */
+  --cor-aviso: #ffb547;          /* 12:1 no preto; laranja para não brigar com o amarelo de ação */
+  --cor-info: #7cb6ff;           /* 10:1 no preto */
+  --cor-fundo-modal: rgb(0 0 0 / 72%);
+  --cor-amarelo-hover: #fff76a;  /* botão amarelo com o mouse em cima */
+  --cor-preto-hover: #26261f;    /* botão preto no amarelo com o mouse em cima */
+  --cor-veu: rgb(0 0 0 / 55%);   /* véu sobre vídeo */
+
+  /* ---------- Cor: papéis (use estes nos componentes) ---------- */
+  --fundo: var(--cor-preto);
+  --texto: var(--cor-branco);
+  --texto-apoio: var(--cor-cinza);
+  --acao: var(--cor-amarelo);
+  --texto-na-acao: var(--cor-preto);
+  --foco: var(--cor-amarelo);
+  --superficie: var(--cor-superficie);
+  --superficie-elevada: var(--cor-superficie-3);
+  --borda-cor: var(--cor-linha);
+  --borda-forte: var(--cor-linha-forte);
+
+  /* ---------- Tipografia (provisória) ---------- */
+  --fonte-texto: 'Inter Tight', Helvetica, Arial, sans-serif;
+  --fonte-destaque: 'Instrument Serif', Georgia, serif;  /* só itálico, só a palavra de destaque */
+  --fonte-codigo: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; /* prompts, tokens, códigos */
+
+  --peso-texto: 400;
+  --peso-medio: 500;
+  --peso-titulo: 600;
+
+  --tam-display: clamp(3rem, 8vw, 5.6rem);   /* 48 a 90 px: "Vamos conversar?" */
+  --tam-h1: clamp(1.9rem, 3.8vw, 3.4rem);    /* 30 a 54 px */
+  --tam-h2: clamp(1.75rem, 3vw, 2.6rem);     /* 28 a 42 px */
+  --tam-h3: 1.375rem;                        /* 22 px */
+  --tam-grande: 1.25rem;                     /* 20 px */
+  --tam-texto: 1.125rem;                     /* 18 px, corpo do site */
+  --tam-ui: 1rem;                            /* 16 px, menu e botões pequenos */
+  --tam-legenda: 0.875rem;                   /* 14 px */
+  --tam-rotulo: 0.875rem;                    /* 14 px, 500: rótulos de campo e badges */
+  --tam-codigo: 0.875rem;                    /* 14 px, fonte de código */
+  --tam-minimo: 0.8125rem;                   /* 13 px, nunca menor */
+
+  --altura-titulo: 1.05;
+  --altura-texto: 1.55;
+  --espaco-letra-titulo: -0.03em;
+  --largura-texto: 60ch;
+
+  /* ---------- Espaço (base 4) ---------- */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 24px;
+  --esp-6: 32px;
+  --esp-7: 48px;
+  --esp-8: 64px;
+  --esp-9: 96px;
+  --esp-10: 128px;
+  --margem: clamp(20px, 5vw, 72px);            /* margem lateral da página */
+  --secao: clamp(64px, 8vw, 112px);            /* respiro entre seções */
+
+  /* ---------- Cantos e linhas ---------- */
+  --raio-xs: 4px;      /* checkbox, tooltip */
+  --raio-sm: 8px;      /* campos, notas, menus */
+  --raio-md: 12px;     /* quadros de vídeo, alertas, toast */
+  --raio-lg: 20px;     /* modal, drawer */
+  --raio-pilula: 999px;/* botões e filtros */
+  --borda: 1px;
+
+  /* ---------- Sombras: só no que flutua (menu, tooltip, toast, modal, drawer) ---------- */
+  --sombra-1: 0 8px 24px rgb(0 0 0 / 50%);
+  --sombra-2: 0 24px 64px rgb(0 0 0 / 70%);
+
+  /* ---------- Tamanhos de toque ---------- */
+  --toque-min: 44px;
+  --altura-botao: 52px;
+  --altura-filtro: 40px;
+  --icone-sm: 16px;
+  --icone: 20px;
+  --icone-lg: 24px;
+  --icone-traco: 1.6;  /* contorno, pontas arredondadas, grade de 24 */
+
+  /* ---------- Movimento ---------- */
+  --curva: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-rapida: 150ms;   /* hover, cor */
+  --dur-media: 250ms;    /* abrir, fechar */
+  --dur-lenta: 400ms;    /* cards, entrada de seção */
+
+  /* ---------- Camadas ---------- */
+  --z-topo: 10;
+  --z-menu: 20;
+  --z-modal: 30;
+  --z-toast: 40;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-rapida: 0ms; --dur-media: 0ms; --dur-lenta: 0ms; }
+}

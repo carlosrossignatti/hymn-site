@@ -1,0 +1,800 @@
+<title>Home HYMN v3</title>
+<meta name="description" content="Protótipo animado da home do site da HYMN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
+<link rel="preload" as="image" href="assets/frame-abertura.webp" fetchpriority="high">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="componentes.css">
+<style>
+/* Home v3: vídeo e foto primeiro, uma coisa acontecendo por vez no scroll.
+   Tudo vem dos tokens do design system HYMN (tokens.css). Estes são só os papéis desta página. */
+:root {
+  color-scheme: dark;
+  --pg-fundo: var(--cor-preto);
+  --pg-texto: var(--cor-branco);
+  --pg-apoio: var(--cor-cinza);
+  --pg-apagado: #3b3b42;            /* palavra ainda não lida na frase do scroll */
+  --pg-acao: var(--cor-amarelo);
+  --pg-circulo: var(--cor-roxo);
+  --pg-apoio-foto: rgb(255 255 255 / 78%);       /* texto de apoio sobre foto */
+  --pg-entrada: cubic-bezier(0.23, 1, 0.32, 1);   /* emil-design-eng: saída forte para entrar */
+  --pg-movimento: cubic-bezier(0.77, 0, 0.175, 1);/* emil-design-eng: movimento na tela */
+  --pg-gaveta: cubic-bezier(0.32, 0.72, 0, 1);
+  --lateral: max(var(--margem), env(safe-area-inset-left, 0px));
+  --lateral-d: max(var(--margem), env(safe-area-inset-right, 0px));
+}
+html { background: var(--pg-fundo); scroll-behavior: smooth; }
+body { background: var(--pg-fundo); color: var(--pg-texto); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.miolo { padding-left: var(--lateral); padding-right: var(--lateral-d); }
+.prov { font: 500 var(--tam-minimo)/1.3 var(--fonte-texto); color: var(--cor-cinza); border: var(--borda) dashed var(--cor-linha-forte); border-radius: var(--raio-sm); padding: 4px 8px; }
+
+[hidden] { display: none !important; }
+main:focus { outline: none; }
+/* Pular para o conteúdo: só aparece para quem navega pelo teclado. */
+.pular { position: fixed; left: var(--lateral); top: calc(env(safe-area-inset-top, 0px) + 14px); z-index: var(--z-modal); padding: 12px 18px; border-radius: var(--raio-pilula); background: var(--cor-amarelo); color: var(--cor-preto); font: var(--peso-titulo) var(--tam-legenda)/1 var(--fonte-texto); transform: translateY(calc(-100% - 40px)); transition: transform 200ms var(--pg-entrada); }
+.pular:focus { transform: none; outline: 2px solid var(--cor-branco); outline-offset: 2px; }
+
+/* ---------- Topo ---------- */
+.topo3 { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: var(--z-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--esp-5); height: 76px; padding-left: var(--lateral); padding-right: var(--lateral-d); transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 600ms ease; }
+.topo3.is-solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha); }
+.topo3.is-escondido { transform: translateY(-110%); }
+.marca { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.topo3 .marca img { height: 22px; width: auto; }
+.topo3 nav { display: flex; align-items: center; gap: var(--esp-7); font: var(--peso-medio) var(--tam-legenda)/1 var(--fonte-texto); text-transform: uppercase; letter-spacing: 0.08em; }
+.topo3 nav a { position: relative; padding: 14px 0; }
+.topo3 nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform var(--dur-media) var(--pg-entrada); }
+.topo3 nav a:hover::after, .topo3 nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.btn-menu3 { display: none; height: var(--toque-min); padding: 0 var(--esp-4); border-radius: var(--raio-pilula); border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); cursor: pointer; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: calc(var(--z-topo) + 1); background: var(--cor-preto); }
+
+/* Menu do celular */
+.menu-cel { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--cor-preto); display: grid; grid-template-rows: auto 1fr auto; padding: calc(env(safe-area-inset-top, 0px) + 16px) var(--lateral-d) calc(env(safe-area-inset-bottom, 0px) + 24px) var(--lateral); }
+.menu-cel[hidden] { display: none; }
+.menu-cel .cabeca { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+.menu-cel .cabeca img { height: 22px; width: auto; }
+.menu-cel ul { list-style: none; margin: 0; padding: 0; align-self: center; display: grid; gap: var(--esp-2); }
+.menu-cel li a { display: block; font: var(--peso-titulo) clamp(2.2rem, 10vw, 3rem)/1.15 var(--fonte-texto); letter-spacing: -0.02em; text-transform: uppercase; }
+.menu-cel .rodape-menu { color: var(--pg-apoio); font-size: var(--tam-legenda); display: grid; gap: 4px; }
+.anima .menu-cel li { opacity: 0; transform: translateY(24px); }
+.anima .menu-cel.is-aberto li { opacity: 1; transform: none; transition: transform 600ms var(--pg-entrada), opacity 400ms ease; transition-delay: calc(80ms + var(--n) * 45ms); }
+
+/* ---------- Abertura ---------- */
+.abertura3 { position: relative; height: 100svh; min-height: 600px; max-height: 1100px; overflow: hidden; isolation: isolate; }
+.slides { position: absolute; inset: 0; z-index: -2; }
+.slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1400ms var(--pg-movimento); overflow: hidden; }
+.slide.is-ativo { opacity: 1; }
+.slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(var(--z0, 1.04)); transform-origin: var(--fx, 50%) var(--fy, 50%); }
+.anima .slide.is-ativo img { animation: kenburns var(--dur-slide, 6.4s) linear forwards; }
+.abertura3.is-pausado .slide img { animation-play-state: paused; }
+@keyframes kenburns { from { transform: scale(var(--z0, 1.04)) translate3d(0, 0, 0); } to { transform: scale(var(--z1, 1.14)) translate3d(var(--dx, 0px), var(--dy, 0px), 0); } }
+.abertura3 .veu3 { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgb(0 0 0 / 88%) 0%, rgb(0 0 0 / 45%) 45%, rgb(0 0 0 / 60%) 100%); }
+.abertura3 .conteudo { position: absolute; left: var(--lateral); right: var(--lateral-d); bottom: 132px; display: grid; gap: var(--esp-6); will-change: transform, opacity; }
+.titulo3 { font: var(--peso-titulo) clamp(2.1rem, 6.2vw, 5.4rem)/0.98 var(--fonte-texto); letter-spacing: -0.035em; max-width: none; text-wrap: initial; }
+.apoio3 { margin-top: calc(var(--esp-3) * -1); font-size: var(--tam-grande); line-height: 1.4; color: var(--cor-branco); opacity: 0.86; max-width: 46ch; text-wrap: balance; }
+.anima .apoio3 { opacity: 0; transform: translateY(10px); }
+.anima.carregou .apoio3 { opacity: 0.86; transform: none; transition: opacity 700ms ease 650ms, transform 900ms var(--pg-entrada) 650ms; }
+.titulo3 .linha { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.titulo3 .linha > span { display: block; }
+.titulo3 em { font-size: 1.06em; letter-spacing: -0.01em; }
+.anima .titulo3 .linha > span { transform: translateY(108%); }
+.anima.carregou .titulo3 .linha > span { transform: none; transition: transform 1100ms var(--pg-entrada); transition-delay: calc(250ms + var(--n) * 110ms); }
+.acoes3 { display: flex; flex-wrap: wrap; gap: var(--esp-3); }
+.anima .acoes3, .anima .rodape-abertura, .anima .topo3 { opacity: 0; }
+.anima .acoes3 { transform: translateY(14px); }
+.anima.carregou .acoes3 { opacity: 1; transform: none; transition: opacity 700ms ease 850ms, transform 900ms var(--pg-entrada) 850ms; }
+.anima.carregou .rodape-abertura, .anima.carregou .topo3 { opacity: 1; transition: opacity 800ms ease 1100ms; }
+.anima.carregou .topo3 { transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 800ms ease 1100ms; }
+.btn { transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
+.btn:active { transform: scale(0.97); }
+.btn--vidro .ic { width: 18px; height: 18px; }
+
+.rodape-abertura { position: absolute; left: var(--lateral); right: var(--lateral-d); bottom: calc(env(safe-area-inset-bottom, 0px) + 32px); display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: var(--esp-5); }
+.credito3 { font-size: var(--tam-legenda); color: var(--pg-apoio); line-height: 1.4; min-height: 2.8em; transition: opacity 300ms ease, transform 300ms ease; }
+.credito3 b { display: block; color: var(--pg-texto); font-weight: var(--peso-medio); }
+.credito3.is-trocando { opacity: 0; transform: translateY(6px); }
+.barras { display: flex; gap: 6px; }
+.barras button { position: relative; width: 56px; height: var(--toque-min); padding: 0; background: none; border: 0; cursor: pointer; }
+.barras button::before, .barras button::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: rgb(255 255 255 / 28%); }
+.barras button::after { background: var(--pg-texto); transform: scaleX(var(--p, 0)); transform-origin: left; }
+.pausa3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); cursor: pointer; }
+.pausa3 .ic { width: 18px; height: 18px; }
+
+/* Abertura de filme: tarjas de cinema que se abrem e o monitor da câmera */
+.tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; }
+.tarja--cima { top: 0; transform-origin: top; }
+.tarja--baixo { bottom: 0; transform-origin: bottom; }
+.tarja { transform: scaleY(0); }
+.anima .tarja { transform: scaleY(1); }
+.anima.carregou .tarja { transform: scaleY(0); transition: transform 1500ms var(--pg-movimento) 1500ms; }
+.hud { display: flex; align-items: center; gap: var(--esp-3); font: 500 var(--tam-minimo)/1 var(--fonte-codigo); color: var(--cor-branco); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.hud .rec { display: inline-flex; align-items: center; gap: 6px; }
+.hud .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cor-branco); }
+.anima .hud .rec::before { animation: pisca 1.2s steps(2, jump-none) infinite; }
+.abertura3.is-pausado .hud .rec::before { animation: none; opacity: 0.4; }
+@keyframes pisca { 50% { opacity: 0.15; } }
+.hud span:not(.rec) { color: var(--pg-apoio); }
+.hud-topo { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 92px); left: var(--lateral); right: var(--lateral-d); display: flex; justify-content: space-between; }
+.anima .hud-topo { opacity: 0; }
+.anima.carregou .hud-topo { opacity: 1; transition: opacity 600ms ease 400ms; }
+
+/* ---------- Três frentes como claquete: barra listrada que fecha uma vez, quadro escuro com campos ---------- */
+.frentes3 { padding-bottom: var(--secao); }
+.frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
+.claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
+.claq-barra { position: relative; height: clamp(48px, 6vw, 80px); }
+.claq-barra .vara { position: absolute; left: 0; right: 0; height: calc(50% - 2px); border: var(--borda) solid var(--cor-linha-forte); }
+.claq-barra .haste { top: 0; border-radius: var(--raio-sm) var(--raio-sm) 0 0; background: repeating-linear-gradient(-60deg, var(--cor-branco) 0 var(--l), var(--cor-preto) var(--l) calc(var(--l) * 2)); transform-origin: 0 100%; z-index: 1; will-change: transform; }
+.claq-barra .base { bottom: 0; background: repeating-linear-gradient(60deg, var(--cor-branco) 0 var(--l), var(--cor-preto) var(--l) calc(var(--l) * 2)); }
+.claq-barra .pino { position: absolute; left: 10px; top: 50%; width: 12px; height: 12px; border-radius: 50%; background: var(--cor-cinza); border: 2px solid var(--cor-preto); transform: translateY(-50%); z-index: 2; }
+.anima .claquete .haste { transform: rotate(var(--abre)); }
+.claq-quadro { background: var(--cor-superficie); border: var(--borda) solid var(--cor-linha-forte); border-top: 0; border-radius: 0 0 var(--raio-md) var(--raio-md); }
+.claq-campos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: var(--borda) solid var(--cor-linha-forte); }
+.claq-campos > div { display: grid; gap: 8px; padding: var(--esp-3) var(--esp-5); border-left: var(--borda) solid var(--cor-linha-forte); }
+.claq-campos > div:first-child { border-left: 0; }
+.claq-campos span { font: 500 var(--tam-minimo)/1 var(--fonte-codigo); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pg-apoio); }
+.claq-campos b { font: var(--peso-medio) clamp(1rem, 1.5vw, 1.25rem)/1.1 var(--fonte-texto); color: var(--pg-texto); font-variant-numeric: tabular-nums; }
+.claq-pe { border-bottom: 0; border-top: var(--borda) solid var(--cor-linha-forte); }
+.frente { position: relative; display: grid; grid-template-columns: clamp(64px, 7vw, 104px) minmax(0, 1fr) minmax(0, 0.75fr) 9.5rem; align-items: center; gap: var(--esp-6); padding: clamp(18px, 2.6vw, 32px) var(--esp-5); border-top: var(--borda) solid var(--cor-linha); cursor: default; }
+.claq-campos + .frente { border-top: 0; }
+.frente .cena { display: grid; gap: 6px; font: 500 var(--tam-minimo)/1 var(--fonte-codigo); letter-spacing: 0.08em; color: var(--pg-apoio); }
+.frente .cena b { font: 500 clamp(1.4rem, 2.4vw, 2rem)/1 var(--fonte-codigo); letter-spacing: 0; color: var(--pg-apagado); transition: color 400ms ease; }
+.frente.is-ativa .cena b { color: var(--pg-texto); }
+.frente h3 { font: var(--peso-titulo) clamp(2.4rem, 7vw, 6rem)/0.95 var(--fonte-texto); letter-spacing: -0.04em; color: var(--pg-texto); transition: color 400ms ease, transform 600ms var(--pg-entrada); }
+.frente p { color: var(--pg-apoio); font-size: var(--tam-grande); max-width: 34ch; transition: color 400ms ease; }
+.anima .frente h3 { color: var(--pg-apagado); }
+.anima .frente.is-ativa h3 { color: var(--pg-texto); transform: translateX(10px); }
+.frente.is-ativa p { color: var(--pg-texto); }
+.frente .selo { justify-self: end; opacity: 0; transition: opacity 300ms ease; }
+.frente.is-ativa .selo { opacity: 1; }
+
+/* ---------- Faixa que corre ---------- */
+.faixa3 { overflow: hidden; padding-block: var(--esp-7); background: var(--cor-amarelo); color: var(--cor-preto); }
+.trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
+.trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(2.2rem, 5.6vw, 5rem)/1 var(--fonte-texto); letter-spacing: -0.04em; padding-right: 0.5em; }
+.trilho span::after { content: ""; width: 0.14em; height: 0.14em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
+.trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.03em; }
+
+/* ---------- Frase do scroll ---------- */
+.frase3 { padding-block: clamp(96px, 16vw, 200px); }
+.frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
+.frase3 .p { transition: color 200ms linear; }
+.anima .frase3 .p { color: var(--pg-apagado); }
+.anima .frase3 .p.is-lida { color: var(--pg-texto); }
+.ultima { white-space: nowrap; }
+.frase3 .apoio { margin-top: var(--esp-6); color: var(--pg-apoio); font-size: var(--tam-grande); max-width: 46ch; }
+
+/* ---------- Trabalhos ---------- */
+.cabeca3 { display: flex; align-items: end; justify-content: space-between; gap: var(--esp-5); margin-bottom: var(--esp-7); }
+.cabeca3 h2 { font-size: clamp(2.6rem, 7vw, 6rem); letter-spacing: -0.04em; line-height: 0.95; }
+.link3 { display: inline-flex; align-items: center; gap: var(--esp-2); min-height: var(--toque-min); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); white-space: nowrap; }
+.link3 .ic { transition: transform var(--dur-media) var(--pg-entrada); }
+.link3:hover .ic { transform: translateX(4px); }
+.trabalhos3 { padding-bottom: var(--secao); overflow: hidden; overflow: clip; }
+/* Parede de trabalhos: ao descer, a fileira de cima vai para a direita e a de baixo para a esquerda; ao subir, o contrário. */
+.parede3 { --tela-l: max(220px, calc((100vw - 4 * 12px) / 5)); display: grid; gap: 12px; }
+.fileira3 { display: flex; gap: 12px; width: max-content; will-change: transform; }
+.fileira3 + .fileira3 { margin-left: calc(var(--tela-l) * -0.5); }
+.fileira3:nth-child(3) { margin-left: calc(var(--tela-l) * -0.25); }
+.tela3 { position: relative; flex: none; width: var(--tela-l); aspect-ratio: 16 / 10; border-radius: var(--raio-lg); overflow: hidden; background: var(--cor-superficie); }
+.tela3 img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(var(--z, 1)); transition: transform 600ms var(--pg-entrada); }
+.tela3.is-pb img { filter: grayscale(1) contrast(1.12); }
+.tela3 .info3 { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: var(--esp-3); padding: 48px 16px 14px; background: linear-gradient(to top, var(--cor-veu), rgb(0 0 0 / 0%)); font-size: var(--tam-legenda); color: var(--cor-branco); opacity: 0; transform: translateY(6px); transition: opacity 250ms ease, transform 300ms var(--pg-entrada); }
+.tela3 .info3 b { font-weight: var(--peso-titulo); }
+.tela3 .info3 span { color: var(--pg-apoio-foto); }
+.tela3:focus-visible .info3 { opacity: 1; transform: none; }
+.tela3:focus-visible { outline: 2px solid var(--cor-amarelo); outline-offset: 3px; }
+.tela3 { transition: transform 160ms var(--pg-entrada); -webkit-tap-highlight-color: transparent; }
+.tela3:active { transform: scale(0.98); }
+.anima .fileira3:has(:focus-visible) { transition: transform 300ms var(--pg-entrada); }
+@media (hover: hover) and (pointer: fine) {
+  .tela3:hover img { transform: scale(calc(var(--z, 1) * 1.06)); }
+  .tela3:hover .info3 { opacity: 1; transform: none; }
+}
+/* Sem movimento (pedido do sistema): a parede fica parada e rola na horizontal com o dedo ou o trackpad. */
+html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
+html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
+
+/* ---------- Clientes ---------- */
+.clientes3 { padding-block: var(--secao); border-top: var(--borda) solid var(--cor-linha); }
+.logos3 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: var(--borda) solid var(--cor-linha); border-left: var(--borda) solid var(--cor-linha); }
+.logos3 > div { aspect-ratio: 3 / 2; display: grid; place-items: center; border-right: var(--borda) solid var(--cor-linha); border-bottom: var(--borda) solid var(--cor-linha); padding: var(--esp-5); }
+.logos3 img { max-height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.86; }
+/* Logo que não pode virar silhueta (ex.: emblema da Scania): fica nas cores oficiais, sem filtro. */
+.logos3 img.cor-original { filter: none; opacity: 1; max-height: 56px; }
+
+/* ---------- Contato ---------- */
+.contato3 { padding: 0 0 0; }
+.painel3 { background: var(--cor-amarelo); color: var(--cor-preto); --foco: var(--cor-preto); clip-path: inset(var(--ci, 0px) var(--cl, 0px) 0 var(--cl, 0px) round var(--cr, 0px)); padding-top: clamp(96px, 14vw, 180px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
+.painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); }
+.painel3 h2 { font: var(--peso-titulo) clamp(3.4rem, 11vw, 10rem)/0.92 var(--fonte-texto); letter-spacing: -0.04em; }
+.painel3 h2 em { letter-spacing: -0.02em; }
+/* Rosácea (01/11): linhas finas pretas no amarelo, feitas de círculos. Gira devagar e reage ao mouse (JS). */
+.roseta3 { width: clamp(180px, 27vw, 400px); height: auto; overflow: visible; margin-bottom: -0.5vw; will-change: transform; }
+.roseta3 .linhas { fill: none; stroke: var(--cor-preto); stroke-opacity: 0.6; stroke-width: 0.6; transform-origin: 0 0; }
+.roseta3 .linhas circle { stroke-dasharray: 1; }
+.anima .roseta3.is-visivel .linhas { animation: gira 120s linear infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }
+.linhas3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--esp-5); margin-top: clamp(64px, 9vw, 120px); padding-top: var(--esp-5); border-top: var(--borda) solid var(--cor-linha-amarelo); align-items: start; }
+.linhas3 .rot { display: block; font-size: var(--tam-legenda); color: var(--cor-apoio-amarelo); margin-bottom: 6px; }
+.linhas3 .valor { display: flex; align-items: center; gap: var(--esp-2); font: var(--peso-titulo) clamp(1.15rem, 2vw, 1.5rem)/1.2 var(--fonte-texto); overflow-wrap: anywhere; }
+.copiar3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); flex: none; border-radius: 50%; border: var(--borda) solid var(--cor-linha-amarelo); background: transparent; color: var(--cor-preto); cursor: pointer; }
+.copiar3 .ic { width: 18px; height: 18px; }
+.copiar3.is-ok { background: var(--cor-preto); color: var(--cor-amarelo); }
+.painel3 .btn--preto { background: var(--cor-preto); color: var(--cor-amarelo); justify-self: start; }
+.painel3 .btn--preto:hover { background: var(--cor-preto-hover); }
+.rodape3 { margin-top: clamp(64px, 9vw, 120px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--esp-4) var(--esp-6); font-size: var(--tam-legenda); }
+.rodape3 .marca img { height: 20px; width: auto; }
+.rodape3 .marca { display: flex; align-items: center; gap: var(--esp-3); }
+.rodape3 .marca em { font-size: 1.25rem; }
+.rodape3 .redes { display: flex; gap: var(--esp-1); }
+.rodape3 .redes a { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); }
+
+/* ---------- Modal do vídeo ---------- */
+.video3 { width: min(960px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: var(--raio-lg); background: var(--cor-superficie-3); color: var(--pg-texto); box-shadow: var(--sombra-2); overflow: hidden; }
+.video3::backdrop { background: var(--cor-fundo-modal); }
+.video3[open] { animation: abre-video 320ms var(--pg-entrada); }
+@keyframes abre-video { from { opacity: 0; transform: scale(0.96); } }
+.video3 .tela { position: relative; aspect-ratio: 16 / 9; background: var(--cor-preto); }
+.video3 .tela img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+.video3 .tela p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--esp-5); font-size: var(--tam-ui); color: var(--pg-texto); }
+.video3 .barra-video { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-4); padding: var(--esp-4) var(--esp-5); font-size: var(--tam-legenda); color: var(--pg-apoio); }
+
+/* ---------- Celular ---------- */
+@media (max-width: 860px) {
+  .topo3 nav { display: none; }
+  .btn-menu3 { display: inline-flex; align-items: center; }
+  .abertura3 { height: 100svh; max-height: none; }
+  .abertura3 .conteudo { bottom: 128px; gap: var(--esp-5); }
+  .rodape-abertura { grid-template-columns: minmax(0, 1fr) auto; }
+  .barras { grid-column: 1 / -1; order: 3; }
+  .barras button { flex: 1; width: auto; }
+  .credito3 { min-height: 0; }
+  .parede3 { --tela-l: 64vw; gap: 8px; }
+  .fileira3 { gap: 8px; }
+  .logos3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .painel3 .topo-contato { grid-template-columns: 1fr; }
+  .roseta3 { order: -1; width: 168px; margin-bottom: 0; }
+  .linhas3 { grid-template-columns: 1fr; }
+  .claquete { --abre: -8deg; }
+  .claq-campos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .claq-campos > div { padding: var(--esp-3) var(--esp-4); }
+  .claq-campos > div:nth-child(3) { border-left: 0; }
+  .claq-campos > div:nth-child(n+3) { border-top: var(--borda) solid var(--cor-linha-forte); }
+  .frente { grid-template-columns: 1fr; gap: var(--esp-3); padding-inline: var(--esp-4); }
+  .frente .cena { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 8px; }
+  .frente .cena b { font-size: 1rem; }
+  .frente .selo { position: absolute; right: var(--esp-4); top: clamp(18px, 2.6vw, 32px); }
+  .hud-topo { top: calc(env(safe-area-inset-top, 0px) + 84px); }
+  .hud-topo .so-pc { display: none; }
+}
+@media (max-width: 860px) {
+  .abertura3 .conteudo { bottom: 150px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+<defs>
+<symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-pausa" viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></symbol>
+<symbol id="i-som" viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+<symbol id="i-copiar" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12" height="11" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></symbol>
+<symbol id="i-ia" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1L18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+<symbol id="i-alvo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-youtube" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6V16"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2.1-1-1 .8a4.6 4.6 0 0 1-2.1-2.1l.8-1-1-2.1z"/></symbol>
+</defs>
+</svg>
+
+<a class="pular" href="#inicio">Pular para o conteúdo</a>
+<header class="topo3" data-topo>
+  <a class="marca" href="#inicio" aria-label="HYMN, início"><img src="assets/logo-branco.svg" alt="HYMN"></a>
+  <nav aria-label="Menu principal">
+    <a href="#trabalhos">Trabalhos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <button class="btn-menu3" type="button" aria-expanded="false" aria-controls="menu-cel" data-abre-menu>Menu</button>
+</header>
+
+<div class="menu-cel" id="menu-cel" hidden>
+  <div class="cabeca"><img src="assets/logo-branco.svg" alt="HYMN"><button class="btn-menu3" type="button" style="display:inline-flex" data-fecha-menu>Fechar</button></div>
+  <ul>
+    <li style="--n:0"><a href="#trabalhos" data-fecha-menu>Trabalhos</a></li>
+    <li style="--n:1"><a href="#sobre" data-fecha-menu>Sobre</a></li>
+    <li style="--n:2"><a href="#clientes" data-fecha-menu>Clientes</a></li>
+    <li style="--n:3"><a href="#contato" data-fecha-menu>Contato</a></li>
+  </ul>
+  <div class="rodape-menu"><span>contato@hymn.com.br</span><span>(11) 94859-5084</span></div>
+</div>
+
+<main id="inicio" tabindex="-1">
+  <!-- 1. Abertura: fotos da produtora passando com zoom lento. No site final, as fotos (ou um vídeo sem som em loop) vêm do Junior. -->
+  <section class="abertura3" aria-roledescription="carrossel" aria-label="Trabalhos da HYMN" data-abertura>
+    <div class="slides">
+      <figure class="slide is-ativo" data-cliente="Cliente" data-trabalho="Filme institucional · HYMN Audiovisual" style="--fx:50%; --fy:55%; --z0:1.02; --z1:1.12; --dx:-14px; --dy:-6px">
+        <img src="assets/frame-abertura.webp" alt="Caminhão em frente a um prédio de tijolos, frame de filme da HYMN Audiovisual" fetchpriority="high">
+      </figure>
+      <figure class="slide" data-cliente="" data-trabalho="" style="--fx:72%; --fy:62%; --z0:1.5; --z1:1.62; --dx:10px; --dy:-4px">
+        <img src="assets/frame-abertura.webp" alt="">
+      </figure>
+      <figure class="slide" data-cliente="" data-trabalho="" style="--fx:18%; --fy:40%; --z0:1.4; --z1:1.3; --dx:12px; --dy:8px">
+        <img src="assets/frame-abertura.webp" alt="">
+      </figure>
+    </div>
+    <div class="veu3"></div>
+    <div class="tarja tarja--cima" aria-hidden="true"></div>
+    <div class="tarja tarja--baixo" aria-hidden="true"></div>
+    <div class="hud hud-topo" aria-hidden="true">
+      <span class="rec" data-cena>CENA 01</span>
+      <span class="so-pc">4K · 24 fps · 16:9</span>
+      <span data-tc>00:00:00:00</span>
+    </div>
+    <div class="conteudo" data-conteudo>
+      <h1 class="titulo3">
+        <span class="linha" style="--n:0"><span>Agência criativa</span></span>
+        <span class="linha" style="--n:1"><span>com estúdio e produtora</span></span>
+        <span class="linha" style="--n:2"><span>dentro de <em>casa.</em></span></span>
+      </h1>
+      <div class="acoes3">
+        <a class="btn btn--primario" href="#trabalhos">Ver trabalhos</a>
+        <button class="btn btn--vidro" type="button" data-abre-video hidden><svg class="ic"><use href="#i-som"/></svg>Assistir com som</button>
+      </div>
+    </div>
+    <div class="rodape-abertura">
+      <div class="credito3" aria-live="polite" data-credito><b>Cliente</b><span>Filme institucional · HYMN Audiovisual</span></div>
+      <div class="barras" data-barras></div>
+      <button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa><svg class="ic"><use href="#i-pausa"/></svg></button>
+    </div>
+  </section>
+
+  <!-- 2. O que fazemos, correndo. Acelera quando a pessoa rola a página. -->
+  <section class="faixa3" aria-label="O que fazemos">
+    <p class="sr">Design, ads, SEO, conteúdo, marketing, site, brand, fotos e filmes.</p>
+    <div class="trilho" aria-hidden="true" data-trilho>
+      <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span>
+    </div>
+  </section>
+
+  <!-- 3. A frase acende palavra por palavra conforme rola. -->
+  <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
+    <p>Da estratégia ao vídeo final, tudo num lugar só.</p>
+  </section>
+
+  <!-- 3b. As três frentes numa claquete. A barra fecha uma vez quando a seção aparece; cada frente é uma cena. A linha acende com o mouse ou ao passar pelo meio da tela. -->
+  <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
+    <p class="rotulo3">Um time, três frentes dentro de casa</p>
+    <div class="claquete" data-claquete>
+      <div class="claq-barra" aria-hidden="true"><span class="vara haste"></span><span class="vara base"></span><span class="pino"></span></div>
+      <div class="claq-quadro">
+        <div class="claq-campos" aria-hidden="true">
+          <div><span>Produção</span><b>HYMN</b></div>
+          <div><span>Rolo</span><b>A001</b></div>
+          <div><span>Cena</span><b>01 a 03</b></div>
+          <div><span>Take</span><b>1</b></div>
+        </div>
+        <div class="frente" data-revela-frente>
+          <span class="cena">CENA<b>01</b></span>
+          <h3>Agência</h3>
+          <p>Estratégia, redes sociais, tráfego pago, sites e landing pages.</p>
+          <span class="selo"><svg class="ic"><use href="#i-alvo"/></svg>Estratégia</span>
+        </div>
+        <div class="frente" data-revela-frente>
+          <span class="cena">CENA<b>02</b></span>
+          <h3>Studio</h3>
+          <p>Foto, vídeo e motion criados com inteligência artificial, sem mudar o seu produto.</p>
+          <span class="selo"><svg class="ic"><use href="#i-ia"/></svg>Feito com IA</span>
+        </div>
+        <div class="frente" data-revela-frente>
+          <span class="cena">CENA<b>03</b></span>
+          <h3>Audiovisual</h3>
+          <p>Filmes, comerciais e cobertura de eventos, com estúdio de filmagem próprio.</p>
+          <span class="selo"><svg class="ic"><use href="#i-camera"/></svg>Gravado</span>
+        </div>
+        <div class="claq-campos claq-pe" aria-hidden="true">
+          <div><span>Ano</span><b data-ano>2026</b></div>
+          <div><span>Local</span><b>São Paulo</b></div>
+          <div><span>Formato</span><b>4K · 24 fps</b></div>
+          <div><span>Som</span><b>Direto</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Trabalhos: parede de quadros em três fileiras. Ao descer, a primeira e a terceira vão para a direita e a do meio para a esquerda; ao subir, o contrário. Imagens de exemplo. -->
+  <section class="trabalhos3" id="trabalhos" aria-labelledby="t-trabalhos" data-parede>
+    <div class="cabeca3 miolo">
+      <h2 id="t-trabalhos">Trabalhos</h2>
+      <a class="link3" href="#trabalhos">Ver todos<svg class="ic"><use href="#i-seta"/></svg></a>
+    </div>
+    <div class="parede3" data-revela-parede>
+      <div class="fileira3">
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:0"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:50%;--fy:50%;--z:1.0;--n:1"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, produto em 3D" style="--n:2"><img src="assets/exemplos/ex03.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produto em 3D</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--n:3"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:25%;--fy:55%;--z:1.7;--n:4"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, motion para Reels" style="--n:5"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion para Reels</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:80%;--fy:45%;--z:1.9;--n:7"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
+      </div>
+      <div class="fileira3">
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, moda com IA" style="--n:1"><img src="assets/exemplos/ex04.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Moda com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--fx:65%;--fy:40%;--z:1.5;--n:2"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, produção híbrida" style="--n:3"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produção híbrida</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:4"><img src="assets/exemplos/ex09.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:15%;--fy:60%;--z:1.6;--n:5"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex05.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, lançamento" style="--n:7"><img src="assets/exemplos/ex10.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Lançamento</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:45%;--fy:65%;--z:2.2;--n:8"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
+      </div>
+      <div class="fileira3">
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, motion de marca" style="--n:2"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion de marca</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:35%;--fy:50%;--z:1.4;--n:3"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, foto de produto" style="--n:4"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Foto de produto</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:5"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, motion para Reels" style="--n:6"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion para Reels</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, produto em 3D" style="--n:7"><img src="assets/exemplos/ex03.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produto em 3D</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, produção híbrida" style="--n:8"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produção híbrida</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, moda com IA" style="--n:9"><img src="assets/exemplos/ex04.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Moda com IA</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Clientes: os logos entram em cascata. -->
+  <section class="clientes3 miolo" id="clientes" aria-labelledby="t-clientes">
+    <div class="cabeca3">
+      <h2 id="t-clientes">Clientes</h2>
+      <a class="link3" href="#clientes">Ver todos<svg class="ic"><use href="#i-seta"/></svg></a>
+    </div>
+    <div class="logos3" data-logos>
+      <div style="--n:0"><img class="cor-original" src="assets/scania.png" alt="Scania"></div>
+      <div style="--n:1"><span class="prov">Logo</span></div>
+      <div style="--n:2"><span class="prov">Logo</span></div>
+      <div style="--n:3"><span class="prov">Logo</span></div>
+      <div style="--n:4"><span class="prov">Logo</span></div>
+      <div style="--n:5"><span class="prov">Logo</span></div>
+    </div>
+  </section>
+
+  <!-- 6. Contato: o amarelo abre até ocupar a tela inteira. -->
+  <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
+    <div class="painel3 miolo" data-painel>
+      <div class="topo-contato">
+        <h2 id="t-contato">Vamos <em>conversar?</em></h2>
+        <svg class="roseta3" viewBox="-101 -101 202 202" aria-hidden="true" data-roseta>
+        <!-- Rosácea: 24 círculos de raio 65 com centro a 35 do meio, deixando um vão de raio 30. Sem o círculo roxo (pedido do Carlos, 01/11). -->
+        <g class="linhas">
+          <circle cx="35.00" cy="0.00" r="65" pathLength="1" style="--n:0"/>
+          <circle cx="33.81" cy="9.06" r="65" pathLength="1" style="--n:1"/>
+          <circle cx="30.31" cy="17.50" r="65" pathLength="1" style="--n:2"/>
+          <circle cx="24.75" cy="24.75" r="65" pathLength="1" style="--n:3"/>
+          <circle cx="17.50" cy="30.31" r="65" pathLength="1" style="--n:4"/>
+          <circle cx="9.06" cy="33.81" r="65" pathLength="1" style="--n:5"/>
+          <circle cx="0.00" cy="35.00" r="65" pathLength="1" style="--n:6"/>
+          <circle cx="-9.06" cy="33.81" r="65" pathLength="1" style="--n:7"/>
+          <circle cx="-17.50" cy="30.31" r="65" pathLength="1" style="--n:8"/>
+          <circle cx="-24.75" cy="24.75" r="65" pathLength="1" style="--n:9"/>
+          <circle cx="-30.31" cy="17.50" r="65" pathLength="1" style="--n:10"/>
+          <circle cx="-33.81" cy="9.06" r="65" pathLength="1" style="--n:11"/>
+          <circle cx="-35.00" cy="0.00" r="65" pathLength="1" style="--n:12"/>
+          <circle cx="-33.81" cy="-9.06" r="65" pathLength="1" style="--n:13"/>
+          <circle cx="-30.31" cy="-17.50" r="65" pathLength="1" style="--n:14"/>
+          <circle cx="-24.75" cy="-24.75" r="65" pathLength="1" style="--n:15"/>
+          <circle cx="-17.50" cy="-30.31" r="65" pathLength="1" style="--n:16"/>
+          <circle cx="-9.06" cy="-33.81" r="65" pathLength="1" style="--n:17"/>
+          <circle cx="-0.00" cy="-35.00" r="65" pathLength="1" style="--n:18"/>
+          <circle cx="9.06" cy="-33.81" r="65" pathLength="1" style="--n:19"/>
+          <circle cx="17.50" cy="-30.31" r="65" pathLength="1" style="--n:20"/>
+          <circle cx="24.75" cy="-24.75" r="65" pathLength="1" style="--n:21"/>
+          <circle cx="30.31" cy="-17.50" r="65" pathLength="1" style="--n:22"/>
+          <circle cx="33.81" cy="-9.06" r="65" pathLength="1" style="--n:23"/>
+        </g>
+      </svg>
+      </div>
+      <div class="linhas3">
+        <div><span class="rot">E-mail</span><span class="valor"><span data-texto>contato@hymn.com.br</span><button class="copiar3" type="button" aria-label="Copiar e-mail" data-copia="contato@hymn.com.br"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+        <div><span class="rot">WhatsApp</span><span class="valor"><span data-texto>(11) 94859-5084</span><button class="copiar3" type="button" aria-label="Copiar número do WhatsApp" data-copia="11948595084"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+        <a class="btn btn--preto" href="https://wa.me/5511948595084"><svg class="ic"><use href="#i-whatsapp"/></svg>Falar com a HYMN</a>
+      </div>
+      <footer class="rodape3">
+        <span class="marca"><img src="assets/logo-preto.svg" alt="HYMN"><em>We create.</em></span>
+        <span>Rua Miguel Romano, 150 · Guarulhos, SP</span>
+        <span class="redes">
+          <a href="https://www.instagram.com/" aria-label="Instagram"><svg class="ic"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.youtube.com/" aria-label="YouTube"><svg class="ic"><use href="#i-youtube"/></svg></a>
+          <a href="https://www.linkedin.com/" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
+        </span>
+        <span>© 2026 HYMN · Privacidade</span>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<dialog class="video3" aria-labelledby="t-video" data-video>
+  <div class="tela"><img src="assets/frame-abertura.webp" alt=""><p id="t-video">Aqui entra o filme da HYMN com som, em tela cheia.<br>Falta o arquivo de vídeo em Full HD.</p></div>
+  <div class="barra-video"><span>Cliente · Filme institucional · HYMN Audiovisual</span><button class="btn btn--discreto btn--sm" type="button" data-fecha-video><svg class="ic"><use href="#i-fechar"/></svg>Fechar</button></div>
+</dialog>
+
+<script>
+(function () {
+  var raiz = document.documentElement;
+  raiz.lang = 'pt-BR';
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduz && 'IntersectionObserver' in window) raiz.classList.add('anima');
+  var anima = raiz.classList.contains('anima');
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- Abertura: fotos passando ---------- */
+  var abertura = $('[data-abertura]'), slides = $$('.slide', abertura), credito = $('[data-credito]');
+  var barras = $('[data-barras]'), btnPausa = $('[data-pausa]');
+  var tc = $('[data-tc]'), cena = $('[data-cena]');
+  var DUR = 6400, atual = 0, inicio = performance.now(), decorrido = 0, pausado = reduz, visivel = true;
+  slides.forEach(function (s, n) {
+    s.style.setProperty('--dur-slide', (DUR + 1400) + 'ms');
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label', 'Mostrar foto ' + (n + 1) + ' de ' + slides.length);
+    b.addEventListener('click', function () { mostra(n); });
+    barras.appendChild(b);
+  });
+  var botoes = $$('button', barras);
+  function pinta(p) { botoes.forEach(function (b, n) { b.style.setProperty('--p', n < atual ? 1 : n === atual ? p : 0); }); }
+  function mostra(n) {
+    var nova = (n + slides.length) % slides.length;
+    if (nova !== atual) {
+      slides[atual].classList.remove('is-ativo');
+      var img = $('img', slides[nova]); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+      slides[nova].classList.add('is-ativo');
+      atual = nova;
+      cena.textContent = 'CENA 0' + (atual + 1);
+      credito.classList.add('is-trocando');
+      setTimeout(function () {
+        credito.innerHTML = '<b></b><span></span>';
+        $('b', credito).textContent = slides[atual].dataset.cliente;
+        $('span', credito).textContent = slides[atual].dataset.trabalho;
+        credito.classList.remove('is-trocando');
+      }, 300);
+    }
+    if (nova === 0) botoes.forEach(function (b) { b.style.setProperty('--p', 0); });
+    decorrido = 0; inicio = performance.now(); pinta(0);
+  }
+  function quadro(agora) {
+    if (!pausado && visivel) {
+      var p = Math.min(1, (decorrido + agora - inicio) / DUR);
+      pinta(p);
+      var f = Math.floor((decorrido + agora - inicio) / 1000 * 24), ss = Math.floor(f / 24) % 60, ff = f % 24;
+      tc.textContent = '00:00:' + (ss < 10 ? '0' : '') + ss + ':' + (ff < 10 ? '0' : '') + ff;
+      if (p >= 1) mostra(atual + 1);
+    }
+    requestAnimationFrame(quadro);
+  }
+  function pausa(sim) {
+    if (sim === pausado) return;
+    if (sim) { decorrido += performance.now() - inicio; } else { inicio = performance.now(); }
+    pausado = sim;
+    abertura.classList.toggle('is-pausado', sim);
+    btnPausa.setAttribute('aria-label', sim ? 'Tocar as fotos' : 'Pausar as fotos');
+    $('use', btnPausa).setAttribute('href', sim ? '#i-play' : '#i-pausa');
+  }
+  btnPausa.addEventListener('click', function () { pausa(!pausado); });
+  if (reduz) { abertura.classList.add('is-pausado'); $('use', btnPausa).setAttribute('href', '#i-play'); btnPausa.setAttribute('aria-label', 'Tocar as fotos'); }
+  document.addEventListener('visibilitychange', function () { if (document.hidden) { if (!pausado) { decorrido += performance.now() - inicio; visivel = false; } } else { inicio = performance.now(); visivel = true; } });
+  pinta(0);
+  requestAnimationFrame(quadro);
+
+  /* ---------- Entrada da página ---------- */
+  var img0 = $('img', slides[0]);
+  function carregou() { raiz.classList.add('carregou'); }
+  if (img0.complete) requestAnimationFrame(function () { requestAnimationFrame(carregou); }); else { img0.addEventListener('load', carregou); setTimeout(carregou, 1200); }
+
+  /* ---------- Faixa que corre ---------- */
+  var trilho = $('[data-trilho]'), faixaX = 0, velScroll = 0, ultimoY = window.scrollY, ultimoT = performance.now(), faixaVisivel = true;
+  trilho.innerHTML += trilho.innerHTML;
+  function corre(agora) {
+    var dt = Math.min(64, agora - ultimoT); ultimoT = agora;
+    if (anima && faixaVisivel) {
+      var meio = trilho.scrollWidth / 2;
+      faixaX -= (0.045 + Math.min(1.2, Math.abs(velScroll)) * 0.9) * dt;
+      if (-faixaX >= meio) faixaX += meio;
+      trilho.style.transform = 'translate3d(' + faixaX.toFixed(2) + 'px,0,0)';
+    }
+    velScroll *= 0.92;
+    requestAnimationFrame(corre);
+  }
+  requestAnimationFrame(corre);
+
+  /* ---------- Frase que acende ---------- */
+  var frase = $('[data-frase] p');
+  (function quebra(no) {
+    $$('*', frase).length;
+    var partes = [];
+    Array.prototype.slice.call(frase.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) {
+        n.textContent.split(/(\s+)/).forEach(function (t) {
+          if (!t) return;
+          if (/^\s+$/.test(t)) { partes.push(document.createTextNode(t)); return; }
+          var s = document.createElement('span'); s.className = 'p'; s.textContent = t; partes.push(s);
+        });
+      } else { n.classList.add('p'); partes.push(n); }
+    });
+    frase.textContent = ''; partes.forEach(function (p) { frase.appendChild(p); });
+  })();
+  var palavras = $$('.p', frase);
+
+  /* ---------- Revelar ao entrar na tela ---------- */
+  if (anima) {
+    /* O conteúdo já nasce visível. A animação entra por cima (Web Animations, fill: backwards) e começa
+       um pouco antes de a seção aparecer. Se nada disparar (print, aba escondida, leitor de tela), tudo continua à mostra. */
+    var curva = getComputedStyle(raiz).getPropertyValue('--pg-entrada').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
+    var ordem = function (el, i) { var n = parseFloat(el.style.getPropertyValue('--n')); return isNaN(n) ? i : n; };
+    var receitas = [
+      { sel: '[data-revela-parede]', filhos: '.tela3', de: { opacity: 0, transform: 'scale(0.96)' }, dur: 900, passo: 45 },
+      { sel: '[data-logos]', filhos: ':scope > div', de: { opacity: 0, transform: 'translateY(16px)' }, dur: 800, passo: 70 },
+      { sel: '[data-revela-frente]', filhos: null, de: { opacity: 0, transform: 'translateY(24px)' }, dur: 900, passo: 0 },
+      { sel: '[data-roseta]', filhos: '.linhas circle', de: { strokeDashoffset: 1 }, para: { strokeDashoffset: 0 }, dur: 1600, passo: 45 }
+    ];
+    function revela(el) {
+      el.classList.add('is-visivel');
+      if (!el.animate) return;
+      receitas.forEach(function (r) {
+        if (!el.matches(r.sel)) return;
+        (r.filhos ? $$(r.filhos, el) : [el]).forEach(function (alvo, i) {
+          alvo.animate([r.de, r.para || { opacity: 1, transform: 'none' }], { duration: r.dur, delay: ordem(alvo, i) * r.passo, easing: curva, fill: 'backwards' });
+        });
+      });
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { revela(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px 8% 0px', threshold: 0 });
+    $$('[data-logos], [data-revela-frente], [data-roseta], [data-revela-parede]').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }   /* já está na tela: não pisca */
+      io.observe(el);
+    });
+    var ioF = new IntersectionObserver(function (es) { faixaVisivel = es[0].isIntersecting; });
+    ioF.observe($('.faixa3'));
+    var ioA = new IntersectionObserver(function (es) { var v = es[0].isIntersecting; if (!v && !pausado) { decorrido += performance.now() - inicio; } else if (v) { inicio = performance.now(); } visivel = v && !document.hidden; });
+    ioA.observe(abertura);
+  }
+
+  /* ---------- Scroll: topo, abertura, frase, contato ---------- */
+  var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), painel = $('[data-painel]'), contato = $('[data-contato]');
+  var pedido = false;
+  function noScroll() {
+    pedido = false;
+    var y = window.scrollY, h = window.innerHeight, dy = y - ultimoY;
+    velScroll = dy / 16; ultimoY = y;
+    topo.classList.toggle('is-solido', y > h * 0.6);
+    if (Math.abs(dy) > 4) topo.classList.toggle('is-escondido', dy > 0 && y > h * 0.9 && !menu.classList.contains('is-aberto'));
+    if (!anima) return;
+    var a = Math.min(1, Math.max(0, y / (h * 0.7)));
+    conteudo.style.transform = 'translate3d(0,' + (a * -60).toFixed(1) + 'px,0)';
+    conteudo.style.opacity = (1 - a * 1.1).toFixed(3);
+    var r = frase.getBoundingClientRect();
+    var pf = Math.min(1, Math.max(0, (h * 0.82 - r.top) / (r.height + h * 0.32)));
+    var lidas = Math.round(pf * (palavras.length + 1));
+    palavras.forEach(function (w, n) { w.classList.toggle('is-lida', n < lidas); });
+    ativaPeloScroll();
+    moveParede();
+    moveClaquete();
+    var c = contato.getBoundingClientRect();
+    var pc = Math.min(1, Math.max(0, (h - c.top) / (h * 0.75)));
+    var e = 1 - Math.pow(1 - pc, 3);
+    painel.style.setProperty('--ci', ((1 - e) * 48).toFixed(1) + 'px');
+    painel.style.setProperty('--cl', ((1 - e) * Math.min(64, window.innerWidth * 0.05)).toFixed(1) + 'px');
+    painel.style.setProperty('--cr', ((1 - e) * 32).toFixed(1) + 'px');
+  }
+  window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(noScroll); } }, { passive: true });
+  window.addEventListener('resize', function () { requestAnimationFrame(noScroll); });
+
+  /* ---------- Três frentes ---------- */
+  var frentes = $$('.frente'), comMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches, sobre = null;
+  function ativa(fr) { frentes.forEach(function (f) { f.classList.toggle('is-ativa', f === fr); }); }
+  function ativaPeloScroll() {
+    if (sobre) return;
+    var meio = window.innerHeight / 2, melhor = null, dist = 1e9;
+    frentes.forEach(function (f) { var r = f.getBoundingClientRect(); var d = Math.abs(r.top + r.height / 2 - meio); if (d < dist && r.bottom > 0 && r.top < window.innerHeight) { dist = d; melhor = f; } });
+    ativa(dist < window.innerHeight * 0.38 ? melhor : null);
+  }
+  if (comMouse) {
+    frentes.forEach(function (f) { f.addEventListener('mouseenter', function () { sobre = f; ativa(f); }); });
+    $('[data-frentes]').addEventListener('mouseleave', function () { sobre = null; ativaPeloScroll(); });
+  }
+
+  /* ---------- Rosácea: com o mouse por perto, inclina de leve na direção dele e abre um pouco ---------- */
+  var roseta = $('[data-roseta]');
+  if (roseta && comMouse && anima) {
+    var aros = $$('.linhas circle', roseta), painelR = $('[data-painel]');
+    var tx = 0, ty = 0, ab = 0, txA = 0, tyA = 0, abA = 0, rodando = false;
+    function lim(v) { return Math.max(-1, Math.min(1, v)); }
+    function passoR() {
+      tx += (txA - tx) * 0.07; ty += (tyA - ty) * 0.07; ab += (abA - ab) * 0.06;
+      roseta.style.transform = 'perspective(900px) translate(' + (tx * 10).toFixed(2) + 'px,' + (ty * 10).toFixed(2) + 'px) rotateY(' + (tx * 16).toFixed(2) + 'deg) rotateX(' + (-ty * 16).toFixed(2) + 'deg)';
+      var d = 35 + ab * 6;
+      aros.forEach(function (c, i) { var g = 2 * Math.PI * i / aros.length; c.setAttribute('cx', (d * Math.cos(g)).toFixed(2)); c.setAttribute('cy', (d * Math.sin(g)).toFixed(2)); });
+      if (Math.abs(txA - tx) + Math.abs(tyA - ty) + Math.abs(abA - ab) > 0.002) requestAnimationFrame(passoR); else rodando = false;
+    }
+    function liga() { if (!rodando) { rodando = true; requestAnimationFrame(passoR); } }
+    painelR.addEventListener('pointermove', function (e) {
+      var r = roseta.getBoundingClientRect(), dx = (e.clientX - r.left - r.width / 2) / r.width, dy = (e.clientY - r.top - r.height / 2) / r.height;
+      txA = lim(dx); tyA = lim(dy); abA = Math.max(0, 1 - Math.hypot(dx, dy) / 1.4); liga();
+    });
+    painelR.addEventListener('pointerleave', function () { txA = tyA = abA = 0; liga(); });
+  }
+
+  /* ---------- Parede de trabalhos: descendo, a primeira e a terceira fileira vão para a direita e a do meio para a esquerda ---------- */
+  var parede = $('[data-parede]'), fileiras = $$('.fileira3');
+  function moveParede() {
+    var r = parede.getBoundingClientRect(), h = window.innerHeight;
+    if (r.bottom < -100 || r.top > h + 100) return;
+    var p = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
+    var foco = document.activeElement, w = window.innerWidth;
+    fileiras.forEach(function (f, i) {
+      /* a fileira do meio anda mais devagar: dá profundidade sem pesar (emil-design-eng) */
+      var sobra = Math.max(0, f.scrollWidth - w) * (i === 1 ? 0.5 : 0.7);
+      var x = i % 2 === 0 ? -(1 - p) * sobra : -p * sobra;
+      /* quem navega pelo teclado: a fileira se ajusta para o quadro em foco ficar inteiro na tela */
+      if (foco && f.contains(foco) && foco.matches(':focus-visible')) {
+        var q = foco.getBoundingClientRect(), base = q.left - (f._x || 0), m = 24;
+        x = Math.max(m - base, Math.min(w - m - q.width - base, x));
+      }
+      f._x = x;
+      f.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0)';
+    });
+  }
+  if (anima) {
+    parede.addEventListener('focusin', function () { parede.scrollLeft = 0; requestAnimationFrame(moveParede); });
+  }
+
+  /* ---------- Claquete: chega aberta e vai fechando conforme desce; subindo, abre de novo ---------- */
+  var claquete = $('[data-claquete]'), haste = $('.haste', claquete);
+  function moveClaquete() {
+    var r = claquete.getBoundingClientRect(), h = window.innerHeight;
+    if (r.bottom < -100 || r.top > h + 100) return;
+    var p = Math.min(1, Math.max(0, (h - r.top) / (h * 0.6)));
+    var abre = parseFloat(getComputedStyle(claquete).getPropertyValue('--abre')) || -4;
+    haste.style.transform = 'rotate(' + (abre * (1 - p * p)).toFixed(3) + 'deg)';
+  }
+
+  /* ---------- Ano atual na claquete ---------- */
+  $$('[data-ano]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+  /* ---------- Menu do celular ---------- */
+  var menu = $('#menu-cel'), abreMenu = $('[data-abre-menu]');
+  function abre() { menu.hidden = false; abreMenu.setAttribute('aria-expanded', 'true'); requestAnimationFrame(function () { requestAnimationFrame(function () { menu.classList.add('is-aberto'); }); }); $('a', menu).focus({ preventScroll: true }); }
+  function fecha() { menu.classList.remove('is-aberto'); menu.hidden = true; abreMenu.setAttribute('aria-expanded', 'false'); abreMenu.focus({ preventScroll: true }); }
+  abreMenu.addEventListener('click', abre);
+  $$('[data-fecha-menu]').forEach(function (b) { b.addEventListener('click', fecha); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) fecha(); });
+
+  /* ---------- Vídeo com som ---------- */
+  var video = $('[data-video]');
+  $('[data-abre-video]').addEventListener('click', function () { pausa(true); if (video.showModal) video.showModal(); });
+  $('[data-fecha-video]').addEventListener('click', function () { video.close(); });
+  video.addEventListener('click', function (e) { if (e.target === video) video.close(); });
+
+  /* ---------- Copiar contato ---------- */
+  $$('[data-copia]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var ok = function () { b.classList.add('is-ok'); $('use', b).setAttribute('href', '#i-check'); setTimeout(function () { b.classList.remove('is-ok'); $('use', b).setAttribute('href', '#i-copiar'); }, 1800); };
+      var seleciona = function () { var t = b.parentElement.querySelector('[data-texto]'); var s = window.getSelection(); var r = document.createRange(); r.selectNodeContents(t); s.removeAllRanges(); s.addRange(r); };
+      try { navigator.clipboard.writeText(b.dataset.copia).then(ok, seleciona); } catch (e) { seleciona(); }
+    });
+  });
+
+  noScroll();
+})();
+</script>
