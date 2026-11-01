@@ -1,5 +1,6 @@
-<title>Home HYMN v3</title>
-<meta name="description" content="Protótipo animado da home do site da HYMN.">
+<title>HYMN · Agência criativa</title>
+<meta name="description" content="Agência criativa com estúdio e produtora dentro de casa.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
@@ -7,19 +8,18 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="componentes.css">
 <style>
-/* Home v3: vídeo e foto primeiro, uma coisa acontecendo por vez no scroll.
-   Tudo vem dos tokens do design system HYMN (tokens.css). Estes são só os papéis desta página. */
+
 :root {
   color-scheme: dark;
   --pg-fundo: var(--cor-preto);
   --pg-texto: var(--cor-branco);
   --pg-apoio: var(--cor-cinza);
-  --pg-apagado: #3b3b42;            /* palavra ainda não lida na frase do scroll */
+  --pg-apagado: #3b3b42;
   --pg-acao: var(--cor-amarelo);
   --pg-circulo: var(--cor-roxo);
-  --pg-apoio-foto: rgb(255 255 255 / 78%);       /* texto de apoio sobre foto */
-  --pg-entrada: cubic-bezier(0.23, 1, 0.32, 1);   /* emil-design-eng: saída forte para entrar */
-  --pg-movimento: cubic-bezier(0.77, 0, 0.175, 1);/* emil-design-eng: movimento na tela */
+  --pg-apoio-foto: rgb(255 255 255 / 78%);
+  --pg-entrada: cubic-bezier(0.23, 1, 0.32, 1);
+  --pg-movimento: cubic-bezier(0.77, 0, 0.175, 1);
   --pg-gaveta: cubic-bezier(0.32, 0.72, 0, 1);
   --lateral: max(var(--margem), env(safe-area-inset-left, 0px));
   --lateral-d: max(var(--margem), env(safe-area-inset-right, 0px));
@@ -33,11 +33,10 @@ img { display: block; max-width: 100%; }
 
 [hidden] { display: none !important; }
 main:focus { outline: none; }
-/* Pular para o conteúdo: só aparece para quem navega pelo teclado. */
+
 .pular { position: fixed; left: var(--lateral); top: calc(env(safe-area-inset-top, 0px) + 14px); z-index: var(--z-modal); padding: 12px 18px; border-radius: var(--raio-pilula); background: var(--cor-amarelo); color: var(--cor-preto); font: var(--peso-titulo) var(--tam-legenda)/1 var(--fonte-texto); transform: translateY(calc(-100% - 40px)); transition: transform 200ms var(--pg-entrada); }
 .pular:focus { transform: none; outline: 2px solid var(--cor-branco); outline-offset: 2px; }
 
-/* ---------- Topo ---------- */
 .topo3 { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: var(--z-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--esp-5); height: 76px; padding-left: var(--lateral); padding-right: var(--lateral-d); transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 600ms ease; }
 .topo3.is-solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha); }
 .topo3.is-escondido { transform: translateY(-110%); }
@@ -50,7 +49,6 @@ main:focus { outline: none; }
 .btn-menu3 { display: none; height: var(--toque-min); padding: 0 var(--esp-4); border-radius: var(--raio-pilula); border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); cursor: pointer; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: calc(var(--z-topo) + 1); background: var(--cor-preto); }
 
-/* Menu do celular */
 .menu-cel { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--cor-preto); display: grid; grid-template-rows: auto 1fr auto; padding: calc(env(safe-area-inset-top, 0px) + 16px) var(--lateral-d) calc(env(safe-area-inset-bottom, 0px) + 24px) var(--lateral); }
 .menu-cel[hidden] { display: none; }
 .menu-cel .cabeca { display: flex; justify-content: space-between; align-items: center; height: 60px; }
@@ -61,7 +59,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .anima .menu-cel li { opacity: 0; transform: translateY(24px); }
 .anima .menu-cel.is-aberto li { opacity: 1; transform: none; transition: transform 600ms var(--pg-entrada), opacity 400ms ease; transition-delay: calc(80ms + var(--n) * 45ms); }
 
-/* ---------- Abertura ---------- */
 .abertura3 { position: relative; height: 100svh; min-height: 600px; max-height: 1100px; overflow: hidden; isolation: isolate; }
 .slides { position: absolute; inset: 0; z-index: -2; }
 .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1400ms var(--pg-movimento); overflow: hidden; }
@@ -102,7 +99,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pausa3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); cursor: pointer; }
 .pausa3 .ic { width: 18px; height: 18px; }
 
-/* Abertura de filme: tarjas de cinema que se abrem e o monitor da câmera */
 .tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; }
 .tarja--cima { top: 0; transform-origin: top; }
 .tarja--baixo { bottom: 0; transform-origin: bottom; }
@@ -120,7 +116,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .anima .hud-topo { opacity: 0; }
 .anima.carregou .hud-topo { opacity: 1; transition: opacity 600ms ease 400ms; }
 
-/* ---------- Três frentes como claquete: barra listrada que fecha uma vez, quadro escuro com campos ---------- */
 .frentes3 { padding-bottom: var(--secao); }
 .frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
 .claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
@@ -150,14 +145,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frente .selo { justify-self: end; opacity: 0; transition: opacity 300ms ease; }
 .frente.is-ativa .selo { opacity: 1; }
 
-/* ---------- Faixa que corre ---------- */
 .faixa3 { overflow: hidden; padding-block: var(--esp-7); background: var(--cor-amarelo); color: var(--cor-preto); }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
 .trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(2.2rem, 5.6vw, 5rem)/1 var(--fonte-texto); letter-spacing: -0.04em; padding-right: 0.5em; }
 .trilho span::after { content: ""; width: 0.14em; height: 0.14em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
 .trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.03em; }
 
-/* ---------- Frase do scroll ---------- */
 .frase3 { padding-block: clamp(96px, 16vw, 200px); }
 .frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
 .frase3 .p { transition: color 200ms linear; }
@@ -166,14 +159,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .ultima { white-space: nowrap; }
 .frase3 .apoio { margin-top: var(--esp-6); color: var(--pg-apoio); font-size: var(--tam-grande); max-width: 46ch; }
 
-/* ---------- Trabalhos ---------- */
 .cabeca3 { display: flex; align-items: end; justify-content: space-between; gap: var(--esp-5); margin-bottom: var(--esp-7); }
 .cabeca3 h2 { font-size: clamp(2.6rem, 7vw, 6rem); letter-spacing: -0.04em; line-height: 0.95; }
 .link3 { display: inline-flex; align-items: center; gap: var(--esp-2); min-height: var(--toque-min); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); white-space: nowrap; }
 .link3 .ic { transition: transform var(--dur-media) var(--pg-entrada); }
 .link3:hover .ic { transform: translateX(4px); }
 .trabalhos3 { padding-bottom: var(--secao); overflow: hidden; overflow: clip; }
-/* Parede de trabalhos: ao descer, a fileira de cima vai para a direita e a de baixo para a esquerda; ao subir, o contrário. */
+
 .parede3 { --tela-l: max(220px, calc((100vw - 4 * 12px) / 5)); display: grid; gap: 12px; }
 .fileira3 { display: flex; gap: 12px; width: max-content; will-change: transform; }
 .fileira3 + .fileira3 { margin-left: calc(var(--tela-l) * -0.5); }
@@ -193,25 +185,23 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .tela3:hover img { transform: scale(calc(var(--z, 1) * 1.06)); }
   .tela3:hover .info3 { opacity: 1; transform: none; }
 }
-/* Sem movimento (pedido do sistema): a parede fica parada e rola na horizontal com o dedo ou o trackpad. */
+
 html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
 html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
 
-/* ---------- Clientes ---------- */
 .clientes3 { padding-block: var(--secao); border-top: var(--borda) solid var(--cor-linha); }
 .logos3 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: var(--borda) solid var(--cor-linha); border-left: var(--borda) solid var(--cor-linha); }
 .logos3 > div { aspect-ratio: 3 / 2; display: grid; place-items: center; border-right: var(--borda) solid var(--cor-linha); border-bottom: var(--borda) solid var(--cor-linha); padding: var(--esp-5); }
 .logos3 img { max-height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.86; }
-/* Logo que não pode virar silhueta (ex.: emblema da Scania): fica nas cores oficiais, sem filtro. */
+
 .logos3 img.cor-original { filter: none; opacity: 1; max-height: 56px; }
 
-/* ---------- Contato ---------- */
 .contato3 { padding: 0 0 0; }
 .painel3 { background: var(--cor-amarelo); color: var(--cor-preto); --foco: var(--cor-preto); clip-path: inset(var(--ci, 0px) var(--cl, 0px) 0 var(--cl, 0px) round var(--cr, 0px)); padding-top: clamp(96px, 14vw, 180px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
 .painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); }
 .painel3 h2 { font: var(--peso-titulo) clamp(3.4rem, 11vw, 10rem)/0.92 var(--fonte-texto); letter-spacing: -0.04em; }
 .painel3 h2 em { letter-spacing: -0.02em; }
-/* Rosácea (01/11): linhas finas pretas no amarelo, feitas de círculos. Gira devagar e reage ao mouse (JS). */
+
 .roseta3 { width: clamp(180px, 27vw, 400px); height: auto; overflow: visible; margin-bottom: -0.5vw; will-change: transform; }
 .roseta3 .linhas { fill: none; stroke: var(--cor-preto); stroke-opacity: 0.6; stroke-width: 0.6; transform-origin: 0 0; }
 .roseta3 .linhas circle { stroke-dasharray: 1; }
@@ -232,7 +222,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .rodape3 .redes { display: flex; gap: var(--esp-1); }
 .rodape3 .redes a { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); }
 
-/* ---------- Modal do vídeo ---------- */
 .video3 { width: min(960px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: var(--raio-lg); background: var(--cor-superficie-3); color: var(--pg-texto); box-shadow: var(--sombra-2); overflow: hidden; }
 .video3::backdrop { background: var(--cor-fundo-modal); }
 .video3[open] { animation: abre-video 320ms var(--pg-entrada); }
@@ -242,7 +231,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .video3 .tela p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--esp-5); font-size: var(--tam-ui); color: var(--pg-texto); }
 .video3 .barra-video { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-4); padding: var(--esp-4) var(--esp-5); font-size: var(--tam-legenda); color: var(--pg-apoio); }
 
-/* ---------- Celular ---------- */
 @media (max-width: 860px) {
   .topo3 nav { display: none; }
   .btn-menu3 { display: inline-flex; align-items: center; }
@@ -321,8 +309,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 </div>
 
 <main id="inicio" tabindex="-1">
-  <!-- 1. Abertura: fotos da produtora passando com zoom lento. No site final, as fotos (ou um vídeo sem som em loop) vêm do Junior. -->
-  <section class="abertura3" aria-roledescription="carrossel" aria-label="Trabalhos da HYMN" data-abertura>
+    <section class="abertura3" aria-roledescription="carrossel" aria-label="Trabalhos da HYMN" data-abertura>
     <div class="slides">
       <figure class="slide is-ativo" data-cliente="Cliente" data-trabalho="Filme institucional · HYMN Audiovisual" style="--fx:50%; --fy:55%; --z0:1.02; --z1:1.12; --dx:-14px; --dy:-6px">
         <img src="assets/frame-abertura.webp" alt="Caminhão em frente a um prédio de tijolos, frame de filme da HYMN Audiovisual" fetchpriority="high">
@@ -360,21 +347,18 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
 
-  <!-- 2. O que fazemos, correndo. Acelera quando a pessoa rola a página. -->
-  <section class="faixa3" aria-label="O que fazemos">
+    <section class="faixa3" aria-label="O que fazemos">
     <p class="sr">Design, ads, SEO, conteúdo, marketing, site, brand, fotos e filmes.</p>
     <div class="trilho" aria-hidden="true" data-trilho>
       <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span>
     </div>
   </section>
 
-  <!-- 3. A frase acende palavra por palavra conforme rola. -->
-  <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
+    <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
     <p>Da estratégia ao vídeo final, tudo num lugar só.</p>
   </section>
 
-  <!-- 3b. As três frentes numa claquete. A barra fecha uma vez quando a seção aparece; cada frente é uma cena. A linha acende com o mouse ou ao passar pelo meio da tela. -->
-  <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
+    <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
     <p class="rotulo3">Um time, três frentes dentro de casa</p>
     <div class="claquete" data-claquete>
       <div class="claq-barra" aria-hidden="true"><span class="vara haste"></span><span class="vara base"></span><span class="pino"></span></div>
@@ -413,8 +397,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
 
-  <!-- 4. Trabalhos: parede de quadros em três fileiras. Ao descer, a primeira e a terceira vão para a direita e a do meio para a esquerda; ao subir, o contrário. Imagens de exemplo. -->
-  <section class="trabalhos3" id="trabalhos" aria-labelledby="t-trabalhos" data-parede>
+    <section class="trabalhos3" id="trabalhos" aria-labelledby="t-trabalhos" data-parede>
     <div class="cabeca3 miolo">
       <h2 id="t-trabalhos">Trabalhos</h2>
       <a class="link3" href="#trabalhos">Ver todos<svg class="ic"><use href="#i-seta"/></svg></a>
@@ -453,8 +436,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
 
-  <!-- 5. Clientes: os logos entram em cascata. -->
-  <section class="clientes3 miolo" id="clientes" aria-labelledby="t-clientes">
+    <section class="clientes3 miolo" id="clientes" aria-labelledby="t-clientes">
     <div class="cabeca3">
       <h2 id="t-clientes">Clientes</h2>
       <a class="link3" href="#clientes">Ver todos<svg class="ic"><use href="#i-seta"/></svg></a>
@@ -469,14 +451,12 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
 
-  <!-- 6. Contato: o amarelo abre até ocupar a tela inteira. -->
-  <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
+    <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
     <div class="painel3 miolo" data-painel>
       <div class="topo-contato">
         <h2 id="t-contato">Vamos <em>conversar?</em></h2>
         <svg class="roseta3" viewBox="-101 -101 202 202" aria-hidden="true" data-roseta>
-        <!-- Rosácea: 24 círculos de raio 65 com centro a 35 do meio, deixando um vão de raio 30. Sem o círculo roxo (pedido do Carlos, 01/11). -->
-        <g class="linhas">
+                <g class="linhas">
           <circle cx="35.00" cy="0.00" r="65" pathLength="1" style="--n:0"/>
           <circle cx="33.81" cy="9.06" r="65" pathLength="1" style="--n:1"/>
           <circle cx="30.31" cy="17.50" r="65" pathLength="1" style="--n:2"/>
@@ -538,7 +518,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---------- Abertura: fotos passando ---------- */
   var abertura = $('[data-abertura]'), slides = $$('.slide', abertura), credito = $('[data-credito]');
   var barras = $('[data-barras]'), btnPausa = $('[data-pausa]');
   var tc = $('[data-tc]'), cena = $('[data-cena]');
@@ -595,12 +574,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   pinta(0);
   requestAnimationFrame(quadro);
 
-  /* ---------- Entrada da página ---------- */
   var img0 = $('img', slides[0]);
   function carregou() { raiz.classList.add('carregou'); }
   if (img0.complete) requestAnimationFrame(function () { requestAnimationFrame(carregou); }); else { img0.addEventListener('load', carregou); setTimeout(carregou, 1200); }
 
-  /* ---------- Faixa que corre ---------- */
   var trilho = $('[data-trilho]'), faixaX = 0, velScroll = 0, ultimoY = window.scrollY, ultimoT = performance.now(), faixaVisivel = true;
   trilho.innerHTML += trilho.innerHTML;
   function corre(agora) {
@@ -616,7 +593,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   }
   requestAnimationFrame(corre);
 
-  /* ---------- Frase que acende ---------- */
   var frase = $('[data-frase] p');
   (function quebra(no) {
     $$('*', frase).length;
@@ -634,10 +610,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   })();
   var palavras = $$('.p', frase);
 
-  /* ---------- Revelar ao entrar na tela ---------- */
   if (anima) {
-    /* O conteúdo já nasce visível. A animação entra por cima (Web Animations, fill: backwards) e começa
-       um pouco antes de a seção aparecer. Se nada disparar (print, aba escondida, leitor de tela), tudo continua à mostra. */
+
     var curva = getComputedStyle(raiz).getPropertyValue('--pg-entrada').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
     var ordem = function (el, i) { var n = parseFloat(el.style.getPropertyValue('--n')); return isNaN(n) ? i : n; };
     var receitas = [
@@ -661,7 +635,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     }, { rootMargin: '0px 0px 8% 0px', threshold: 0 });
     $$('[data-logos], [data-revela-frente], [data-roseta], [data-revela-parede]').forEach(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }   /* já está na tela: não pisca */
+      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }
       io.observe(el);
     });
     var ioF = new IntersectionObserver(function (es) { faixaVisivel = es[0].isIntersecting; });
@@ -670,7 +644,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     ioA.observe(abertura);
   }
 
-  /* ---------- Scroll: topo, abertura, frase, contato ---------- */
   var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), painel = $('[data-painel]'), contato = $('[data-contato]');
   var pedido = false;
   function noScroll() {
@@ -700,7 +673,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(noScroll); } }, { passive: true });
   window.addEventListener('resize', function () { requestAnimationFrame(noScroll); });
 
-  /* ---------- Três frentes ---------- */
   var frentes = $$('.frente'), comMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches, sobre = null;
   function ativa(fr) { frentes.forEach(function (f) { f.classList.toggle('is-ativa', f === fr); }); }
   function ativaPeloScroll() {
@@ -714,7 +686,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     $('[data-frentes]').addEventListener('mouseleave', function () { sobre = null; ativaPeloScroll(); });
   }
 
-  /* ---------- Rosácea: com o mouse por perto, inclina de leve na direção dele e abre um pouco ---------- */
   var roseta = $('[data-roseta]');
   if (roseta && comMouse && anima) {
     var aros = $$('.linhas circle', roseta), painelR = $('[data-painel]');
@@ -735,7 +706,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     painelR.addEventListener('pointerleave', function () { txA = tyA = abA = 0; liga(); });
   }
 
-  /* ---------- Parede de trabalhos: descendo, a primeira e a terceira fileira vão para a direita e a do meio para a esquerda ---------- */
   var parede = $('[data-parede]'), fileiras = $$('.fileira3');
   function moveParede() {
     var r = parede.getBoundingClientRect(), h = window.innerHeight;
@@ -743,10 +713,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var p = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
     var foco = document.activeElement, w = window.innerWidth;
     fileiras.forEach(function (f, i) {
-      /* a fileira do meio anda mais devagar: dá profundidade sem pesar (emil-design-eng) */
+
       var sobra = Math.max(0, f.scrollWidth - w) * (i === 1 ? 0.5 : 0.7);
       var x = i % 2 === 0 ? -(1 - p) * sobra : -p * sobra;
-      /* quem navega pelo teclado: a fileira se ajusta para o quadro em foco ficar inteiro na tela */
+
       if (foco && f.contains(foco) && foco.matches(':focus-visible')) {
         var q = foco.getBoundingClientRect(), base = q.left - (f._x || 0), m = 24;
         x = Math.max(m - base, Math.min(w - m - q.width - base, x));
@@ -759,7 +729,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     parede.addEventListener('focusin', function () { parede.scrollLeft = 0; requestAnimationFrame(moveParede); });
   }
 
-  /* ---------- Claquete: chega aberta e vai fechando conforme desce; subindo, abre de novo ---------- */
   var claquete = $('[data-claquete]'), haste = $('.haste', claquete);
   function moveClaquete() {
     var r = claquete.getBoundingClientRect(), h = window.innerHeight;
@@ -769,10 +738,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     haste.style.transform = 'rotate(' + (abre * (1 - p * p)).toFixed(3) + 'deg)';
   }
 
-  /* ---------- Ano atual na claquete ---------- */
   $$('[data-ano]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
-  /* ---------- Menu do celular ---------- */
   var menu = $('#menu-cel'), abreMenu = $('[data-abre-menu]');
   function abre() { menu.hidden = false; abreMenu.setAttribute('aria-expanded', 'true'); requestAnimationFrame(function () { requestAnimationFrame(function () { menu.classList.add('is-aberto'); }); }); $('a', menu).focus({ preventScroll: true }); }
   function fecha() { menu.classList.remove('is-aberto'); menu.hidden = true; abreMenu.setAttribute('aria-expanded', 'false'); abreMenu.focus({ preventScroll: true }); }
@@ -780,13 +747,11 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   $$('[data-fecha-menu]').forEach(function (b) { b.addEventListener('click', fecha); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) fecha(); });
 
-  /* ---------- Vídeo com som ---------- */
   var video = $('[data-video]');
   $('[data-abre-video]').addEventListener('click', function () { pausa(true); if (video.showModal) video.showModal(); });
   $('[data-fecha-video]').addEventListener('click', function () { video.close(); });
   video.addEventListener('click', function (e) { if (e.target === video) video.close(); });
 
-  /* ---------- Copiar contato ---------- */
   $$('[data-copia]').forEach(function (b) {
     b.addEventListener('click', function () {
       var ok = function () { b.classList.add('is-ok'); $('use', b).setAttribute('href', '#i-check'); setTimeout(function () { b.classList.remove('is-ok'); $('use', b).setAttribute('href', '#i-copiar'); }, 1800); };
