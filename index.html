@@ -10,21 +10,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
-<link rel="preload" as="image" href="assets/frame-abertura.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/filme/f01.webp" imagesrcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="componentes.css">
 <style>
-
 :root {
   color-scheme: dark;
   --pg-fundo: var(--cor-preto);
   --pg-texto: var(--cor-branco);
   --pg-apoio: var(--cor-cinza);
-  --pg-apagado: #3b3b42;
+  --pg-apagado: #3b3b42;            
   --pg-acao: var(--cor-amarelo);
   --pg-circulo: var(--cor-roxo);
-  --pg-apoio-foto: rgb(255 255 255 / 78%);
-  --pg-entrada: cubic-bezier(0.23, 1, 0.32, 1);
+  --pg-apoio-foto: rgb(255 255 255 / 78%);       
+  --pg-entrada: cubic-bezier(0.23, 1, 0.32, 1);   
   --pg-movimento: cubic-bezier(0.77, 0, 0.175, 1);
   --pg-gaveta: cubic-bezier(0.32, 0.72, 0, 1);
   --lateral: max(var(--margem), env(safe-area-inset-left, 0px));
@@ -36,13 +35,10 @@ img { display: block; max-width: 100%; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .miolo { padding-left: var(--lateral); padding-right: var(--lateral-d); }
 .prov { font: 500 var(--tam-minimo)/1.3 var(--fonte-texto); color: var(--cor-cinza); border: var(--borda) dashed var(--cor-linha-forte); border-radius: var(--raio-sm); padding: 4px 8px; }
-
 [hidden] { display: none !important; }
 main:focus { outline: none; }
-
 .pular { position: fixed; left: var(--lateral); top: calc(env(safe-area-inset-top, 0px) + 14px); z-index: var(--z-modal); padding: 12px 18px; border-radius: var(--raio-pilula); background: var(--cor-amarelo); color: var(--cor-preto); font: var(--peso-titulo) var(--tam-legenda)/1 var(--fonte-texto); transform: translateY(calc(-100% - 40px)); transition: transform 200ms var(--pg-entrada); }
 .pular:focus { transform: none; outline: 2px solid var(--cor-branco); outline-offset: 2px; }
-
 .topo3 { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: var(--z-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--esp-5); height: 76px; padding-left: var(--lateral); padding-right: var(--lateral-d); transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 600ms ease; }
 .topo3.is-solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha); }
 .topo3.is-escondido { transform: translateY(-110%); }
@@ -54,7 +50,6 @@ main:focus { outline: none; }
 .topo3 nav a:hover::after, .topo3 nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .btn-menu3 { display: none; height: var(--toque-min); padding: 0 var(--esp-4); border-radius: var(--raio-pilula); border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); cursor: pointer; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: calc(var(--z-topo) + 1); background: var(--cor-preto); }
-
 .menu-cel { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--cor-preto); display: grid; grid-template-rows: auto 1fr auto; padding: calc(env(safe-area-inset-top, 0px) + 16px) var(--lateral-d) calc(env(safe-area-inset-bottom, 0px) + 24px) var(--lateral); }
 .menu-cel[hidden] { display: none; }
 .menu-cel .cabeca { display: flex; justify-content: space-between; align-items: center; height: 60px; }
@@ -64,64 +59,50 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .menu-cel .rodape-menu { color: var(--pg-apoio); font-size: var(--tam-legenda); display: grid; gap: 4px; }
 .anima .menu-cel li { opacity: 0; transform: translateY(24px); }
 .anima .menu-cel.is-aberto li { opacity: 1; transform: none; transition: transform 600ms var(--pg-entrada), opacity 400ms ease; transition-delay: calc(80ms + var(--n) * 45ms); }
-
-.abertura3 { position: relative; height: 100svh; min-height: 600px; max-height: 1100px; overflow: hidden; isolation: isolate; }
-.slides { position: absolute; inset: 0; z-index: -2; }
-.slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1400ms var(--pg-movimento); overflow: hidden; }
-.slide.is-ativo { opacity: 1; }
-.slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(var(--z0, 1.04)); transform-origin: var(--fx, 50%) var(--fy, 50%); }
-.anima .slide.is-ativo img { animation: kenburns var(--dur-slide, 6.4s) linear forwards; }
-.abertura3.is-pausado .slide img { animation-play-state: paused; }
-@keyframes kenburns { from { transform: scale(var(--z0, 1.04)) translate3d(0, 0, 0); } to { transform: scale(var(--z1, 1.14)) translate3d(var(--dx, 0px), var(--dy, 0px), 0); } }
-.abertura3 .veu3 { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgb(0 0 0 / 88%) 0%, rgb(0 0 0 / 45%) 45%, rgb(0 0 0 / 60%) 100%); }
-.abertura3 .conteudo { position: absolute; left: var(--lateral); right: var(--lateral-d); bottom: 132px; display: grid; gap: var(--esp-6); will-change: transform, opacity; }
+.abertura3 { position: relative; display: grid; align-content: end; min-height: min(80svh, 860px); padding: calc(env(safe-area-inset-top, 0px) + 150px) var(--lateral-d) clamp(48px, 6vw, 88px) var(--lateral); }
+.abertura3 .conteudo { display: grid; gap: var(--esp-6); will-change: transform, opacity; }
 .titulo3 { font: var(--peso-titulo) clamp(2.1rem, 6.2vw, 5.4rem)/0.98 var(--fonte-texto); letter-spacing: -0.035em; max-width: none; text-wrap: initial; }
-.apoio3 { margin-top: calc(var(--esp-3) * -1); font-size: var(--tam-grande); line-height: 1.4; color: var(--cor-branco); opacity: 0.86; max-width: 46ch; text-wrap: balance; }
-.anima .apoio3 { opacity: 0; transform: translateY(10px); }
-.anima.carregou .apoio3 { opacity: 0.86; transform: none; transition: opacity 700ms ease 650ms, transform 900ms var(--pg-entrada) 650ms; }
 .titulo3 .linha { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
 .titulo3 .linha > span { display: block; }
 .titulo3 em { font-size: 1.06em; letter-spacing: -0.01em; }
 .anima .titulo3 .linha > span { transform: translateY(108%); }
 .anima.carregou .titulo3 .linha > span { transform: none; transition: transform 1100ms var(--pg-entrada); transition-delay: calc(250ms + var(--n) * 110ms); }
 .acoes3 { display: flex; flex-wrap: wrap; gap: var(--esp-3); }
-.anima .acoes3, .anima .rodape-abertura, .anima .topo3 { opacity: 0; }
+.anima .acoes3, .anima .topo3 { opacity: 0; }
 .anima .acoes3 { transform: translateY(14px); }
 .anima.carregou .acoes3 { opacity: 1; transform: none; transition: opacity 700ms ease 850ms, transform 900ms var(--pg-entrada) 850ms; }
-.anima.carregou .rodape-abertura, .anima.carregou .topo3 { opacity: 1; transition: opacity 800ms ease 1100ms; }
-.anima.carregou .topo3 { transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 800ms ease 1100ms; }
+.anima.carregou .topo3 { opacity: 1; transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 800ms ease 1100ms; }
 .btn { transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
 .btn:active { transform: scale(0.97); }
 .btn--vidro .ic { width: 18px; height: 18px; }
-
-.rodape-abertura { position: absolute; left: var(--lateral); right: var(--lateral-d); bottom: calc(env(safe-area-inset-bottom, 0px) + 32px); display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: var(--esp-5); }
-.credito3 { font-size: var(--tam-legenda); color: var(--pg-apoio); line-height: 1.4; min-height: 2.8em; transition: opacity 300ms ease, transform 300ms ease; }
-.credito3 b { display: block; color: var(--pg-texto); font-weight: var(--peso-medio); }
-.credito3.is-trocando { opacity: 0; transform: translateY(6px); }
-.barras { display: flex; gap: 6px; }
-.barras button { position: relative; width: 56px; height: var(--toque-min); padding: 0; background: none; border: 0; cursor: pointer; }
-.barras button::before, .barras button::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: rgb(255 255 255 / 28%); }
-.barras button::after { background: var(--pg-texto); transform: scaleX(var(--p, 0)); transform-origin: left; }
-.pausa3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: var(--borda) solid var(--cor-linha-forte); background: transparent; color: var(--pg-texto); cursor: pointer; }
-.pausa3 .ic { width: 18px; height: 18px; }
-
-.tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; }
-.tarja--cima { top: 0; transform-origin: top; }
-.tarja--baixo { bottom: 0; transform-origin: bottom; }
-.tarja { transform: scaleY(0); }
-.anima .tarja { transform: scaleY(1); }
-.anima.carregou .tarja { transform: scaleY(0); transition: transform 1500ms var(--pg-movimento) 1500ms; }
 .hud { display: flex; align-items: center; gap: var(--esp-3); font: 500 var(--tam-minimo)/1 var(--fonte-codigo); color: var(--cor-branco); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
 .hud .rec { display: inline-flex; align-items: center; gap: 6px; }
 .hud .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cor-branco); }
 .anima .hud .rec::before { animation: pisca 1.2s steps(2, jump-none) infinite; }
-.abertura3.is-pausado .hud .rec::before { animation: none; opacity: 0.4; }
 @keyframes pisca { 50% { opacity: 0.15; } }
 .hud span:not(.rec) { color: var(--pg-apoio); }
 .hud-topo { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 92px); left: var(--lateral); right: var(--lateral-d); display: flex; justify-content: space-between; }
 .anima .hud-topo { opacity: 0; }
 .anima.carregou .hud-topo { opacity: 1; transition: opacity 600ms ease 400ms; }
-
+.filme3 { position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 2 / 1; max-height: 100svh; background: var(--cor-preto); }
+.filme3 .quadro3 { position: absolute; inset: 0; transform-origin: 48% 62%; will-change: transform; }
+.filme3 img, .filme3 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 58%); }
+.filme3 .corte { opacity: 0; transform-origin: var(--fx, 50%) var(--fy, 58%); }
+.filme3 .corte.is-ativo { opacity: 1; }
+.anima .filme3 .corte.is-ativo { animation: aproxima var(--dur-corte, 1500ms) linear both; }
+.filme3.is-parado .corte { animation-play-state: paused; }
+@keyframes aproxima { from { transform: scale(1); } to { transform: scale(1.06); } }
+.filme3 video { opacity: 0; transition: opacity 600ms ease; }
+.filme3 video.is-tocando { opacity: 1; }
+.filme3::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 35%) 0%, transparent 20%, transparent 75%, rgb(0 0 0 / 35%) 100%); }
+.tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; transform: scaleY(0); }
+.tarja--cima { top: 0; transform-origin: top; }
+.tarja--baixo { bottom: 0; transform-origin: bottom; }
+.filme3 .pausa3 { position: absolute; right: var(--lateral-d); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 2; display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: var(--borda) solid rgb(255 255 255 / 32%); background: rgb(0 0 0 / 40%); color: var(--cor-branco); cursor: pointer; transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
+.filme3 .pausa3:hover { background: rgb(0 0 0 / 60%); }
+.filme3 .pausa3:active { transform: scale(0.94); }
+.filme3 .pausa3:focus-visible { outline: 2px solid var(--cor-amarelo); outline-offset: 3px; }
+.filme3 .pausa3 .ic { width: 18px; height: 18px; }
 .frentes3 { padding-bottom: var(--secao); }
 .frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
 .claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
@@ -150,13 +131,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frente.is-ativa p { color: var(--pg-texto); }
 .frente .selo { justify-self: end; opacity: 0; transition: opacity 300ms ease; }
 .frente.is-ativa .selo { opacity: 1; }
-
 .faixa3 { overflow: hidden; padding-block: var(--esp-7); background: var(--cor-amarelo); color: var(--cor-preto); }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
 .trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(2.2rem, 5.6vw, 5rem)/1 var(--fonte-texto); letter-spacing: -0.04em; padding-right: 0.5em; }
 .trilho span::after { content: ""; width: 0.14em; height: 0.14em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
 .trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.03em; }
-
 .frase3 { padding-block: clamp(96px, 16vw, 200px); }
 .frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
 .frase3 .p { transition: color 200ms linear; }
@@ -164,14 +143,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .anima .frase3 .p.is-lida { color: var(--pg-texto); }
 .ultima { white-space: nowrap; }
 .frase3 .apoio { margin-top: var(--esp-6); color: var(--pg-apoio); font-size: var(--tam-grande); max-width: 46ch; }
-
 .cabeca3 { display: flex; align-items: end; justify-content: space-between; gap: var(--esp-5); margin-bottom: var(--esp-7); }
 .cabeca3 h2 { font-size: clamp(2.6rem, 7vw, 6rem); letter-spacing: -0.04em; line-height: 0.95; }
 .link3 { display: inline-flex; align-items: center; gap: var(--esp-2); min-height: var(--toque-min); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); white-space: nowrap; }
 .link3 .ic { transition: transform var(--dur-media) var(--pg-entrada); }
 .link3:hover .ic { transform: translateX(4px); }
 .trabalhos3 { padding-bottom: var(--secao); overflow: hidden; overflow: clip; }
-
 .parede3 { --tela-l: max(220px, calc((100vw - 4 * 12px) / 5)); display: grid; gap: 12px; }
 .fileira3 { display: flex; gap: 12px; width: max-content; will-change: transform; }
 .fileira3 + .fileira3 { margin-left: calc(var(--tela-l) * -0.5); }
@@ -191,23 +168,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .tela3:hover img { transform: scale(calc(var(--z, 1) * 1.06)); }
   .tela3:hover .info3 { opacity: 1; transform: none; }
 }
-
 html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
 html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
-
 .clientes3 { padding-block: var(--secao); border-top: var(--borda) solid var(--cor-linha); }
 .logos3 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: var(--borda) solid var(--cor-linha); border-left: var(--borda) solid var(--cor-linha); }
 .logos3 > div { aspect-ratio: 3 / 2; display: grid; place-items: center; border-right: var(--borda) solid var(--cor-linha); border-bottom: var(--borda) solid var(--cor-linha); padding: var(--esp-5); }
 .logos3 img { max-height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.86; }
-
 .logos3 img.cor-original { filter: none; opacity: 1; max-height: 56px; }
-
 .contato3 { padding: 0 0 0; }
 .painel3 { background: var(--cor-amarelo); color: var(--cor-preto); --foco: var(--cor-preto); clip-path: inset(var(--ci, 0px) var(--cl, 0px) 0 var(--cl, 0px) round var(--cr, 0px)); padding-top: clamp(96px, 14vw, 180px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
 .painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); }
 .painel3 h2 { font: var(--peso-titulo) clamp(3.4rem, 11vw, 10rem)/0.92 var(--fonte-texto); letter-spacing: -0.04em; }
 .painel3 h2 em { letter-spacing: -0.02em; }
-
 .roseta3 { width: clamp(180px, 27vw, 400px); height: auto; overflow: visible; margin-bottom: -0.5vw; will-change: transform; }
 .roseta3 .linhas { fill: none; stroke: var(--cor-preto); stroke-opacity: 0.6; stroke-width: 0.6; transform-origin: 0 0; }
 .roseta3 .linhas circle { stroke-dasharray: 1; }
@@ -227,7 +199,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .rodape3 .marca em { font-size: 1.25rem; }
 .rodape3 .redes { display: flex; gap: var(--esp-1); }
 .rodape3 .redes a { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); }
-
 .video3 { width: min(960px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: var(--raio-lg); background: var(--cor-superficie-3); color: var(--pg-texto); box-shadow: var(--sombra-2); overflow: hidden; }
 .video3::backdrop { background: var(--cor-fundo-modal); }
 .video3[open] { animation: abre-video 320ms var(--pg-entrada); }
@@ -236,16 +207,11 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .video3 .tela img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
 .video3 .tela p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--esp-5); font-size: var(--tam-ui); color: var(--pg-texto); }
 .video3 .barra-video { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-4); padding: var(--esp-4) var(--esp-5); font-size: var(--tam-legenda); color: var(--pg-apoio); }
-
 @media (max-width: 860px) {
   .topo3 nav { display: none; }
   .btn-menu3 { display: inline-flex; align-items: center; }
-  .abertura3 { height: 100svh; max-height: none; }
-  .abertura3 .conteudo { bottom: 128px; gap: var(--esp-5); }
-  .rodape-abertura { grid-template-columns: minmax(0, 1fr) auto; }
-  .barras { grid-column: 1 / -1; order: 3; }
-  .barras button { flex: 1; width: auto; }
-  .credito3 { min-height: 0; }
+  .abertura3 { min-height: min(72svh, 640px); padding-top: calc(env(safe-area-inset-top, 0px) + 128px); padding-bottom: var(--esp-8); }
+  .abertura3 .conteudo { gap: var(--esp-5); }
   .parede3 { --tela-l: 64vw; gap: 8px; }
   .fileira3 { gap: 8px; }
   .logos3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -264,14 +230,18 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .hud-topo { top: calc(env(safe-area-inset-top, 0px) + 84px); }
   .hud-topo .so-pc { display: none; }
 }
-@media (max-width: 860px) {
-  .abertura3 .conteudo { bottom: 150px; }
+@media (max-width: 1024px) {
+  .filme3 { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 600px) {
+  .filme3 { aspect-ratio: 4 / 5; }
+  .filme3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
+  .filme3 .corte { transform-origin: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
 </style>
-
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
@@ -292,7 +262,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2.1-1-1 .8a4.6 4.6 0 0 1-2.1-2.1l.8-1-1-2.1z"/></symbol>
 </defs>
 </svg>
-
 <a class="pular" href="#inicio">Pular para o conteúdo</a>
 <header class="topo3" data-topo>
   <a class="marca" href="#inicio" aria-label="HYMN, início"><img src="assets/logo-branco.svg" alt="HYMN"></a>
@@ -304,7 +273,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   </nav>
   <button class="btn-menu3" type="button" aria-expanded="false" aria-controls="menu-cel" data-abre-menu>Menu</button>
 </header>
-
 <div class="menu-cel" id="menu-cel" hidden>
   <div class="cabeca"><img src="assets/logo-branco.svg" alt="HYMN"><button class="btn-menu3" type="button" style="display:inline-flex" data-fecha-menu>Fechar</button></div>
   <ul>
@@ -315,25 +283,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   </ul>
   <div class="rodape-menu"><span>contato@hymn.com.br</span><span>(11) 94859-5084</span></div>
 </div>
-
 <main id="inicio" tabindex="-1">
-    <section class="abertura3" aria-roledescription="carrossel" aria-label="Trabalhos da HYMN" data-abertura>
-    <div class="slides">
-      <figure class="slide is-ativo" data-cliente="Cliente" data-trabalho="Filme institucional · HYMN Audiovisual" style="--fx:50%; --fy:55%; --z0:1.02; --z1:1.12; --dx:-14px; --dy:-6px">
-        <img src="assets/frame-abertura.webp" alt="Caminhão em frente a um prédio de tijolos, frame de filme da HYMN Audiovisual" fetchpriority="high">
-      </figure>
-      <figure class="slide" data-cliente="" data-trabalho="" style="--fx:72%; --fy:62%; --z0:1.5; --z1:1.62; --dx:10px; --dy:-4px">
-        <img src="assets/frame-abertura.webp" alt="">
-      </figure>
-      <figure class="slide" data-cliente="" data-trabalho="" style="--fx:18%; --fy:40%; --z0:1.4; --z1:1.3; --dx:12px; --dy:8px">
-        <img src="assets/frame-abertura.webp" alt="">
-      </figure>
-    </div>
-    <div class="veu3"></div>
-    <div class="tarja tarja--cima" aria-hidden="true"></div>
-    <div class="tarja tarja--baixo" aria-hidden="true"></div>
+    <section class="abertura3" aria-label="Abertura" data-abertura>
     <div class="hud hud-topo" aria-hidden="true">
-      <span class="rec" data-cena>CENA 01</span>
+      <span class="rec">CENA 01</span>
       <span class="so-pc">4K · 24 fps · 16:9</span>
       <span data-tc>00:00:00:00</span>
     </div>
@@ -348,24 +301,29 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
         <button class="btn btn--vidro" type="button" data-abre-video hidden><svg class="ic"><use href="#i-som"/></svg>Assistir com som</button>
       </div>
     </div>
-    <div class="rodape-abertura">
-      <div class="credito3" aria-live="polite" data-credito><b>Cliente</b><span>Filme institucional · HYMN Audiovisual</span></div>
-      <div class="barras" data-barras></div>
-      <button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa><svg class="ic"><use href="#i-pausa"/></svg></button>
-    </div>
   </section>
-
+    <section class="filme3" aria-label="Filme da HYMN" data-filme data-video="" data-video-cel="">
+    <div class="quadro3" data-quadro>
+      <img class="corte is-ativo" src="assets/filme/f01.webp" srcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" sizes="100vw" alt="Caminhão Scania cruzando a rua da fábrica ao amanhecer, foto da HYMN Audiovisual" fetchpriority="high" style="--fx:52%;--fy:62%;--fxc:50%">
+      <img class="corte" src="assets/filme/f02.webp" srcset="assets/filme/f02-p.webp 1000w, assets/filme/f02.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:60%;--fy:52%;--fxc:64%">
+      <img class="corte" src="assets/filme/f03.webp" srcset="assets/filme/f03-p.webp 1000w, assets/filme/f03.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:50%;--fy:64%;--fxc:50%">
+      <img class="corte" src="assets/filme/f04.webp" srcset="assets/filme/f04-p.webp 1000w, assets/filme/f04.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:54%;--fy:56%;--fxc:56%">
+      <img class="corte" src="assets/frame-abertura.webp" alt="" decoding="async" fetchpriority="low" style="--fx:46%;--fy:62%;--fxc:44%">
+      <video muted loop playsinline disablepictureinpicture preload="none" aria-hidden="true" tabindex="-1" hidden></video>
+    </div>
+    <div class="tarja tarja--cima" aria-hidden="true" data-tarja></div>
+    <div class="tarja tarja--baixo" aria-hidden="true" data-tarja></div>
+    <button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa-filme><svg class="ic"><use href="#i-pausa"/></svg></button>
+  </section>
     <section class="faixa3" aria-label="O que fazemos">
     <p class="sr">Design, ads, SEO, conteúdo, marketing, site, brand, fotos e filmes.</p>
     <div class="trilho" aria-hidden="true" data-trilho>
       <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span>
     </div>
   </section>
-
     <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
     <p>Da estratégia ao vídeo final, tudo num lugar só.</p>
   </section>
-
     <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
     <p class="rotulo3">Um time, três frentes dentro de casa</p>
     <div class="claquete" data-claquete>
@@ -404,7 +362,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       </div>
     </div>
   </section>
-
     <section class="trabalhos3" id="trabalhos" aria-labelledby="t-trabalhos" data-parede>
     <div class="cabeca3 miolo">
       <h2 id="t-trabalhos">Trabalhos</h2>
@@ -413,27 +370,27 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     <div class="parede3" data-revela-parede>
       <div class="fileira3">
         <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:0"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:50%;--fy:50%;--z:1.0;--n:1"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:52%;--fy:60%;--z:1.0;--n:1"><img src="assets/filme/f01-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, produto em 3D" style="--n:2"><img src="assets/exemplos/ex03.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produto em 3D</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--n:3"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
-        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:25%;--fy:55%;--z:1.7;--n:4"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:62%;--fy:50%;--z:1.25;--n:4"><img src="assets/filme/f02-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, motion para Reels" style="--n:5"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion para Reels</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:80%;--fy:45%;--z:1.9;--n:7"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:54%;--fy:55%;--z:1.0;--n:7"><img src="assets/filme/f04-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
       </div>
       <div class="fileira3">
         <a class="tela3" href="#trabalhos" aria-label="Cliente, moda com IA" style="--n:1"><img src="assets/exemplos/ex04.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Moda com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--fx:65%;--fy:40%;--z:1.5;--n:2"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--fx:50%;--fy:62%;--z:1.1;--n:2"><img src="assets/filme/f03-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, produção híbrida" style="--n:3"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produção híbrida</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:4"><img src="assets/exemplos/ex09.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:15%;--fy:60%;--z:1.6;--n:5"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:46%;--fy:60%;--z:1.05;--n:5"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex05.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, lançamento" style="--n:7"><img src="assets/exemplos/ex10.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Lançamento</span></span></a>
-        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:45%;--fy:65%;--z:2.2;--n:8"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:44%;--fy:62%;--z:1.7;--n:8"><img src="assets/filme/f01-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
       </div>
       <div class="fileira3">
         <a class="tela3" href="#trabalhos" aria-label="Cliente, motion de marca" style="--n:2"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion de marca</span></span></a>
-        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:35%;--fy:50%;--z:1.4;--n:3"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
+        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:58%;--fy:56%;--z:1.5;--n:3"><img src="assets/filme/f04-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, foto de produto" style="--n:4"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Foto de produto</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:5"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, motion para Reels" style="--n:6"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion para Reels</span></span></a>
@@ -443,7 +400,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       </div>
     </div>
   </section>
-
     <section class="clientes3 miolo" id="clientes" aria-labelledby="t-clientes">
     <div class="cabeca3">
       <h2 id="t-clientes">Clientes</h2>
@@ -458,7 +414,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       <div style="--n:5"><span class="prov">Logo</span></div>
     </div>
   </section>
-
     <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
     <div class="painel3 miolo" data-painel>
       <div class="topo-contato">
@@ -510,12 +465,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
 </main>
-
 <dialog class="video3" aria-labelledby="t-video" data-video>
   <div class="tela"><img src="assets/frame-abertura.webp" alt=""><p id="t-video">Aqui entra o filme da HYMN com som, em tela cheia.<br>Falta o arquivo de vídeo em Full HD.</p></div>
   <div class="barra-video"><span>Cliente · Filme institucional · HYMN Audiovisual</span><button class="btn btn--discreto btn--sm" type="button" data-fecha-video><svg class="ic"><use href="#i-fechar"/></svg>Fechar</button></div>
 </dialog>
-
 <script>
 (function () {
   var raiz = document.documentElement;
@@ -525,67 +478,88 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   var anima = raiz.classList.contains('anima');
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-
-  var abertura = $('[data-abertura]'), slides = $$('.slide', abertura), credito = $('[data-credito]');
-  var barras = $('[data-barras]'), btnPausa = $('[data-pausa]');
-  var tc = $('[data-tc]'), cena = $('[data-cena]');
-  var DUR = 6400, atual = 0, inicio = performance.now(), decorrido = 0, pausado = reduz, visivel = true;
-  slides.forEach(function (s, n) {
-    s.style.setProperty('--dur-slide', (DUR + 1400) + 'ms');
-    var b = document.createElement('button');
-    b.type = 'button'; b.setAttribute('aria-label', 'Mostrar foto ' + (n + 1) + ' de ' + slides.length);
-    b.addEventListener('click', function () { mostra(n); });
-    barras.appendChild(b);
+  
+  var abertura = $('[data-abertura]'), tc = $('[data-tc]'), t0 = performance.now(), hudVisivel = true;
+  function dois(n) { return (n < 10 ? '0' : '') + n; }
+  function relogio(agora) {
+    if (anima && hudVisivel && !document.hidden) {
+      var f = Math.floor((agora - t0) / 1000 * 24);
+      tc.textContent = '00:' + dois(Math.floor(f / 1440) % 60) + ':' + dois(Math.floor(f / 24) % 60) + ':' + dois(f % 24);
+    }
+    requestAnimationFrame(relogio);
+  }
+  requestAnimationFrame(relogio);
+  
+  var filme = $('[data-filme]'), quadroF = $('[data-quadro]', filme), vid = $('video', filme), btnFilme = $('[data-pausa-filme]', filme);
+  var cortes = $$('.corte', filme), RITMO = [1400, 900, 1150, 800, 1250], iCorte = 0, tCorte = performance.now();
+  var celular = window.matchMedia('(max-width: 600px)').matches;
+  var srcVid = (celular && filme.dataset.videoCel) || filme.dataset.video;
+  var parado = reduz, filmeVisivel = false, tocandoVid = false;
+  var oQue = srcVid ? 'o vídeo' : 'as fotos';
+  cortes.forEach(function (im, n) {
+    var ok = function () { im._pronta = true; };
+    if (n === 0) ok();
+    if (im.decode) im.decode().then(ok, function () { if (im.complete && im.naturalWidth) ok(); });
+    else if (im.complete && im.naturalWidth) ok(); else im.addEventListener('load', ok);
   });
-  var botoes = $$('button', barras);
-  function pinta(p) { botoes.forEach(function (b, n) { b.style.setProperty('--p', n < atual ? 1 : n === atual ? p : 0); }); }
-  function mostra(n) {
-    var nova = (n + slides.length) % slides.length;
-    if (nova !== atual) {
-      slides[atual].classList.remove('is-ativo');
-      var img = $('img', slides[nova]); img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
-      slides[nova].classList.add('is-ativo');
-      atual = nova;
-      cena.textContent = 'CENA 0' + (atual + 1);
-      credito.classList.add('is-trocando');
-      setTimeout(function () {
-        credito.innerHTML = '<b></b><span></span>';
-        $('b', credito).textContent = slides[atual].dataset.cliente;
-        $('span', credito).textContent = slides[atual].dataset.trabalho;
-        credito.classList.remove('is-trocando');
-      }, 300);
+  cortes.forEach(function (im, n) { im.style.setProperty('--dur-corte', (RITMO[n % RITMO.length] + 400) + 'ms'); });
+  function marcaBotao() {
+    btnFilme.setAttribute('aria-label', (parado ? 'Tocar ' : 'Pausar ') + oQue);
+    $('use', btnFilme).setAttribute('href', parado ? '#i-play' : '#i-pausa');
+    filme.classList.toggle('is-parado', parado);
+  }
+  function corta() {
+    var prox = (iCorte + 1) % cortes.length, im = cortes[prox];
+    if (!im._pronta) { prox = 0; im = cortes[0]; }
+    if (prox === iCorte) return;
+    cortes[iCorte].classList.remove('is-ativo');
+    im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
+    im.classList.add('is-ativo');
+    iCorte = prox;
+  }
+  function montagem(agora) {
+    if (!parado && filmeVisivel && !document.hidden && !tocandoVid && agora - tCorte >= RITMO[iCorte % RITMO.length]) { corta(); tCorte = agora; }
+    requestAnimationFrame(montagem);
+  }
+  requestAnimationFrame(montagem);
+  function tocaVid() {
+    if (!srcVid) return;
+    if (!parado && filmeVisivel && !document.hidden) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); } else { vid.pause(); }
+  }
+  if (srcVid) {
+    vid.muted = true; vid.src = srcVid; vid.hidden = false;
+    vid.addEventListener('playing', function () { tocandoVid = true; vid.classList.add('is-tocando'); });
+    document.addEventListener('visibilitychange', tocaVid);
+  }
+  btnFilme.addEventListener('click', function () { parado = !parado; tCorte = performance.now(); marcaBotao(); tocaVid(); });
+  marcaBotao();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { filmeVisivel = es[0].isIntersecting; tocaVid(); }, { threshold: 0.25 }).observe(filme);
+  } else { filmeVisivel = true; tocaVid(); }
+  function abreTarjas(espera) {
+    if (!anima || !Element.prototype.animate) return;
+    var curvaT = getComputedStyle(raiz).getPropertyValue('--pg-movimento').trim() || 'cubic-bezier(0.77, 0, 0.175, 1)';
+    $$('[data-tarja]', filme).forEach(function (t) { t.animate([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], { duration: 1300, delay: espera, easing: curvaT, fill: 'backwards' }); });
+  }
+  if (anima) {
+    var rF = filme.getBoundingClientRect();
+    if (rF.top < window.innerHeight * 0.92) abreTarjas(1100);
+    else {
+      var ioT = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreTarjas(0); ioT.disconnect(); } }, { threshold: 0.3 });
+      ioT.observe(filme);
     }
-    if (nova === 0) botoes.forEach(function (b) { b.style.setProperty('--p', 0); });
-    decorrido = 0; inicio = performance.now(); pinta(0);
   }
-  function quadro(agora) {
-    if (!pausado && visivel) {
-      var p = Math.min(1, (decorrido + agora - inicio) / DUR);
-      pinta(p);
-      var f = Math.floor((decorrido + agora - inicio) / 1000 * 24), ss = Math.floor(f / 24) % 60, ff = f % 24;
-      tc.textContent = '00:00:' + (ss < 10 ? '0' : '') + ss + ':' + (ff < 10 ? '0' : '') + ff;
-      if (p >= 1) mostra(atual + 1);
-    }
-    requestAnimationFrame(quadro);
+  function moveFilme() {
+    var r = filme.getBoundingClientRect(), h = window.innerHeight;
+    if (r.bottom < -50 || r.top > h + 50) return;
+    var p = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
+    quadroF.style.transform = 'scale(' + (1.08 - p * 0.08).toFixed(4) + ')';
   }
-  function pausa(sim) {
-    if (sim === pausado) return;
-    if (sim) { decorrido += performance.now() - inicio; } else { inicio = performance.now(); }
-    pausado = sim;
-    abertura.classList.toggle('is-pausado', sim);
-    btnPausa.setAttribute('aria-label', sim ? 'Tocar as fotos' : 'Pausar as fotos');
-    $('use', btnPausa).setAttribute('href', sim ? '#i-play' : '#i-pausa');
-  }
-  btnPausa.addEventListener('click', function () { pausa(!pausado); });
-  if (reduz) { abertura.classList.add('is-pausado'); $('use', btnPausa).setAttribute('href', '#i-play'); btnPausa.setAttribute('aria-label', 'Tocar as fotos'); }
-  document.addEventListener('visibilitychange', function () { if (document.hidden) { if (!pausado) { decorrido += performance.now() - inicio; visivel = false; } } else { inicio = performance.now(); visivel = true; } });
-  pinta(0);
-  requestAnimationFrame(quadro);
-
-  var img0 = $('img', slides[0]);
+  
+  var img0 = $('img', filme);
   function carregou() { raiz.classList.add('carregou'); }
   if (img0.complete) requestAnimationFrame(function () { requestAnimationFrame(carregou); }); else { img0.addEventListener('load', carregou); setTimeout(carregou, 1200); }
-
+  
   var trilho = $('[data-trilho]'), faixaX = 0, velScroll = 0, ultimoY = window.scrollY, ultimoT = performance.now(), faixaVisivel = true;
   trilho.innerHTML += trilho.innerHTML;
   function corre(agora) {
@@ -600,7 +574,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     requestAnimationFrame(corre);
   }
   requestAnimationFrame(corre);
-
+  
   var frase = $('[data-frase] p');
   (function quebra(no) {
     $$('*', frase).length;
@@ -617,9 +591,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     frase.textContent = ''; partes.forEach(function (p) { frase.appendChild(p); });
   })();
   var palavras = $$('.p', frase);
-
+  
   if (anima) {
-
     var curva = getComputedStyle(raiz).getPropertyValue('--pg-entrada').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
     var ordem = function (el, i) { var n = parseFloat(el.style.getPropertyValue('--n')); return isNaN(n) ? i : n; };
     var receitas = [
@@ -643,22 +616,21 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     }, { rootMargin: '0px 0px 8% 0px', threshold: 0 });
     $$('[data-logos], [data-revela-frente], [data-roseta], [data-revela-parede]').forEach(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }
+      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }   
       io.observe(el);
     });
     var ioF = new IntersectionObserver(function (es) { faixaVisivel = es[0].isIntersecting; });
     ioF.observe($('.faixa3'));
-    var ioA = new IntersectionObserver(function (es) { var v = es[0].isIntersecting; if (!v && !pausado) { decorrido += performance.now() - inicio; } else if (v) { inicio = performance.now(); } visivel = v && !document.hidden; });
-    ioA.observe(abertura);
+    new IntersectionObserver(function (es) { hudVisivel = es[0].isIntersecting; }).observe(abertura);
   }
-
+  
   var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), painel = $('[data-painel]'), contato = $('[data-contato]');
   var pedido = false;
   function noScroll() {
     pedido = false;
     var y = window.scrollY, h = window.innerHeight, dy = y - ultimoY;
     velScroll = dy / 16; ultimoY = y;
-    topo.classList.toggle('is-solido', y > h * 0.6);
+    topo.classList.toggle('is-solido', y > 8);   
     if (Math.abs(dy) > 4) topo.classList.toggle('is-escondido', dy > 0 && y > h * 0.9 && !menu.classList.contains('is-aberto'));
     if (!anima) return;
     var a = Math.min(1, Math.max(0, y / (h * 0.7)));
@@ -669,6 +641,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var lidas = Math.round(pf * (palavras.length + 1));
     palavras.forEach(function (w, n) { w.classList.toggle('is-lida', n < lidas); });
     ativaPeloScroll();
+    moveFilme();
     moveParede();
     moveClaquete();
     var c = contato.getBoundingClientRect();
@@ -680,7 +653,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   }
   window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(noScroll); } }, { passive: true });
   window.addEventListener('resize', function () { requestAnimationFrame(noScroll); });
-
+  
   var frentes = $$('.frente'), comMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches, sobre = null;
   function ativa(fr) { frentes.forEach(function (f) { f.classList.toggle('is-ativa', f === fr); }); }
   function ativaPeloScroll() {
@@ -693,7 +666,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     frentes.forEach(function (f) { f.addEventListener('mouseenter', function () { sobre = f; ativa(f); }); });
     $('[data-frentes]').addEventListener('mouseleave', function () { sobre = null; ativaPeloScroll(); });
   }
-
+  
   var roseta = $('[data-roseta]');
   if (roseta && comMouse && anima) {
     var aros = $$('.linhas circle', roseta), painelR = $('[data-painel]');
@@ -713,7 +686,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     });
     painelR.addEventListener('pointerleave', function () { txA = tyA = abA = 0; liga(); });
   }
-
+  
   var parede = $('[data-parede]'), fileiras = $$('.fileira3');
   function moveParede() {
     var r = parede.getBoundingClientRect(), h = window.innerHeight;
@@ -721,10 +694,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var p = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
     var foco = document.activeElement, w = window.innerWidth;
     fileiras.forEach(function (f, i) {
-
       var sobra = Math.max(0, f.scrollWidth - w) * (i === 1 ? 0.5 : 0.7);
       var x = i % 2 === 0 ? -(1 - p) * sobra : -p * sobra;
-
       if (foco && f.contains(foco) && foco.matches(':focus-visible')) {
         var q = foco.getBoundingClientRect(), base = q.left - (f._x || 0), m = 24;
         x = Math.max(m - base, Math.min(w - m - q.width - base, x));
@@ -736,7 +707,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   if (anima) {
     parede.addEventListener('focusin', function () { parede.scrollLeft = 0; requestAnimationFrame(moveParede); });
   }
-
+  
   var claquete = $('[data-claquete]'), haste = $('.haste', claquete);
   function moveClaquete() {
     var r = claquete.getBoundingClientRect(), h = window.innerHeight;
@@ -746,21 +717,21 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var abre = parseFloat(getComputedStyle(claquete).getPropertyValue('--abre')) || -4;
     haste.style.transform = 'rotate(' + (abre * (1 - p * p)).toFixed(3) + 'deg)';
   }
-
+  
   $$('[data-ano]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
-
+  
   var menu = $('#menu-cel'), abreMenu = $('[data-abre-menu]');
   function abre() { menu.hidden = false; abreMenu.setAttribute('aria-expanded', 'true'); requestAnimationFrame(function () { requestAnimationFrame(function () { menu.classList.add('is-aberto'); }); }); $('a', menu).focus({ preventScroll: true }); }
   function fecha() { menu.classList.remove('is-aberto'); menu.hidden = true; abreMenu.setAttribute('aria-expanded', 'false'); abreMenu.focus({ preventScroll: true }); }
   abreMenu.addEventListener('click', abre);
   $$('[data-fecha-menu]').forEach(function (b) { b.addEventListener('click', fecha); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !menu.hidden) fecha(); });
-
+  
   var video = $('[data-video]');
-  $('[data-abre-video]').addEventListener('click', function () { pausa(true); if (video.showModal) video.showModal(); });
+  $('[data-abre-video]').addEventListener('click', function () { if (!parado) btnFilme.click(); if (video.showModal) video.showModal(); });
   $('[data-fecha-video]').addEventListener('click', function () { video.close(); });
   video.addEventListener('click', function (e) { if (e.target === video) video.close(); });
-
+  
   $$('[data-copia]').forEach(function (b) {
     b.addEventListener('click', function () {
       var ok = function () { b.classList.add('is-ok'); $('use', b).setAttribute('href', '#i-check'); setTimeout(function () { b.classList.remove('is-ok'); $('use', b).setAttribute('href', '#i-copiar'); }, 1800); };
@@ -768,10 +739,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       try { navigator.clipboard.writeText(b.dataset.copia).then(ok, seleciona); } catch (e) { seleciona(); }
     });
   });
-
   noScroll();
 })();
 </script>
-
 </body>
 </html>
