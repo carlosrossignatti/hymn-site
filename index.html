@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
-<link rel="preload" as="image" href="assets/filme/f01.webp" imagesrcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="componentes.css">
 <style>
@@ -59,34 +58,39 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .menu-cel .rodape-menu { color: var(--pg-apoio); font-size: var(--tam-legenda); display: grid; gap: 4px; }
 .anima .menu-cel li { opacity: 0; transform: translateY(24px); }
 .anima .menu-cel.is-aberto li { opacity: 1; transform: none; transition: transform 600ms var(--pg-entrada), opacity 400ms ease; transition-delay: calc(80ms + var(--n) * 45ms); }
-.abertura3 { position: relative; display: grid; align-content: end; min-height: min(80svh, 860px); padding: calc(env(safe-area-inset-top, 0px) + 150px) var(--lateral-d) clamp(48px, 6vw, 88px) var(--lateral); }
-.abertura3 .conteudo { display: grid; gap: var(--esp-6); will-change: transform, opacity; }
-.titulo3 { font: var(--peso-titulo) clamp(2.1rem, 6.2vw, 5.4rem)/0.98 var(--fonte-texto); letter-spacing: -0.035em; max-width: none; text-wrap: initial; }
-.titulo3 .linha { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
-.titulo3 .linha > span { display: block; }
-.titulo3 em { font-size: 1.06em; letter-spacing: -0.01em; }
+.abertura3 { --foco: var(--cor-preto); position: relative; display: grid; place-items: center; min-height: calc(100svh - 64px); padding: calc(env(safe-area-inset-top, 0px) + 112px) var(--lateral-d) clamp(64px, 8vw, 112px) var(--lateral); background: #FFFFFF; color: var(--cor-preto); text-align: center; color-scheme: light; }
+.abertura3 .conteudo { display: grid; justify-items: center; gap: clamp(20px, 2.4vw, 32px); will-change: transform, opacity; }
+.titulo3 { font: var(--peso-titulo) clamp(3rem, 7.2vw, 6rem)/0.95 var(--fonte-texto); letter-spacing: -0.04em; }
+.titulo3 .linha { display: block; overflow: hidden; padding: 0 0.08em 0.1em; margin-bottom: -0.1em; }
+.titulo3 .linha > span { display: inline-block; }
+.titulo3 em { font-size: 1.08em; letter-spacing: -0.01em; padding-right: 0.02em; }
+.ponto3 { display: inline-block; width: 0.21em; height: 0.21em; margin-left: 0.05em; border-radius: 50%; background: #A64BFF; }
+.apoio3 { font-size: clamp(1.06rem, 1.5vw, 1.375rem); line-height: 1.4; color: #4D4D55; max-width: 44ch; text-wrap: balance; }
+.acoes3 { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--esp-3); }
+.abertura3 .btn--primario { background: var(--cor-preto); color: var(--cor-branco); }
+.abertura3 .btn--primario:hover { background: #26262B; }
+.abertura3 .btn--linha { background: transparent; color: var(--cor-preto); border-color: rgb(0 0 0 / 22%); }
+.abertura3 .btn--linha:hover { background: rgb(0 0 0 / 5%); }
 .anima .titulo3 .linha > span { transform: translateY(108%); }
-.anima.carregou .titulo3 .linha > span { transform: none; transition: transform 1100ms var(--pg-entrada); transition-delay: calc(250ms + var(--n) * 110ms); }
-.acoes3 { display: flex; flex-wrap: wrap; gap: var(--esp-3); }
-.anima .acoes3, .anima .topo3 { opacity: 0; }
-.anima .acoes3 { transform: translateY(14px); }
-.anima.carregou .acoes3 { opacity: 1; transform: none; transition: opacity 700ms ease 850ms, transform 900ms var(--pg-entrada) 850ms; }
-.anima.carregou .topo3 { opacity: 1; transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 800ms ease 1100ms; }
+.anima.carregou .titulo3 .linha > span { transform: none; transition: transform 1100ms var(--pg-entrada); transition-delay: calc(150ms + var(--n) * 110ms); }
+.anima .ponto3 { transform: translateY(-0.9em) scale(0.4); opacity: 0; }
+.anima.carregou .ponto3 { transform: none; opacity: 1; transition: transform 700ms cubic-bezier(0.34, 1.4, 0.64, 1) 820ms, opacity 200ms ease 820ms; }
+.anima .apoio3, .anima .acoes3, .anima .topo3 { opacity: 0; }
+.anima .apoio3, .anima .acoes3 { transform: translateY(14px); }
+.anima.carregou .apoio3 { opacity: 1; transform: none; transition: opacity 700ms ease 650ms, transform 900ms var(--pg-entrada) 650ms; }
+.anima.carregou .acoes3 { opacity: 1; transform: none; transition: opacity 700ms ease 800ms, transform 900ms var(--pg-entrada) 800ms; }
+.anima.carregou .topo3 { opacity: 1; transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, color var(--dur-media) ease, opacity 800ms ease 900ms; }
 .btn { transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
 .btn:active { transform: scale(0.97); }
-.btn--vidro .ic { width: 18px; height: 18px; }
-.hud { display: flex; align-items: center; gap: var(--esp-3); font: 500 var(--tam-minimo)/1 var(--fonte-codigo); color: var(--cor-branco); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
-.hud .rec { display: inline-flex; align-items: center; gap: 6px; }
-.hud .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cor-branco); }
-.anima .hud .rec::before { animation: pisca 1.2s steps(2, jump-none) infinite; }
-@keyframes pisca { 50% { opacity: 0.15; } }
-.hud span:not(.rec) { color: var(--pg-apoio); }
-.hud-topo { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 92px); left: var(--lateral); right: var(--lateral-d); display: flex; justify-content: space-between; }
-.anima .hud-topo { opacity: 0; }
-.anima.carregou .hud-topo { opacity: 1; transition: opacity 600ms ease 400ms; }
-.filme3 { position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 2 / 1; max-height: 100svh; background: var(--cor-preto); }
-.filme3 .quadro3 { position: absolute; inset: 0; transform-origin: 48% 62%; will-change: transform; }
-.filme3 img, .filme3 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 58%); }
+.topo3 .marca .logo-preto { display: none; }
+.topo3.is-claro { --foco: var(--cor-preto); color: var(--cor-preto); }
+.topo3.is-claro .marca .logo-branco { display: none; }
+.topo3.is-claro .marca .logo-preto { display: block; }
+.topo3.is-claro.is-rolado { background: #FFFFFF; box-shadow: 0 1px 0 rgb(0 0 0 / 8%); }
+.topo3.is-claro .btn-menu3 { color: var(--cor-preto); border-color: rgb(0 0 0 / 22%); }
+.filme3 { position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 2 / 1; max-height: 100svh; min-height: 440px; background: var(--cor-preto); color: var(--cor-branco); scroll-margin-top: 0; }
+.filme3 .quadro3 { position: absolute; inset: 0; transform-origin: 50% 60%; will-change: transform; }
+.filme3 .quadro3 img, .filme3 video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 58%); }
 .filme3 .corte { opacity: 0; transform-origin: var(--fx, 50%) var(--fy, 58%); }
 .filme3 .corte.is-ativo { opacity: 1; }
 .anima .filme3 .corte.is-ativo { animation: aproxima var(--dur-corte, 1500ms) linear both; }
@@ -94,15 +98,31 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes aproxima { from { transform: scale(1); } to { transform: scale(1.06); } }
 .filme3 video { opacity: 0; transition: opacity 600ms ease; }
 .filme3 video.is-tocando { opacity: 1; }
-.filme3::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 35%) 0%, transparent 20%, transparent 75%, rgb(0 0 0 / 35%) 100%); }
+.filme3 .veu3 { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 50%) 0%, rgb(0 0 0 / 0%) 24%, rgb(0 0 0 / 0%) 52%, rgb(0 0 0 / 72%) 100%); }
 .tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; transform: scaleY(0); }
 .tarja--cima { top: 0; transform-origin: top; }
 .tarja--baixo { bottom: 0; transform-origin: bottom; }
-.filme3 .pausa3 { position: absolute; right: var(--lateral-d); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 2; display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: var(--borda) solid rgb(255 255 255 / 32%); background: rgb(0 0 0 / 40%); color: var(--cor-branco); cursor: pointer; transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
-.filme3 .pausa3:hover { background: rgb(0 0 0 / 60%); }
-.filme3 .pausa3:active { transform: scale(0.94); }
-.filme3 .pausa3:focus-visible { outline: 2px solid var(--cor-amarelo); outline-offset: 3px; }
-.filme3 .pausa3 .ic { width: 18px; height: 18px; }
+.hud { display: flex; align-items: center; gap: var(--esp-3); font: 500 var(--tam-minimo)/1 var(--fonte-codigo); color: var(--cor-branco); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.hud .rec { display: inline-flex; align-items: center; gap: 6px; }
+.hud .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #FF3B30; }
+.anima .hud .rec::before { animation: pisca 1.2s steps(2, jump-none) infinite; }
+.filme3.is-parado .hud .rec::before { animation: none; background: var(--cor-branco); opacity: 0.5; }
+@keyframes pisca { 50% { opacity: 0.15; } }
+.hud span:not(.rec) { color: rgb(255 255 255 / 80%); }
+.filme3 .hud-topo { position: absolute; z-index: 2; top: clamp(12px, 2vw, 24px); left: var(--lateral); right: var(--lateral-d); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.hud-topo .so-pc { justify-self: center; }
+.hud-topo .dir { justify-self: end; display: inline-flex; align-items: center; gap: var(--esp-3); }
+.filme3 .pausa3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); margin-right: -10px; border-radius: 50%; border: 0; background: transparent; color: var(--cor-branco); cursor: pointer; transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
+.filme3 .pausa3:hover { background: rgb(255 255 255 / 12%); }
+.filme3 .pausa3:active { transform: scale(0.92); }
+.filme3 .pausa3 .ic { width: 16px; height: 16px; }
+.marcas3 { position: absolute; z-index: 2; left: var(--lateral); right: var(--lateral-d); bottom: clamp(16px, 2.6vw, 32px); display: grid; justify-items: center; gap: 12px; }
+.marcas3 h2 { font: var(--peso-medio) var(--tam-legenda)/1.3 var(--fonte-texto); letter-spacing: -0.005em; color: rgb(255 255 255 / 90%); }
+.pilula3 { width: min(100%, 1080px); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: center; gap: clamp(8px, 2vw, 28px); padding: clamp(10px, 1.2vw, 16px) clamp(20px, 3vw, 44px); border-radius: var(--raio-pilula); border: var(--borda) solid rgb(255 255 255 / 14%); background: rgb(5 6 8 / 86%); }
+.pilula3 > div { display: grid; place-items: center; height: clamp(40px, 4vw, 56px); }
+.pilula3 img { max-height: 30px; width: auto; max-width: 100%; filter: brightness(0) invert(1); opacity: 0.92; }
+.pilula3 img.cor-original { filter: none; opacity: 1; max-height: clamp(36px, 3.6vw, 48px); }
+.pilula3 .prov { color: rgb(255 255 255 / 55%); border-color: rgb(255 255 255 / 22%); }
 .frentes3 { padding-bottom: var(--secao); }
 .frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
 .claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
@@ -131,11 +151,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frente.is-ativa p { color: var(--pg-texto); }
 .frente .selo { justify-self: end; opacity: 0; transition: opacity 300ms ease; }
 .frente.is-ativa .selo { opacity: 1; }
-.faixa3 { overflow: hidden; padding-block: var(--esp-7); background: var(--cor-amarelo); color: var(--cor-preto); }
+.faixa3 { overflow: hidden; padding-block: clamp(12px, 1.4vw, 18px); background: var(--cor-amarelo); color: var(--cor-preto); }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
-.trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(2.2rem, 5.6vw, 5rem)/1 var(--fonte-texto); letter-spacing: -0.04em; padding-right: 0.5em; }
-.trilho span::after { content: ""; width: 0.14em; height: 0.14em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
-.trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.03em; }
+.trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(1.15rem, 2.1vw, 1.75rem)/1 var(--fonte-texto); letter-spacing: -0.02em; padding-right: 0.6em; }
+.trilho span::after { content: ""; width: 0.22em; height: 0.22em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
+.trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.01em; }
 .frase3 { padding-block: clamp(96px, 16vw, 200px); }
 .frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
 .frase3 .p { transition: color 200ms linear; }
@@ -170,11 +190,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
 html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
-.clientes3 { padding-block: var(--secao); border-top: var(--borda) solid var(--cor-linha); }
-.logos3 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: var(--borda) solid var(--cor-linha); border-left: var(--borda) solid var(--cor-linha); }
-.logos3 > div { aspect-ratio: 3 / 2; display: grid; place-items: center; border-right: var(--borda) solid var(--cor-linha); border-bottom: var(--borda) solid var(--cor-linha); padding: var(--esp-5); }
-.logos3 img { max-height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.86; }
-.logos3 img.cor-original { filter: none; opacity: 1; max-height: 56px; }
 .contato3 { padding: 0 0 0; }
 .painel3 { background: var(--cor-amarelo); color: var(--cor-preto); --foco: var(--cor-preto); clip-path: inset(var(--ci, 0px) var(--cl, 0px) 0 var(--cl, 0px) round var(--cr, 0px)); padding-top: clamp(96px, 14vw, 180px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
 .painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); }
@@ -214,19 +229,19 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .abertura3 .conteudo { gap: var(--esp-5); }
   .parede3 { --tela-l: 64vw; gap: 8px; }
   .fileira3 { gap: 8px; }
-  .logos3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .painel3 .topo-contato { grid-template-columns: 1fr; }
+    .painel3 .topo-contato { grid-template-columns: 1fr; }
   .roseta3 { order: -1; width: 168px; margin-bottom: 0; }
   .linhas3 { grid-template-columns: 1fr; }
-  .claquete { --abre: -15deg; --fecha: 0.85; margin-top: 76px; }
+  .claquete { --abre: -15deg; --fecha: 0.85; margin-top: 64px; }
   .claq-campos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .claq-campos > div { padding: var(--esp-3) var(--esp-4); }
-  .claq-campos > div:nth-child(3) { border-left: 0; }
-  .claq-campos > div:nth-child(n+3) { border-top: var(--borda) solid var(--cor-linha-forte); }
-  .frente { grid-template-columns: 1fr; gap: var(--esp-3); padding-inline: var(--esp-4); }
-  .frente .cena { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 8px; }
-  .frente .cena b { font-size: 1rem; }
-  .frente .selo { position: absolute; right: var(--esp-4); top: clamp(18px, 2.6vw, 32px); }
+  .claq-campos > div { padding: 10px var(--esp-4); gap: 6px; }
+  .claq-campos > div:nth-child(n+3) { display: none; }
+  .frente { grid-template-columns: 2.25rem minmax(0, 1fr); align-items: baseline; gap: var(--esp-3); padding: 18px var(--esp-4); }
+  .frente .cena { font-size: 0; letter-spacing: 0; }
+  .frente .cena b { font-size: 0.95rem; }
+  .frente h3 { font-size: clamp(2.1rem, 10.5vw, 2.9rem); }
+  .frente p, .frente .selo { display: none; }
+  .anima .frente.is-ativa h3 { transform: translateX(6px); }
   .hud-topo { top: calc(env(safe-area-inset-top, 0px) + 84px); }
   .hud-topo .so-pc { display: none; }
 }
@@ -234,9 +249,15 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .filme3 { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 600px) {
-  .filme3 { aspect-ratio: 4 / 5; }
-  .filme3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
+  .filme3 { aspect-ratio: 4 / 5; min-height: 0; }
+  .filme3 .quadro3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .filme3 .corte { transform-origin: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
+  .filme3 .hud-topo { grid-template-columns: 1fr auto; }
+  .pilula3 { grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: var(--raio-lg); row-gap: 4px; padding: 10px 14px; }
+  .pilula3 > div { height: 44px; }
+  .abertura3 { min-height: calc(100svh - 96px); padding-top: calc(env(safe-area-inset-top, 0px) + 96px); }
+  .acoes3 .btn { flex: 1 1 100%; }
+  .acoes3 { width: min(100%, 320px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -264,7 +285,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 </svg>
 <a class="pular" href="#inicio">Pular para o conteúdo</a>
 <header class="topo3" data-topo>
-  <a class="marca" href="#inicio" aria-label="HYMN, início"><img src="assets/logo-branco.svg" alt="HYMN"></a>
+  <a class="marca" href="#inicio" aria-label="HYMN, início"><img class="logo-branco" src="assets/logo-branco.svg" alt="HYMN"><img class="logo-preto" src="assets/logo-preto.svg" alt=""></a>
   <nav aria-label="Menu principal">
     <a href="#trabalhos">Trabalhos</a>
     <a href="#sobre">Sobre</a>
@@ -285,40 +306,53 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 </div>
 <main id="inicio" tabindex="-1">
     <section class="abertura3" aria-label="Abertura" data-abertura>
-    <div class="hud hud-topo" aria-hidden="true">
-      <span class="rec">CENA 01</span>
-      <span class="so-pc">4K · 24 fps · 16:9</span>
-      <span data-tc>00:00:00:00</span>
-    </div>
     <div class="conteudo" data-conteudo>
       <h1 class="titulo3">
-        <span class="linha" style="--n:0"><span>Agência criativa</span></span>
-        <span class="linha" style="--n:1"><span>com estúdio e produtora</span></span>
-        <span class="linha" style="--n:2"><span>dentro de <em>casa.</em></span></span>
+        <span class="linha" style="--n:0"><span>Pensamos.</span></span>
+        <span class="linha" style="--n:1"><span>Criamos.</span></span>
+        <span class="linha" style="--n:2"><span><em>Gravamos</em><span class="ponto3" aria-hidden="true"></span><span class="sr">.</span></span></span>
       </h1>
+      <p class="apoio3">Agência, estúdio e audiovisual no mesmo time.</p>
       <div class="acoes3">
         <a class="btn btn--primario" href="#trabalhos">Ver trabalhos</a>
+        <a class="btn btn--linha" href="#contato">Fale com a gente</a>
         <button class="btn btn--vidro" type="button" data-abre-video hidden><svg class="ic"><use href="#i-som"/></svg>Assistir com som</button>
       </div>
     </div>
   </section>
-    <section class="filme3" aria-label="Filme da HYMN" data-filme data-video="" data-video-cel="">
+    <section class="filme3" id="clientes" aria-label="Filme e marcas que confiam na HYMN" data-filme data-video="" data-video-cel="">
     <div class="quadro3" data-quadro>
-      <img class="corte is-ativo" src="assets/filme/f01.webp" srcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" sizes="100vw" alt="Caminhão Scania cruzando a rua da fábrica ao amanhecer, foto da HYMN Audiovisual" fetchpriority="high" style="--fx:52%;--fy:62%;--fxc:50%">
+      <img class="corte is-ativo" src="assets/filme/f01.webp" srcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" sizes="100vw" alt="Caminhão Scania cruzando a rua da fábrica ao amanhecer, foto da HYMN Audiovisual" style="--fx:52%;--fy:62%;--fxc:50%">
       <img class="corte" src="assets/filme/f02.webp" srcset="assets/filme/f02-p.webp 1000w, assets/filme/f02.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:60%;--fy:52%;--fxc:64%">
+      <img class="corte" src="assets/filme/f05.webp" srcset="assets/filme/f05-p.webp 1000w, assets/filme/f05.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:50%;--fy:52%;--fxc:52%">
       <img class="corte" src="assets/filme/f03.webp" srcset="assets/filme/f03-p.webp 1000w, assets/filme/f03.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:50%;--fy:64%;--fxc:50%">
       <img class="corte" src="assets/filme/f04.webp" srcset="assets/filme/f04-p.webp 1000w, assets/filme/f04.webp 1920w" sizes="100vw" alt="" decoding="async" fetchpriority="low" style="--fx:54%;--fy:56%;--fxc:56%">
-      <img class="corte" src="assets/frame-abertura.webp" alt="" decoding="async" fetchpriority="low" style="--fx:46%;--fy:62%;--fxc:44%">
       <video muted loop playsinline disablepictureinpicture preload="none" aria-hidden="true" tabindex="-1" hidden></video>
     </div>
+    <div class="veu3" aria-hidden="true"></div>
     <div class="tarja tarja--cima" aria-hidden="true" data-tarja></div>
     <div class="tarja tarja--baixo" aria-hidden="true" data-tarja></div>
-    <button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa-filme><svg class="ic"><use href="#i-pausa"/></svg></button>
+    <div class="hud hud-topo">
+      <span class="rec" aria-hidden="true" data-cena>CENA 01</span>
+      <span class="so-pc" aria-hidden="true">4K · 24 fps · 16:9</span>
+      <span class="dir"><span aria-hidden="true" data-tc>00:00:00:00</span><button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa-filme><svg class="ic"><use href="#i-pausa"/></svg></button></span>
+    </div>
+    <div class="marcas3">
+      <h2 id="t-clientes">Marcas que confiam na HYMN</h2>
+      <div class="pilula3" data-logos>
+        <div style="--n:0"><img class="cor-original" src="assets/scania.png" alt="Scania"></div>
+        <div style="--n:1"><span class="prov">Logo</span></div>
+        <div style="--n:2"><span class="prov">Logo</span></div>
+        <div style="--n:3"><span class="prov">Logo</span></div>
+        <div style="--n:4"><span class="prov">Logo</span></div>
+        <div style="--n:5"><span class="prov">Logo</span></div>
+      </div>
+    </div>
   </section>
     <section class="faixa3" aria-label="O que fazemos">
-    <p class="sr">Design, ads, SEO, conteúdo, marketing, site, brand, fotos e filmes.</p>
+    <p class="sr">Design, ads, SEO, conteúdo, marketing, site, branding, fotos e filmes.</p>
     <div class="trilho" aria-hidden="true" data-trilho>
-      <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Brand</span><span>Fotos</span><span>Filmes</span>
+      <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span>
     </div>
   </section>
     <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
@@ -383,7 +417,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
         <a class="tela3" href="#trabalhos" aria-label="Cliente, comercial" style="--fx:50%;--fy:62%;--z:1.1;--n:2"><img src="assets/filme/f03-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Comercial</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, produção híbrida" style="--n:3"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produção híbrida</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:4"><img src="assets/exemplos/ex09.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:46%;--fy:60%;--z:1.05;--n:5"><img src="assets/frame-abertura.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
+        <a class="tela3" href="#trabalhos" aria-label="Cliente, filme institucional" style="--fx:50%;--fy:55%;--z:1.05;--n:5"><img src="assets/filme/f05-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Filme institucional</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex05.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, lançamento" style="--n:7"><img src="assets/exemplos/ex10.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Lançamento</span></span></a>
         <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:44%;--fy:62%;--z:1.7;--n:8"><img src="assets/filme/f01-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
@@ -400,20 +434,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       </div>
     </div>
   </section>
-    <section class="clientes3 miolo" id="clientes" aria-labelledby="t-clientes">
-    <div class="cabeca3">
-      <h2 id="t-clientes">Clientes</h2>
-      <a class="link3" href="#clientes">Ver todos<svg class="ic"><use href="#i-seta"/></svg></a>
-    </div>
-    <div class="logos3" data-logos>
-      <div style="--n:0"><img class="cor-original" src="assets/scania.png" alt="Scania"></div>
-      <div style="--n:1"><span class="prov">Logo</span></div>
-      <div style="--n:2"><span class="prov">Logo</span></div>
-      <div style="--n:3"><span class="prov">Logo</span></div>
-      <div style="--n:4"><span class="prov">Logo</span></div>
-      <div style="--n:5"><span class="prov">Logo</span></div>
-    </div>
-  </section>
+  
     <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
     <div class="painel3 miolo" data-painel>
       <div class="topo-contato">
@@ -466,7 +487,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   </section>
 </main>
 <dialog class="video3" aria-labelledby="t-video" data-video>
-  <div class="tela"><img src="assets/frame-abertura.webp" alt=""><p id="t-video">Aqui entra o filme da HYMN com som, em tela cheia.<br>Falta o arquivo de vídeo em Full HD.</p></div>
+  <div class="tela"><img src="assets/filme/f01-p.webp" alt=""><p id="t-video">Aqui entra o filme da HYMN com som, em tela cheia.<br>Falta o arquivo de vídeo em Full HD.</p></div>
   <div class="barra-video"><span>Cliente · Filme institucional · HYMN Audiovisual</span><button class="btn btn--discreto btn--sm" type="button" data-fecha-video><svg class="ic"><use href="#i-fechar"/></svg>Fechar</button></div>
 </dialog>
 <script>
@@ -479,30 +500,22 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   
-  var abertura = $('[data-abertura]'), tc = $('[data-tc]'), t0 = performance.now(), hudVisivel = true;
-  function dois(n) { return (n < 10 ? '0' : '') + n; }
-  function relogio(agora) {
-    if (anima && hudVisivel && !document.hidden) {
-      var f = Math.floor((agora - t0) / 1000 * 24);
-      tc.textContent = '00:' + dois(Math.floor(f / 1440) % 60) + ':' + dois(Math.floor(f / 24) % 60) + ':' + dois(f % 24);
-    }
-    requestAnimationFrame(relogio);
-  }
-  requestAnimationFrame(relogio);
-  
+  var abertura = $('[data-abertura]');
   var filme = $('[data-filme]'), quadroF = $('[data-quadro]', filme), vid = $('video', filme), btnFilme = $('[data-pausa-filme]', filme);
+  var tc = $('[data-tc]', filme), cenaHud = $('[data-cena]', filme), t0 = performance.now();
   var cortes = $$('.corte', filme), RITMO = [1400, 900, 1150, 800, 1250], iCorte = 0, tCorte = performance.now();
   var celular = window.matchMedia('(max-width: 600px)').matches;
   var srcVid = (celular && filme.dataset.videoCel) || filme.dataset.video;
   var parado = reduz, filmeVisivel = false, tocandoVid = false;
   var oQue = srcVid ? 'o vídeo' : 'as fotos';
+  function dois(n) { return (n < 10 ? '0' : '') + n; }
   cortes.forEach(function (im, n) {
+    im.style.setProperty('--dur-corte', (RITMO[n % RITMO.length] + 400) + 'ms');
     var ok = function () { im._pronta = true; };
     if (n === 0) ok();
     if (im.decode) im.decode().then(ok, function () { if (im.complete && im.naturalWidth) ok(); });
     else if (im.complete && im.naturalWidth) ok(); else im.addEventListener('load', ok);
   });
-  cortes.forEach(function (im, n) { im.style.setProperty('--dur-corte', (RITMO[n % RITMO.length] + 400) + 'ms'); });
   function marcaBotao() {
     btnFilme.setAttribute('aria-label', (parado ? 'Tocar ' : 'Pausar ') + oQue);
     $('use', btnFilme).setAttribute('href', parado ? '#i-play' : '#i-pausa');
@@ -516,12 +529,19 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
     im.classList.add('is-ativo');
     iCorte = prox;
+    cenaHud.textContent = 'CENA ' + dois(iCorte + 1);
   }
-  function montagem(agora) {
-    if (!parado && filmeVisivel && !document.hidden && !tocandoVid && agora - tCorte >= RITMO[iCorte % RITMO.length]) { corta(); tCorte = agora; }
-    requestAnimationFrame(montagem);
+  function quadroFilme(agora) {
+    var rodando = !parado && filmeVisivel && !document.hidden;
+    if (rodando && !tocandoVid && agora - tCorte >= RITMO[iCorte % RITMO.length]) { corta(); tCorte = agora; }
+    if (rodando && anima) {
+      var f = Math.floor((agora - t0) / 1000 * 24);
+      tc.textContent = '00:' + dois(Math.floor(f / 1440) % 60) + ':' + dois(Math.floor(f / 24) % 60) + ':' + dois(f % 24);
+    } else { t0 = agora - (parseInt(tc.dataset.f || '0', 10) / 24 * 1000); }
+    if (rodando) tc.dataset.f = Math.floor((agora - t0) / 1000 * 24);
+    requestAnimationFrame(quadroFilme);
   }
-  requestAnimationFrame(montagem);
+  requestAnimationFrame(quadroFilme);
   function tocaVid() {
     if (!srcVid) return;
     if (!parado && filmeVisivel && !document.hidden) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); } else { vid.pause(); }
@@ -534,7 +554,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   btnFilme.addEventListener('click', function () { parado = !parado; tCorte = performance.now(); marcaBotao(); tocaVid(); });
   marcaBotao();
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { filmeVisivel = es[0].isIntersecting; tocaVid(); }, { threshold: 0.25 }).observe(filme);
+    new IntersectionObserver(function (es) { filmeVisivel = es[0].isIntersecting; tocaVid(); }, { threshold: 0.2 }).observe(filme);
   } else { filmeVisivel = true; tocaVid(); }
   function abreTarjas(espera) {
     if (!anima || !Element.prototype.animate) return;
@@ -542,10 +562,9 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     $$('[data-tarja]', filme).forEach(function (t) { t.animate([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], { duration: 1300, delay: espera, easing: curvaT, fill: 'backwards' }); });
   }
   if (anima) {
-    var rF = filme.getBoundingClientRect();
-    if (rF.top < window.innerHeight * 0.92) abreTarjas(1100);
+    if (filme.getBoundingClientRect().top < window.innerHeight * 0.6) abreTarjas(600);
     else {
-      var ioT = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreTarjas(0); ioT.disconnect(); } }, { threshold: 0.3 });
+      var ioT = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreTarjas(0); ioT.disconnect(); } }, { threshold: 0.35 });
       ioT.observe(filme);
     }
   }
@@ -556,9 +575,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     quadroF.style.transform = 'scale(' + (1.08 - p * 0.08).toFixed(4) + ')';
   }
   
-  var img0 = $('img', filme);
   function carregou() { raiz.classList.add('carregou'); }
-  if (img0.complete) requestAnimationFrame(function () { requestAnimationFrame(carregou); }); else { img0.addEventListener('load', carregou); setTimeout(carregou, 1200); }
+  var fontes = document.fonts && document.fonts.ready;
+  var entrou = false; function entra() { if (!entrou) { entrou = true; requestAnimationFrame(function () { requestAnimationFrame(carregou); }); } }
+  if (fontes) fontes.then(entra); setTimeout(entra, 900);
   
   var trilho = $('[data-trilho]'), faixaX = 0, velScroll = 0, ultimoY = window.scrollY, ultimoT = performance.now(), faixaVisivel = true;
   trilho.innerHTML += trilho.innerHTML;
@@ -621,7 +641,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     });
     var ioF = new IntersectionObserver(function (es) { faixaVisivel = es[0].isIntersecting; });
     ioF.observe($('.faixa3'));
-    new IntersectionObserver(function (es) { hudVisivel = es[0].isIntersecting; }).observe(abertura);
   }
   
   var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), painel = $('[data-painel]'), contato = $('[data-contato]');
@@ -630,10 +649,13 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     pedido = false;
     var y = window.scrollY, h = window.innerHeight, dy = y - ultimoY;
     velScroll = dy / 16; ultimoY = y;
-    topo.classList.toggle('is-solido', y > 8);   
+    var claro = abertura.getBoundingClientRect().bottom > 72;   
+    topo.classList.toggle('is-claro', claro);
+    topo.classList.toggle('is-rolado', y > 8);
+    topo.classList.toggle('is-solido', !claro && y > 8);
     if (Math.abs(dy) > 4) topo.classList.toggle('is-escondido', dy > 0 && y > h * 0.9 && !menu.classList.contains('is-aberto'));
     if (!anima) return;
-    var a = Math.min(1, Math.max(0, y / (h * 0.7)));
+    var a = Math.min(1, Math.max(0, y / (abertura.offsetHeight * 0.75)));
     conteudo.style.transform = 'translate3d(0,' + (a * -60).toFixed(1) + 'px,0)';
     conteudo.style.opacity = (1 - a * 1.1).toFixed(3);
     var r = frase.getBoundingClientRect();
