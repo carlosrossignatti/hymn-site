@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>HYMN · Agência criativa</title>
+<title>HYMN | Agência, Studio e Audiovisual</title>
 <meta name="description" content="Agência criativa com estúdio e produtora dentro de casa.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,7 +64,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .titulo3 .linha { display: block; overflow: hidden; padding: 0 0.08em 0.1em; margin-bottom: -0.1em; }
 .titulo3 .linha > span { display: inline-block; }
 .titulo3 em { font-size: 1.08em; letter-spacing: -0.01em; padding-right: 0.02em; }
-.ponto3 { display: inline-block; width: 0.21em; height: 0.21em; margin-left: 0.05em; border-radius: 50%; background: #A64BFF; }
 .apoio3 { font-size: clamp(1.06rem, 1.5vw, 1.375rem); line-height: 1.4; color: #4D4D55; max-width: 44ch; text-wrap: balance; }
 .acoes3 { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--esp-3); }
 .abertura3 .btn--primario { background: var(--cor-preto); color: var(--cor-branco); }
@@ -73,8 +72,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .abertura3 .btn--linha:hover { background: rgb(0 0 0 / 5%); }
 .anima .titulo3 .linha > span { transform: translateY(108%); }
 .anima.carregou .titulo3 .linha > span { transform: none; transition: transform 1100ms var(--pg-entrada); transition-delay: calc(150ms + var(--n) * 110ms); }
-.anima .ponto3 { transform: translateY(-0.9em) scale(0.4); opacity: 0; }
-.anima.carregou .ponto3 { transform: none; opacity: 1; transition: transform 700ms cubic-bezier(0.34, 1.4, 0.64, 1) 820ms, opacity 200ms ease 820ms; }
 .anima .apoio3, .anima .acoes3, .anima .topo3 { opacity: 0; }
 .anima .apoio3, .anima .acoes3 { transform: translateY(14px); }
 .anima.carregou .apoio3 { opacity: 1; transform: none; transition: opacity 700ms ease 650ms, transform 900ms var(--pg-entrada) 650ms; }
@@ -98,31 +95,31 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes aproxima { from { transform: scale(1); } to { transform: scale(1.06); } }
 .filme3 video { opacity: 0; transition: opacity 600ms ease; }
 .filme3 video.is-tocando { opacity: 1; }
-.filme3 .veu3 { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 50%) 0%, rgb(0 0 0 / 0%) 24%, rgb(0 0 0 / 0%) 52%, rgb(0 0 0 / 72%) 100%); }
+.filme3 .veu3 { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 0%) 50%, rgb(0 0 0 / 72%) 100%); }
 .tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; transform: scaleY(0); }
 .tarja--cima { top: 0; transform-origin: top; }
 .tarja--baixo { bottom: 0; transform-origin: bottom; }
-.hud { display: flex; align-items: center; gap: var(--esp-3); font: 500 var(--tam-minimo)/1 var(--fonte-codigo); color: var(--cor-branco); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
-.hud .rec { display: inline-flex; align-items: center; gap: 6px; }
-.hud .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #FF3B30; }
-.anima .hud .rec::before { animation: pisca 1.2s steps(2, jump-none) infinite; }
-.filme3.is-parado .hud .rec::before { animation: none; background: var(--cor-branco); opacity: 0.5; }
-@keyframes pisca { 50% { opacity: 0.15; } }
-.hud span:not(.rec) { color: rgb(255 255 255 / 80%); }
-.filme3 .hud-topo { position: absolute; z-index: 2; top: clamp(12px, 2vw, 24px); left: var(--lateral); right: var(--lateral-d); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-.hud-topo .so-pc { justify-self: center; }
-.hud-topo .dir { justify-self: end; display: inline-flex; align-items: center; gap: var(--esp-3); }
-.filme3 .pausa3 { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); margin-right: -10px; border-radius: 50%; border: 0; background: transparent; color: var(--cor-branco); cursor: pointer; transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
-.filme3 .pausa3:hover { background: rgb(255 255 255 / 12%); }
+.filme3 .pausa3 { position: absolute; z-index: 3; top: clamp(12px, 2vw, 24px); right: var(--lateral-d); display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: 0; background: rgb(5 6 8 / 55%); color: var(--cor-branco); cursor: pointer; opacity: 0; transition: opacity 200ms ease, transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
+.filme3:hover .pausa3, .filme3 .pausa3:focus-visible, .filme3.is-parado .pausa3 { opacity: 1; }
+.filme3 .pausa3:hover { background: rgb(5 6 8 / 80%); }
 .filme3 .pausa3:active { transform: scale(0.92); }
 .filme3 .pausa3 .ic { width: 16px; height: 16px; }
-.marcas3 { position: absolute; z-index: 2; left: var(--lateral); right: var(--lateral-d); bottom: clamp(16px, 2.6vw, 32px); display: grid; justify-items: center; gap: 12px; }
-.marcas3 h2 { font: var(--peso-medio) var(--tam-legenda)/1.3 var(--fonte-texto); letter-spacing: -0.005em; color: rgb(255 255 255 / 90%); }
-.pilula3 { width: min(100%, 1080px); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: center; gap: clamp(8px, 2vw, 28px); padding: clamp(10px, 1.2vw, 16px) clamp(20px, 3vw, 44px); border-radius: var(--raio-pilula); border: var(--borda) solid rgb(255 255 255 / 14%); background: rgb(5 6 8 / 86%); }
-.pilula3 > div { display: grid; place-items: center; height: clamp(40px, 4vw, 56px); }
-.pilula3 img { max-height: 30px; width: auto; max-width: 100%; filter: brightness(0) invert(1); opacity: 0.92; }
-.pilula3 img.cor-original { filter: none; opacity: 1; max-height: clamp(36px, 3.6vw, 48px); }
-.pilula3 .prov { color: rgb(255 255 255 / 55%); border-color: rgb(255 255 255 / 22%); }
+.marcas3 { position: absolute; z-index: 2; left: var(--lateral); right: var(--lateral-d); bottom: clamp(16px, 1.6vw, 24px); display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 1.2vw, 16px); }
+.marcas3 h2 { order: 2; font: var(--peso-medio) var(--tam-legenda)/1.3 var(--fonte-texto); letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
+.pilula3 { --por-vez: 5; width: min(100%, 1080px); display: flex; align-items: center; gap: clamp(8px, 1.4vw, 20px); padding: clamp(12px, 1.4vw, 20px) clamp(14px, 1.7vw, 24px); border-radius: var(--raio-pilula); border: var(--borda) solid rgb(255 255 255 / 14%); background: rgb(5 6 8 / 85%); overflow: hidden; touch-action: pan-y; }
+.seta3 { display: grid; place-items: center; flex: none; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; border: 0; background: rgb(255 255 255 / 8%); color: rgb(255 255 255 / 70%); cursor: pointer; transition: background-color 150ms ease, color 150ms ease, transform 160ms var(--pg-entrada); }
+.seta3:hover { background: rgb(255 255 255 / 16%); color: var(--cor-branco); }
+.seta3:active { transform: scale(0.94); }
+.seta3 .ic { width: 16px; height: 16px; }
+.vitrine3 { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: clamp(12px, 2vw, 32px); margin: 0; padding: 0 clamp(8px, 2vw, 32px); list-style: none; will-change: transform, opacity, filter; }
+.vitrine3 li { flex: 1 1 0; min-width: 0; height: clamp(44px, 3.9vw, 56px); display: flex; align-items: center; justify-content: center; color: var(--cor-branco); white-space: nowrap; }
+.vitrine3 li.is-fora { display: none; }
+.vitrine3 img { max-height: clamp(34px, 3.2vw, 44px); width: auto; max-width: 100%; }
+.vitrine3 .nome { font: 600 clamp(1rem, 1.45vw, 1.3rem)/1 var(--fonte-texto); letter-spacing: -0.02em; overflow: hidden; text-overflow: clip; }
+.vitrine3 .nome--caixa { font-size: clamp(0.82rem, 1.1vw, 1rem); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.vitrine3 .nome--fino { font-weight: 400; letter-spacing: -0.03em; }
+.vitrine3 .nome--serifa { font: italic 400 clamp(1.2rem, 1.8vw, 1.6rem)/1 var(--fonte-destaque, "Instrument Serif", serif); letter-spacing: 0; }
+.vitrine3 .nome--forte { font-weight: 600; letter-spacing: -0.05em; text-transform: lowercase; font-size: clamp(1.1rem, 1.6vw, 1.45rem); }
 .frentes3 { padding-bottom: var(--secao); }
 .frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
 .claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
@@ -153,6 +150,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frente.is-ativa .selo { opacity: 1; }
 .faixa3 { overflow: hidden; padding-block: clamp(12px, 1.4vw, 18px); background: var(--cor-amarelo); color: var(--cor-preto); }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
+.anima .trilho { animation: corre-faixa var(--dur-faixa, 60s) linear infinite; }
+.faixa3:not(.is-visivel) .trilho { animation-play-state: paused; }
+@keyframes corre-faixa { to { transform: translate3d(-50%, 0, 0); } }
 .trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(1.15rem, 2.1vw, 1.75rem)/1 var(--fonte-texto); letter-spacing: -0.02em; padding-right: 0.6em; }
 .trilho span::after { content: ""; width: 0.22em; height: 0.22em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
 .trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.01em; }
@@ -168,19 +168,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .link3 { display: inline-flex; align-items: center; gap: var(--esp-2); min-height: var(--toque-min); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); white-space: nowrap; }
 .link3 .ic { transition: transform var(--dur-media) var(--pg-entrada); }
 .link3:hover .ic { transform: translateX(4px); }
-.trabalhos3 { padding-bottom: var(--secao); overflow: hidden; overflow: clip; }
-.parede3 { --tela-l: max(220px, calc((100vw - 4 * 12px) / 5)); display: grid; gap: 12px; }
+.trabalhos3 { --foco: var(--cor-preto); padding-block: var(--secao); background: #FFFFFF; color: var(--cor-preto); color-scheme: light; overflow: hidden; overflow: clip; }
+.parede3 { --tela-l: clamp(260px, 24vw, 560px); display: grid; gap: 12px; }
 .fileira3 { display: flex; gap: 12px; width: max-content; will-change: transform; }
 .fileira3 + .fileira3 { margin-left: calc(var(--tela-l) * -0.5); }
-.fileira3:nth-child(3) { margin-left: calc(var(--tela-l) * -0.25); }
-.tela3 { position: relative; flex: none; width: var(--tela-l); aspect-ratio: 16 / 10; border-radius: var(--raio-lg); overflow: hidden; background: var(--cor-superficie); }
+.tela3 { position: relative; flex: none; width: var(--tela-l); aspect-ratio: 5 / 3; border-radius: 18px; overflow: hidden; background: #EDEDF0; }
 .tela3 img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(var(--z, 1)); transition: transform 600ms var(--pg-entrada); }
 .tela3.is-pb img { filter: grayscale(1) contrast(1.12); }
 .tela3 .info3 { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: var(--esp-3); padding: 48px 16px 14px; background: linear-gradient(to top, var(--cor-veu), rgb(0 0 0 / 0%)); font-size: var(--tam-legenda); color: var(--cor-branco); opacity: 0; transform: translateY(6px); transition: opacity 250ms ease, transform 300ms var(--pg-entrada); }
 .tela3 .info3 b { font-weight: var(--peso-titulo); }
 .tela3 .info3 span { color: var(--pg-apoio-foto); }
 .tela3:focus-visible .info3 { opacity: 1; transform: none; }
-.tela3:focus-visible { outline: 2px solid var(--cor-amarelo); outline-offset: 3px; }
+.tela3:focus-visible { outline: 2px solid var(--cor-preto); outline-offset: 3px; }
 .tela3 { transition: transform 160ms var(--pg-entrada); -webkit-tap-highlight-color: transparent; }
 .tela3:active { transform: scale(0.98); }
 .anima .fileira3:has(:focus-visible) { transition: transform 300ms var(--pg-entrada); }
@@ -190,7 +189,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
 html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
-.contato3 { padding: 0 0 0; }
+.contato3 { padding: 0 0 0; background: #FFFFFF; }   
 .painel3 { background: var(--cor-amarelo); color: var(--cor-preto); --foco: var(--cor-preto); clip-path: inset(var(--ci, 0px) var(--cl, 0px) 0 var(--cl, 0px) round var(--cr, 0px)); padding-top: clamp(96px, 14vw, 180px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
 .painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); }
 .painel3 h2 { font: var(--peso-titulo) clamp(3.4rem, 11vw, 10rem)/0.92 var(--fonte-texto); letter-spacing: -0.04em; }
@@ -227,7 +226,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .btn-menu3 { display: inline-flex; align-items: center; }
   .abertura3 { min-height: min(72svh, 640px); padding-top: calc(env(safe-area-inset-top, 0px) + 128px); padding-bottom: var(--esp-8); }
   .abertura3 .conteudo { gap: var(--esp-5); }
-  .parede3 { --tela-l: 64vw; gap: 8px; }
+  .parede3 { --tela-l: 72vw; gap: 8px; }
+  .tela3 { border-radius: 14px; }
   .fileira3 { gap: 8px; }
     .painel3 .topo-contato { grid-template-columns: 1fr; }
   .roseta3 { order: -1; width: 168px; margin-bottom: 0; }
@@ -242,8 +242,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .frente h3 { font-size: clamp(2.1rem, 10.5vw, 2.9rem); }
   .frente p, .frente .selo { display: none; }
   .anima .frente.is-ativa h3 { transform: translateX(6px); }
-  .hud-topo { top: calc(env(safe-area-inset-top, 0px) + 84px); }
-  .hud-topo .so-pc { display: none; }
+  .filme3 .pausa3 { top: calc(env(safe-area-inset-top, 0px) + 84px); }
 }
 @media (max-width: 1024px) {
   .filme3 { aspect-ratio: 16 / 9; }
@@ -252,9 +251,14 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .filme3 { aspect-ratio: 4 / 5; min-height: 0; }
   .filme3 .quadro3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .filme3 .corte { transform-origin: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
-  .filme3 .hud-topo { grid-template-columns: 1fr auto; }
-  .pilula3 { grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: var(--raio-lg); row-gap: 4px; padding: 10px 14px; }
-  .pilula3 > div { height: 44px; }
+  .pilula3 { --por-vez: 3; padding: 14px 16px; }
+  .vitrine3 { padding: 0 4px; gap: 12px; }
+  .vitrine3 li { height: 44px; }
+  .vitrine3 .nome { font-size: 0.98rem; }
+  .vitrine3 .nome--caixa { font-size: 0.78rem; letter-spacing: 0.12em; }
+  .vitrine3 .nome--serifa { font-size: 1.15rem; }
+  .vitrine3 img { max-height: 32px; }
+  .seta3 { display: none; }
   .abertura3 { min-height: calc(100svh - 96px); padding-top: calc(env(safe-area-inset-top, 0px) + 96px); }
   .acoes3 .btn { flex: 1 1 100%; }
   .acoes3 { width: min(100%, 320px); }
@@ -262,12 +266,17 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .seta3 { display: grid; }
+  .pilula3 { padding: 10px; gap: 4px; }
+}
 </style>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
 <defs>
 <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-seta-esq" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
 <symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
 <symbol id="i-pausa" viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></symbol>
@@ -309,8 +318,8 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     <div class="conteudo" data-conteudo>
       <h1 class="titulo3">
         <span class="linha" style="--n:0"><span>Pensamos.</span></span>
-        <span class="linha" style="--n:1"><span>Criamos.</span></span>
-        <span class="linha" style="--n:2"><span><em>Gravamos</em><span class="ponto3" aria-hidden="true"></span><span class="sr">.</span></span></span>
+        <span class="linha" style="--n:1"><span><em>Criamos</em>.</span></span>
+        <span class="linha" style="--n:2"><span>Gravamos.</span></span>
       </h1>
       <p class="apoio3">Agência, estúdio e audiovisual no mesmo time.</p>
       <div class="acoes3">
@@ -332,20 +341,24 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     <div class="veu3" aria-hidden="true"></div>
     <div class="tarja tarja--cima" aria-hidden="true" data-tarja></div>
     <div class="tarja tarja--baixo" aria-hidden="true" data-tarja></div>
-    <div class="hud hud-topo">
-      <span class="rec" aria-hidden="true" data-cena>CENA 01</span>
-      <span class="so-pc" aria-hidden="true">4K · 24 fps · 16:9</span>
-      <span class="dir"><span aria-hidden="true" data-tc>00:00:00:00</span><button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa-filme><svg class="ic"><use href="#i-pausa"/></svg></button></span>
-    </div>
+    <button class="pausa3" type="button" aria-label="Pausar as fotos" data-pausa-filme><svg class="ic"><use href="#i-pausa"/></svg></button>
     <div class="marcas3">
       <h2 id="t-clientes">Marcas que confiam na HYMN</h2>
-      <div class="pilula3" data-logos>
-        <div style="--n:0"><img class="cor-original" src="assets/scania.png" alt="Scania"></div>
-        <div style="--n:1"><span class="prov">Logo</span></div>
-        <div style="--n:2"><span class="prov">Logo</span></div>
-        <div style="--n:3"><span class="prov">Logo</span></div>
-        <div style="--n:4"><span class="prov">Logo</span></div>
-        <div style="--n:5"><span class="prov">Logo</span></div>
+            <div class="pilula3" data-marcas>
+        <button class="seta3" type="button" aria-label="Marcas anteriores" data-marca-ant><svg class="ic"><use href="#i-seta-esq"/></svg></button>
+        <ul class="vitrine3" aria-labelledby="t-clientes" data-vitrine>
+          <li><img src="assets/scania.png" alt="Scania"></li>
+          <li data-teste><span class="nome nome--forte">Itaú</span></li>
+          <li data-teste><span class="nome nome--fino">Natura</span></li>
+          <li data-teste><span class="nome nome--caixa">Havaianas</span></li>
+          <li data-teste><span class="nome nome--forte">Nubank</span></li>
+          <li data-teste><span class="nome nome--caixa">Ambev</span></li>
+          <li data-teste><span class="nome nome--serifa">O Boticário</span></li>
+          <li data-teste><span class="nome nome--forte">Magalu</span></li>
+          <li data-teste><span class="nome">Mercado Livre</span></li>
+          <li data-teste><span class="nome nome--serifa">Coca-Cola</span></li>
+        </ul>
+        <button class="seta3" type="button" aria-label="Próximas marcas" data-marca-prox><svg class="ic"><use href="#i-seta"/></svg></button>
       </div>
     </div>
   </section>
@@ -356,7 +369,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     </div>
   </section>
     <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
-    <p>Da estratégia ao vídeo final, tudo num lugar só.</p>
+    <p>Da estratégia ao vídeo final, tudo num só lugar.</p>
   </section>
     <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
     <p class="rotulo3">Um time, três frentes dentro de casa</p>
@@ -421,16 +434,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
         <a class="tela3" href="#trabalhos" aria-label="Cliente, vídeo com IA" style="--n:6"><img src="assets/exemplos/ex05.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Vídeo com IA</span></span></a>
         <a class="tela3" href="#trabalhos" aria-label="Cliente, lançamento" style="--n:7"><img src="assets/exemplos/ex10.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Lançamento</span></span></a>
         <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, cobertura de evento" style="--fx:44%;--fy:62%;--z:1.7;--n:8"><img src="assets/filme/f01-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Cobertura de evento</span></span></a>
-      </div>
-      <div class="fileira3">
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, motion de marca" style="--n:2"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion de marca</span></span></a>
-        <a class="tela3 is-pb" href="#trabalhos" aria-label="Cliente, bastidores" style="--fx:58%;--fy:56%;--z:1.5;--n:3"><img src="assets/filme/f04-p.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Bastidores</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, foto de produto" style="--n:4"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Foto de produto</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, campanha com IA" style="--n:5"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Campanha com IA</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, motion para Reels" style="--n:6"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Motion para Reels</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, produto em 3D" style="--n:7"><img src="assets/exemplos/ex03.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produto em 3D</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, produção híbrida" style="--n:8"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Produção híbrida</span></span></a>
-        <a class="tela3" href="#trabalhos" aria-label="Cliente, moda com IA" style="--n:9"><img src="assets/exemplos/ex04.webp" alt="" loading="lazy" decoding="async"><span class="info3"><b>Cliente</b><span>Moda com IA</span></span></a>
       </div>
     </div>
   </section>
@@ -500,15 +503,13 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   
-  var abertura = $('[data-abertura]');
+  var abertura = $('[data-abertura]'), trab = $('#trabalhos');
   var filme = $('[data-filme]'), quadroF = $('[data-quadro]', filme), vid = $('video', filme), btnFilme = $('[data-pausa-filme]', filme);
-  var tc = $('[data-tc]', filme), cenaHud = $('[data-cena]', filme), t0 = performance.now();
   var cortes = $$('.corte', filme), RITMO = [1400, 900, 1150, 800, 1250], iCorte = 0, tCorte = performance.now();
   var celular = window.matchMedia('(max-width: 600px)').matches;
   var srcVid = (celular && filme.dataset.videoCel) || filme.dataset.video;
   var parado = reduz, filmeVisivel = false, tocandoVid = false;
   var oQue = srcVid ? 'o vídeo' : 'as fotos';
-  function dois(n) { return (n < 10 ? '0' : '') + n; }
   cortes.forEach(function (im, n) {
     im.style.setProperty('--dur-corte', (RITMO[n % RITMO.length] + 400) + 'ms');
     var ok = function () { im._pronta = true; };
@@ -529,16 +530,10 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
     im.classList.add('is-ativo');
     iCorte = prox;
-    cenaHud.textContent = 'CENA ' + dois(iCorte + 1);
   }
   function quadroFilme(agora) {
     var rodando = !parado && filmeVisivel && !document.hidden;
     if (rodando && !tocandoVid && agora - tCorte >= RITMO[iCorte % RITMO.length]) { corta(); tCorte = agora; }
-    if (rodando && anima) {
-      var f = Math.floor((agora - t0) / 1000 * 24);
-      tc.textContent = '00:' + dois(Math.floor(f / 1440) % 60) + ':' + dois(Math.floor(f / 24) % 60) + ':' + dois(f % 24);
-    } else { t0 = agora - (parseInt(tc.dataset.f || '0', 10) / 24 * 1000); }
-    if (rodando) tc.dataset.f = Math.floor((agora - t0) / 1000 * 24);
     requestAnimationFrame(quadroFilme);
   }
   requestAnimationFrame(quadroFilme);
@@ -580,20 +575,49 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   var entrou = false; function entra() { if (!entrou) { entrou = true; requestAnimationFrame(function () { requestAnimationFrame(carregou); }); } }
   if (fontes) fontes.then(entra); setTimeout(entra, 900);
   
-  var trilho = $('[data-trilho]'), faixaX = 0, velScroll = 0, ultimoY = window.scrollY, ultimoT = performance.now(), faixaVisivel = true;
+  var trilho = $('[data-trilho]'), ultimoY = window.scrollY;
   trilho.innerHTML += trilho.innerHTML;
-  function corre(agora) {
-    var dt = Math.min(64, agora - ultimoT); ultimoT = agora;
-    if (anima && faixaVisivel) {
-      var meio = trilho.scrollWidth / 2;
-      faixaX -= (0.045 + Math.min(1.2, Math.abs(velScroll)) * 0.9) * dt;
-      if (-faixaX >= meio) faixaX += meio;
-      trilho.style.transform = 'translate3d(' + faixaX.toFixed(2) + 'px,0,0)';
-    }
-    velScroll *= 0.92;
-    requestAnimationFrame(corre);
+  function ritmoFaixa() { trilho.style.setProperty('--dur-faixa', Math.max(20, trilho.scrollWidth / 2 / 40).toFixed(1) + 's'); }
+  ritmoFaixa();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ritmoFaixa);
+  
+  var pilula = $('[data-marcas]'), vitrine = $('[data-vitrine]', pilula), itens = $$('li', vitrine);
+  var inicio = 0, porVez = 0, trocando = false, emCima = false, tTroca = performance.now();
+  var CURVA = 'cubic-bezier(0.23, 1, 0.32, 1)';
+  function lePorVez() { return Math.min(itens.length, parseInt(getComputedStyle(pilula).getPropertyValue('--por-vez'), 10) || 5); }
+  function mostra() {
+    porVez = lePorVez();
+    itens.forEach(function (li) { li.classList.add('is-fora'); li.style.order = ''; });
+    for (var i = 0; i < porVez; i++) { var li = itens[(inicio + i) % itens.length]; li.classList.remove('is-fora'); li.style.order = i; }
   }
-  requestAnimationFrame(corre);
+  function vai(dir) {
+    if (trocando) return;
+    var n = itens.length;
+    inicio = ((inicio + dir * porVez) % n + n) % n;
+    tTroca = performance.now();
+    if (!anima || !vitrine.animate) { mostra(); return; }
+    trocando = true;
+    var sai = vitrine.animate([{ opacity: 1, transform: 'none', filter: 'blur(0px)' }, { opacity: 0, transform: 'translateX(' + (-8 * dir) + 'px)', filter: 'blur(2px)' }], { duration: 160, easing: CURVA, fill: 'forwards' });
+    sai.onfinish = function () {
+      mostra(); sai.cancel();
+      vitrine.animate([{ opacity: 0, transform: 'translateX(' + (8 * dir) + 'px)', filter: 'blur(2px)' }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }], { duration: 280, easing: CURVA }).onfinish = function () { trocando = false; };
+    };
+  }
+  mostra();
+  $('[data-marca-ant]', pilula).addEventListener('click', function () { vitrine.setAttribute('aria-live', 'polite'); vai(-1); });
+  $('[data-marca-prox]', pilula).addEventListener('click', function () { vitrine.setAttribute('aria-live', 'polite'); vai(1); });
+  pilula.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') emCima = true; });
+  pilula.addEventListener('pointerleave', function () { emCima = false; tTroca = performance.now(); });
+  pilula.addEventListener('focusin', function () { emCima = true; });
+  pilula.addEventListener('focusout', function () { emCima = false; tTroca = performance.now(); });
+  var x0 = null;
+  pilula.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') x0 = e.clientX; });
+  pilula.addEventListener('pointerup', function (e) { if (x0 === null) return; var dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 36) { vitrine.setAttribute('aria-live', 'polite'); vai(dx < 0 ? 1 : -1); } });
+  pilula.addEventListener('pointercancel', function () { x0 = null; });
+  if (anima) setInterval(function () {
+    if (!emCima && filmeVisivel && !document.hidden && performance.now() - tTroca >= 4000) { vitrine.setAttribute('aria-live', 'off'); vai(1); }
+  }, 250);
+  window.addEventListener('resize', function () { ritmoFaixa(); if (lePorVez() !== porVez) mostra(); });
   
   var frase = $('[data-frase] p');
   (function quebra(no) {
@@ -617,7 +641,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var ordem = function (el, i) { var n = parseFloat(el.style.getPropertyValue('--n')); return isNaN(n) ? i : n; };
     var receitas = [
       { sel: '[data-revela-parede]', filhos: '.tela3', de: { opacity: 0, transform: 'scale(0.96)' }, dur: 900, passo: 45 },
-      { sel: '[data-logos]', filhos: ':scope > div', de: { opacity: 0, transform: 'translateY(16px)' }, dur: 800, passo: 70 },
+      { sel: '[data-vitrine]', filhos: ':scope > li:not(.is-fora)', de: { opacity: 0, transform: 'translateY(12px)' }, dur: 800, passo: 70 },
       { sel: '[data-revela-frente]', filhos: null, de: { opacity: 0, transform: 'translateY(24px)' }, dur: 900, passo: 0 },
       { sel: '[data-roseta]', filhos: '.linhas circle', de: { strokeDashoffset: 1 }, para: { strokeDashoffset: 0 }, dur: 1600, passo: 45 }
     ];
@@ -634,13 +658,14 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { revela(e.target); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px 8% 0px', threshold: 0 });
-    $$('[data-logos], [data-revela-frente], [data-roseta], [data-revela-parede]').forEach(function (el) {
+    $$('[data-vitrine], [data-revela-frente], [data-roseta], [data-revela-parede]').forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('is-visivel'); return; }   
       io.observe(el);
     });
-    var ioF = new IntersectionObserver(function (es) { faixaVisivel = es[0].isIntersecting; });
-    ioF.observe($('.faixa3'));
+    var faixa = $('.faixa3');
+    var ioF = new IntersectionObserver(function (es) { faixa.classList.toggle('is-visivel', es[0].isIntersecting); });
+    ioF.observe(faixa);
   }
   
   var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), painel = $('[data-painel]'), contato = $('[data-contato]');
@@ -648,8 +673,9 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   function noScroll() {
     pedido = false;
     var y = window.scrollY, h = window.innerHeight, dy = y - ultimoY;
-    velScroll = dy / 16; ultimoY = y;
-    var claro = abertura.getBoundingClientRect().bottom > 72;   
+    ultimoY = y;
+    var rt = trab.getBoundingClientRect();
+    var claro = abertura.getBoundingClientRect().bottom > 72 || (rt.top < 72 && rt.bottom > 72);
     topo.classList.toggle('is-claro', claro);
     topo.classList.toggle('is-rolado', y > 8);
     topo.classList.toggle('is-solido', !claro && y > 8);
@@ -716,7 +742,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     var p = Math.min(1, Math.max(0, (h - r.top) / (h + r.height)));
     var foco = document.activeElement, w = window.innerWidth;
     fileiras.forEach(function (f, i) {
-      var sobra = Math.max(0, f.scrollWidth - w) * (i === 1 ? 0.5 : 0.7);
+      var sobra = Math.max(0, f.scrollWidth - w) * 0.7;
       var x = i % 2 === 0 ? -(1 - p) * sobra : -p * sobra;
       if (foco && f.contains(foco) && foco.matches(':focus-visible')) {
         var q = foco.getBoundingClientRect(), base = q.left - (f._x || 0), m = 24;
