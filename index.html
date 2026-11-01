@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="only dark">
 <title>HYMN | Agência, Studio e Audiovisual</title>
 <meta name="description" content="Agência criativa com estúdio e produtora dentro de casa.">
 <meta name="robots" content="noindex, nofollow">
@@ -14,7 +15,7 @@
 <link rel="stylesheet" href="componentes.css">
 <style>
 :root {
-  color-scheme: dark;
+  color-scheme: only dark;   
   --pg-fundo: var(--cor-preto);
   --pg-texto: var(--cor-branco);
   --pg-apoio: var(--cor-cinza);
@@ -58,7 +59,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .menu-cel .rodape-menu { color: var(--pg-apoio); font-size: var(--tam-legenda); display: grid; gap: 4px; }
 .anima .menu-cel li { opacity: 0; transform: translateY(24px); }
 .anima .menu-cel.is-aberto li { opacity: 1; transform: none; transition: transform 600ms var(--pg-entrada), opacity 400ms ease; transition-delay: calc(80ms + var(--n) * 45ms); }
-.abertura3 { --foco: var(--cor-preto); position: relative; display: grid; place-items: center; min-height: calc(100svh - 64px); padding: calc(env(safe-area-inset-top, 0px) + 112px) var(--lateral-d) clamp(64px, 8vw, 112px) var(--lateral); background: #FFFFFF; color: var(--cor-preto); text-align: center; color-scheme: light; }
+.abertura3 { --foco: var(--cor-preto); position: relative; display: grid; place-items: center; min-height: calc(100svh - 64px); padding: calc(env(safe-area-inset-top, 0px) + 112px) var(--lateral-d) clamp(64px, 8vw, 112px) var(--lateral); background: #FFFFFF; color: var(--cor-preto); text-align: center; color-scheme: only light; }
 .abertura3 .conteudo { display: grid; justify-items: center; gap: clamp(20px, 2.4vw, 32px); will-change: transform, opacity; }
 .titulo3 { font: var(--peso-titulo) clamp(3rem, 7.2vw, 6rem)/0.95 var(--fonte-texto); letter-spacing: -0.04em; }
 .titulo3 .linha { display: block; overflow: hidden; padding: 0 0.08em 0.1em; margin-bottom: -0.1em; }
@@ -80,7 +81,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .btn { transition: transform 160ms var(--pg-entrada), background-color var(--dur-rapida) ease; }
 .btn:active { transform: scale(0.97); }
 .topo3 .marca .logo-preto { display: none; }
-.topo3.is-claro { --foco: var(--cor-preto); color: var(--cor-preto); }
+.topo3.is-claro { --foco: var(--cor-preto); color: var(--cor-preto); color-scheme: only light; }
 .topo3.is-claro .marca .logo-branco { display: none; }
 .topo3.is-claro .marca .logo-preto { display: block; }
 .topo3.is-claro.is-rolado { background: #FFFFFF; box-shadow: 0 1px 0 rgb(0 0 0 / 8%); }
@@ -114,6 +115,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (min-width: 1024px) { .marcas3 { left: 0; right: 0; margin-inline: auto; width: min(1080px, 100% - 2 * var(--margem)); } }
 .frentes3 { padding-bottom: var(--secao); }
 .frentes3 .rotulo3 { font-size: var(--tam-legenda); color: var(--pg-apoio); margin-bottom: var(--esp-5); }
+@media (prefers-color-scheme: dark) { :root { color-scheme: only dark; } }
 .claquete { --l: clamp(30px, 5vw, 72px); --abre: -4deg; }
 .claq-barra { position: relative; height: clamp(48px, 6vw, 80px); }
 .claq-barra .vara { position: absolute; left: 0; right: 0; height: calc(50% - 2px); border: var(--borda) solid var(--cor-linha-forte); }
@@ -140,7 +142,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frente.is-ativa p { color: var(--pg-texto); }
 .frente .selo { justify-self: end; opacity: 0; transition: opacity 300ms ease; }
 .frente.is-ativa .selo { opacity: 1; }
-.faixa3 { overflow: hidden; padding-block: clamp(12px, 1.4vw, 18px); background: var(--cor-amarelo); color: var(--cor-preto); }
+.faixa3 { overflow: hidden; padding-block: clamp(12px, 1.4vw, 18px); background: var(--cor-amarelo); color: var(--cor-preto); color-scheme: only light; }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
 .anima .trilho { animation: corre-faixa var(--dur-faixa, 60s) linear infinite; }
 .faixa3:not(.is-visivel) .trilho { animation-play-state: paused; }
@@ -148,7 +150,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(1.15rem, 2.1vw, 1.75rem)/1 var(--fonte-texto); letter-spacing: -0.02em; padding-right: 0.6em; }
 .trilho span::after { content: ""; width: 0.22em; height: 0.22em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
 .trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.01em; }
-.frase3 { padding-block: clamp(96px, 16vw, 200px); background: #FFFFFF; color: var(--cor-preto); color-scheme: light; }   
+.frase3 { padding-block: clamp(96px, 16vw, 200px); background: #FFFFFF; color: var(--cor-preto); color-scheme: only light; }   
 .frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
 .frase3 .p { transition: color 200ms linear; }
 .anima .frase3 .p { color: #CFCFD4; }
@@ -160,7 +162,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .link3 { display: inline-flex; align-items: center; gap: var(--esp-2); min-height: var(--toque-min); font: var(--peso-medio) var(--tam-ui)/1 var(--fonte-texto); white-space: nowrap; }
 .link3 .ic { transition: transform var(--dur-media) var(--pg-entrada); }
 .link3:hover .ic { transform: translateX(4px); }
-.trabalhos3 { --foco: var(--cor-preto); padding-block: var(--secao); background: #FFFFFF; color: var(--cor-preto); color-scheme: light; overflow: hidden; overflow: clip; }
+.trabalhos3 { --foco: var(--cor-preto); padding-block: var(--secao); background: #FFFFFF; color: var(--cor-preto); color-scheme: only light; overflow: hidden; overflow: clip; }
 .parede3 { --tela-l: clamp(260px, 24vw, 560px); display: grid; gap: 12px; }
 .fileira3 { display: flex; gap: 12px; width: max-content; will-change: transform; }
 .fileira3 + .fileira3 { margin-left: calc(var(--tela-l) * -0.5); }
@@ -182,7 +184,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 html:not(.anima) .parede3 { overflow-x: auto; padding-bottom: var(--esp-3); }
 html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !important; }
-.contato3 { background: #FFFFFF; color: var(--cor-preto); color-scheme: light; }
+.contato3 { background: #FFFFFF; color: var(--cor-preto); color-scheme: only light; }
 .painel3 { --foco: var(--cor-preto); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--esp-6)); }
 .painel3 .topo-contato { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--esp-6); padding-top: var(--secao); border-top: var(--borda) solid rgb(0 0 0 / 10%); }
 .painel3 h2 { font: var(--peso-titulo) clamp(2.6rem, 7vw, 6rem)/0.95 var(--fonte-texto); letter-spacing: -0.04em; }
@@ -218,6 +220,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .video3 .tela p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--esp-5); font-size: var(--tam-ui); color: var(--pg-texto); }
 .video3 .barra-video { display: flex; justify-content: space-between; align-items: center; gap: var(--esp-4); padding: var(--esp-4) var(--esp-5); font-size: var(--tam-legenda); color: var(--pg-apoio); }
 @media (max-width: 860px) {
+  .frentes3 .rotulo3 { display: none; }   
   .topo3 nav { display: none; }
   .btn-menu3 { display: inline-flex; align-items: center; }
   .abertura3 { min-height: min(72svh, 640px); padding-top: calc(env(safe-area-inset-top, 0px) + 128px); padding-bottom: var(--esp-8); }
@@ -257,7 +260,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .filme3 .quadro3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .filme3 .corte { transform-origin: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .marcas3 { left: 20px; right: 20px; bottom: 20px; gap: 14px; }
-  .marcas3 h2 { order: 0; font-size: 13.5px; color: #FFFFFF; }   
+  .marcas3 h2 { font-size: 13.5px; }
   .pilula3 { --por-vez: 3; gap: 12px; padding: 16px; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .seta3 { display: none; }
   .vitrine3 { gap: 16px; padding: 0 12px; }
@@ -482,8 +485,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       <footer class="rodape3">
         <span class="marca"><img src="assets/logo-preto.svg" alt="HYMN"></span>
         <span class="redes">
-          <a href="https://www.instagram.com/" aria-label="Instagram"><svg class="ic"><use href="#i-instagram"/></svg></a>
-          <a href="https://www.youtube.com/" aria-label="YouTube"><svg class="ic"><use href="#i-youtube"/></svg></a>
+                    <a href="https://www.youtube.com/@hymn6675" target="_blank" rel="noopener" aria-label="YouTube da HYMN"><svg class="ic"><use href="#i-youtube"/></svg></a>
           <a href="https://www.linkedin.com/" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
         </span>
         <span>© 2026 HYMN · Privacidade</span>
