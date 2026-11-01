@@ -40,7 +40,7 @@ main:focus { outline: none; }
 .pular:focus { transform: none; outline: 2px solid var(--cor-branco); outline-offset: 2px; }
 .topo3 { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: var(--z-topo); display: flex; align-items: center; justify-content: space-between; gap: var(--esp-5); height: 76px; padding-left: var(--lateral); padding-right: var(--lateral-d); transition: transform var(--dur-media) var(--pg-entrada), background-color var(--dur-media) ease, opacity 600ms ease; }
 .topo3.is-solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha); }
-.topo3.is-escondido { transform: translateY(-110%); }
+.topo3.is-video { background: transparent; box-shadow: none; }   
 .marca { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 .topo3 .marca img { height: 22px; width: auto; }
 .topo3 nav { display: flex; align-items: center; gap: var(--esp-7); font: var(--peso-medio) var(--tam-legenda)/1 var(--fonte-texto); text-transform: uppercase; letter-spacing: 0.08em; }
@@ -95,10 +95,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes aproxima { from { transform: scale(1); } to { transform: scale(1.06); } }
 .filme3 video { opacity: 0; transition: opacity 600ms ease; }
 .filme3 video.is-tocando { opacity: 1; }
-.filme3 .veu3 { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(0 0 0 / 0%) 50%, rgb(0 0 0 / 72%) 100%); }
-.tarja { position: absolute; left: 0; right: 0; height: calc((100% - 100vw / 2.39) / 2 + 2px); min-height: 12%; background: var(--cor-preto); z-index: 1; pointer-events: none; transform: scaleY(0); }
-.tarja--cima { top: 0; transform-origin: top; }
-.tarja--baixo { bottom: 0; transform-origin: bottom; }
+.filme3 .veu3 { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, rgb(3 5 7 / 28%) 0%, rgb(3 5 7 / 0%) 35%, rgb(3 5 7 / 12%) 60%, rgb(3 5 7 / 65%) 100%); }   
 .marcas3 { position: absolute; z-index: 2; left: 40px; right: 40px; bottom: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .marcas3 h2 { order: 2; font: 500 14px/1.5 var(--fonte-texto); letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
 .pilula3 { --por-vez: 5; width: min(100%, 1080px); display: flex; align-items: center; gap: 20px; padding: 20px 24px; border-radius: var(--raio-pilula); border: var(--borda) solid rgb(255 255 255 / 14%); background: rgb(5 6 8 / 85%); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); overflow: hidden; touch-action: pan-y; }
@@ -151,11 +148,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .trilho span { display: flex; align-items: center; white-space: nowrap; font: var(--peso-titulo) clamp(1.15rem, 2.1vw, 1.75rem)/1 var(--fonte-texto); letter-spacing: -0.02em; padding-right: 0.6em; }
 .trilho span::after { content: ""; width: 0.22em; height: 0.22em; border-radius: 50%; background: var(--cor-preto); margin-left: 0.5em; }
 .trilho span:nth-child(even) { font-weight: var(--peso-texto); letter-spacing: -0.01em; }
-.frase3 { padding-block: clamp(96px, 16vw, 200px); }
+.frase3 { padding-block: clamp(96px, 16vw, 200px); background: #FFFFFF; color: var(--cor-preto); color-scheme: light; }   
 .frase3 p { font: var(--peso-titulo) clamp(2.2rem, 6.4vw, 5.8rem)/1.02 var(--fonte-texto); letter-spacing: -0.04em; max-width: 17ch; }
 .frase3 .p { transition: color 200ms linear; }
-.anima .frase3 .p { color: var(--pg-apagado); }
-.anima .frase3 .p.is-lida { color: var(--pg-texto); }
+.anima .frase3 .p { color: #CFCFD4; }
+.anima .frase3 .p.is-lida { color: var(--cor-preto); }
 .ultima { white-space: nowrap; }
 .frase3 .apoio { margin-top: var(--esp-6); color: var(--pg-apoio); font-size: var(--tam-grande); max-width: 46ch; }
 .cabeca3 { display: flex; align-items: end; justify-content: space-between; gap: var(--esp-5); margin-bottom: var(--esp-7); }
@@ -207,6 +204,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
 .rodape3 .redes { display: flex; gap: var(--esp-1); color: var(--cor-preto); }
 .rodape3 .redes a { display: grid; place-items: center; width: var(--toque-min); height: var(--toque-min); border-radius: 50%; transition: background-color 150ms ease; }
 .rodape3 .redes a:hover { background: rgb(0 0 0 / 5%); }
+.volta-centro { grid-column: 1 / -1; display: flex; justify-content: center; margin-bottom: clamp(8px, 2vw, 32px); }   
 .volta3 { display: inline-grid; justify-items: center; gap: 6px; min-width: var(--toque-min); padding: 6px 4px; color: var(--cor-preto); font: var(--peso-titulo) 0.8rem/1.15 var(--fonte-texto); letter-spacing: 0.04em; text-transform: uppercase; text-align: center; }
 .volta3 .ic { width: 30px; height: 30px; stroke-width: 1.6; transition: transform 200ms var(--pg-entrada); }
 .volta3:hover .ic, .volta3:focus-visible .ic { transform: translateY(-3px); }
@@ -231,7 +229,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .btn--whats { justify-self: stretch; }
   .linhas3 { grid-template-columns: 1fr; }
   .rodape3 { justify-content: center; text-align: center; }
-  .rodape3 .volta3 { order: -1; width: 100%; margin-bottom: var(--esp-3); }
   .claquete { --abre: -15deg; --fecha: 0.85; margin-top: 64px; }
   .claq-campos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .claq-campos > div { padding: 10px var(--esp-4); gap: 6px; }
@@ -260,7 +257,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   .filme3 .quadro3 img, .filme3 video { object-position: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .filme3 .corte { transform-origin: var(--fxc, var(--fx, 50%)) var(--fy, 58%); }
   .marcas3 { left: 20px; right: 20px; bottom: 20px; gap: 14px; }
-  .marcas3 h2 { font-size: 13.5px; }
+  .marcas3 h2 { order: 0; font-size: 13.5px; color: #FFFFFF; }   
   .pilula3 { --por-vez: 3; gap: 12px; padding: 16px; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .seta3 { display: none; }
   .vitrine3 { gap: 16px; padding: 0 12px; }
@@ -361,8 +358,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       <video muted loop playsinline disablepictureinpicture preload="none" aria-hidden="true" tabindex="-1" hidden></video>
     </div>
     <div class="veu3" aria-hidden="true"></div>
-    <div class="tarja tarja--cima" aria-hidden="true" data-tarja></div>
-    <div class="tarja tarja--baixo" aria-hidden="true" data-tarja></div>
     <div class="marcas3">
       <h2 id="t-clientes">Marcas que confiam na HYMN</h2>
             <div class="pilula3" data-marcas>
@@ -383,14 +378,14 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
       </div>
     </div>
   </section>
+    <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
+    <p>Da estratégia ao vídeo final, tudo num só lugar.</p>
+  </section>
     <section class="faixa3" aria-label="O que fazemos">
     <p class="sr">Design, ads, SEO, conteúdo, marketing, site, branding, fotos e filmes.</p>
     <div class="trilho" aria-hidden="true" data-trilho>
       <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span>
     </div>
-  </section>
-    <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase>
-    <p>Da estratégia ao vídeo final, tudo num só lugar.</p>
   </section>
     <section class="frentes3 miolo" aria-label="O que a HYMN faz" data-frentes>
     <p class="rotulo3">Um time, três frentes dentro de casa</p>
@@ -472,6 +467,7 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
     <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato>
     <div class="painel3 miolo">
       <div class="topo-contato">
+        <div class="volta-centro"><a class="volta3" href="#inicio"><svg class="ic"><use href="#i-sobe"/></svg><span>Voltar ao<br>topo</span></a></div>
         <h2 id="t-contato">Vamos <em>conversar?</em></h2>
                 <a class="btn btn--whats" href="https://wa.me/5511948595084?text=Ol%C3%A1%2C%20HYMN%21%20Vi%20os%20trabalhos%20no%20site%20e%20quero%20pedir%20um%20or%C3%A7amento.%20O%20que%20eu%20preciso%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</a>
       </div>
@@ -488,7 +484,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
           <a href="https://www.linkedin.com/" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
         </span>
         <span>© 2026 HYMN · Privacidade</span>
-        <a class="volta3" href="#inicio"><svg class="ic"><use href="#i-sobe"/></svg><span>Voltar ao<br>topo</span></a>
       </footer>
     </div>
   </section>
@@ -548,18 +543,6 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (es) { filmeVisivel = es[0].isIntersecting; tocaVid(); }, { threshold: 0.2 }).observe(filme);
   } else { filmeVisivel = true; tocaVid(); }
-  function abreTarjas(espera) {
-    if (!anima || !Element.prototype.animate) return;
-    var curvaT = getComputedStyle(raiz).getPropertyValue('--pg-movimento').trim() || 'cubic-bezier(0.77, 0, 0.175, 1)';
-    $$('[data-tarja]', filme).forEach(function (t) { t.animate([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }], { duration: 1300, delay: espera, easing: curvaT, fill: 'backwards' }); });
-  }
-  if (anima) {
-    if (filme.getBoundingClientRect().top < window.innerHeight * 0.6) abreTarjas(600);
-    else {
-      var ioT = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreTarjas(0); ioT.disconnect(); } }, { threshold: 0.35 });
-      ioT.observe(filme);
-    }
-  }
   function moveFilme() {
     var r = filme.getBoundingClientRect(), h = window.innerHeight;
     if (r.bottom < -50 || r.top > h + 50) return;
@@ -662,16 +645,18 @@ html:not(.anima) .fileira3 { margin-left: 0 !important; transform: none !importa
   }
   
   var topo = $('[data-topo]'), conteudo = $('[data-conteudo]'), contato = $('[data-contato]');
+  var secoesTopo = [[abertura, 'claro'], [filme, 'video'], [$('[data-frase]'), 'claro'], [trab, 'claro'], [contato, 'claro']];
   var pedido = false;
   function noScroll() {
     pedido = false;
     var y = window.scrollY, h = window.innerHeight, dy = y - ultimoY;
     ultimoY = y;
-    var claro = abertura.getBoundingClientRect().bottom > 72 || [trab, contato].some(function (sec) { var r = sec.getBoundingClientRect(); return r.top < 72 && r.bottom > 72; });
-    topo.classList.toggle('is-claro', claro);
+    var modo = 'escuro';
+    for (var k = 0; k < secoesTopo.length; k++) { var rs = secoesTopo[k][0].getBoundingClientRect(); if (rs.top <= 38 && rs.bottom > 38) { modo = secoesTopo[k][1]; break; } }
+    topo.classList.toggle('is-claro', modo === 'claro');
+    topo.classList.toggle('is-video', modo === 'video');
     topo.classList.toggle('is-rolado', y > 8);
-    topo.classList.toggle('is-solido', !claro && y > 8);
-    if (Math.abs(dy) > 4) topo.classList.toggle('is-escondido', dy > 0 && y > h * 0.9 && !menu.classList.contains('is-aberto'));
+    topo.classList.toggle('is-solido', modo === 'escuro');
     if (!anima) return;
     var a = Math.min(1, Math.max(0, y / (abertura.offsetHeight * 0.75)));
     conteudo.style.transform = 'translate3d(0,' + (a * -60).toFixed(1) + 'px,0)';
