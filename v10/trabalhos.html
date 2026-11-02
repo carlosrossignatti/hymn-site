@@ -98,12 +98,12 @@
 </div>
 <main id="conteudo" tabindex="-1">
   <section class="cabeca-pg miolo claro" aria-labelledby="t-pg" data-tom="claro">
-    <h1 id="t-pg">Trabalhos<sup data-total>15</sup></h1>
+    <h1 id="t-pg">Trabalhos</h1>
     <div class="filtros" role="group" aria-label="Filtrar por frente" data-filtros>
-      <button class="filtro" type="button" aria-pressed="true" data-filtro="todos">Todos <span data-conta="todos"></span></button>
-      <button class="filtro" type="button" aria-pressed="false" data-filtro="agencia">Agência <span data-conta="agencia"></span></button>
-      <button class="filtro" type="button" aria-pressed="false" data-filtro="studio">Studio <span data-conta="studio"></span></button>
-      <button class="filtro" type="button" aria-pressed="false" data-filtro="audiovisual">Audiovisual <span data-conta="audiovisual"></span></button>
+      <button class="filtro" type="button" aria-pressed="true" data-filtro="todos">Todos</button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="agencia">Agência</button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="studio">Studio</button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="audiovisual">Audiovisual</button>
     </div>
     <p class="sr" aria-live="polite" data-aviso></p>
   </section>
@@ -127,10 +127,10 @@
     </ul>
     <div class="pe-trab">
       <div class="filtros" role="group" aria-label="Filtrar por frente, no fim da lista">
-        <button class="filtro" type="button" aria-pressed="true" data-filtro="todos">Todos <span data-conta="todos"></span></button>
-        <button class="filtro" type="button" aria-pressed="false" data-filtro="agencia">Agência <span data-conta="agencia"></span></button>
-        <button class="filtro" type="button" aria-pressed="false" data-filtro="studio">Studio <span data-conta="studio"></span></button>
-        <button class="filtro" type="button" aria-pressed="false" data-filtro="audiovisual">Audiovisual <span data-conta="audiovisual"></span></button>
+        <button class="filtro" type="button" aria-pressed="true" data-filtro="todos">Todos</button>
+        <button class="filtro" type="button" aria-pressed="false" data-filtro="agencia">Agência</button>
+        <button class="filtro" type="button" aria-pressed="false" data-filtro="studio">Studio</button>
+        <button class="filtro" type="button" aria-pressed="false" data-filtro="audiovisual">Audiovisual</button>
       </div>
     </div>
   </section>
@@ -166,19 +166,17 @@
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var obras = $$('[data-obras] > li'), botoes = $$('[data-filtro]'), total = $('[data-total]'), aviso = $('[data-aviso]');
+  var obras = $$('[data-obras] > li'), botoes = $$('[data-filtro]'), aviso = $('[data-aviso]');
   var lista = $('[data-obras]'), topoFiltro = $('[data-filtros]');
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var NOMES = { todos: 'todas as frentes', agencia: 'Agência', studio: 'Studio', audiovisual: 'Audiovisual' };
   function tem(o, f) { return f === 'todos' || (' ' + o.getAttribute('data-frente') + ' ').indexOf(' ' + f + ' ') > -1; }
-  botoes.forEach(function (b) { var f = b.getAttribute('data-filtro'); $('[data-conta]', b).textContent = obras.filter(function (o) { return tem(o, f); }).length; });
   obras.forEach(function (o, i) { o.style.viewTransitionName = 'obra-' + i; });
   var atual = 'todos';
   function aplica(f, avisa) {
     var n = 0; atual = f;
     obras.forEach(function (o) { var ok = tem(o, f); o.hidden = !ok; if (ok) n++; });
     botoes.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-filtro') === f)); });
-    total.textContent = n;
     if (avisa !== false) aviso.textContent = n + (n === 1 ? ' trabalho' : ' trabalhos') + ' de ' + NOMES[f] + '.';
     if (history.replaceState) history.replaceState(null, '', f === 'todos' ? location.pathname + location.search : '#' + f);
     if (window.HYMN) window.HYMN.atualizaTopo();
