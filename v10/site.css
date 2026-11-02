@@ -121,6 +121,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 520px) {
   .linhas3 { grid-template-columns: 1fr; }
   .linhas3 > :last-child { grid-column: 1; }
+  .rodape3 .redes { flex-wrap: nowrap; gap: 2px; }
+  .rodape3 .redes a { gap: 6px; padding: 0 8px; font-size: 0.875rem; }
+  .rodape3 .redes .ic { width: 18px; height: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -25,10 +25,16 @@
       topo.classList.toggle('is-solido', modo === 'escuro');
       topo.classList.toggle('is-rolado', y > 8);
     }
-    /* "Voltar ao topo" aparece quando a pessoa chega de fato ao fim da página */
+    /* "Voltar ao topo" aparece quando a pessoa chega de fato ao fim da página (igual à v9).
+       Em tela baixa (notebook pequeno, prévia dentro de outra janela, celular), o botão pode ficar acima da tela quando a página
+       termina e nunca seria visto: aí ele aparece quando passa pela tela, já no contato, no mesmo lugar. */
     if (volta) {
-      var fim = window.innerHeight + y >= document.documentElement.scrollHeight - 72;
-      volta.classList.toggle('is-visivel', fim);
+      var alto = document.documentElement.scrollHeight, telaH = window.innerHeight;
+      var fim = telaH + y >= alto - 72;
+      var r = volta.getBoundingClientRect();
+      var cabeca = topo ? topo.getBoundingClientRect().bottom : 0;
+      var noFim = r.top + y - Math.max(0, alto - telaH);
+      volta.classList.toggle('is-visivel', noFim >= cabeca ? fim : (r.top >= cabeca && r.bottom <= telaH * 0.75));
     }
   }
   window.addEventListener('scroll', atualiza, { passive: true });

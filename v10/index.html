@@ -68,6 +68,8 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
 .vitrine3 { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 32px; margin: 0; padding: 0 32px; list-style: none; will-change: transform, opacity, filter; }
 .vitrine3 li { flex: 1 1 0; min-width: 0; height: 56px; display: flex; align-items: center; justify-content: center; color: var(--cor-branco); white-space: nowrap; opacity: 0.95; }
 .vitrine3 li.is-fora { display: none; }
+.vitrine3 img { display: block; width: calc(var(--w) * 0.62px); max-width: 100%; max-height: 52px; height: auto; object-fit: contain; }
+.vitrine3 .nome--duas { font-size: 0.92rem; line-height: 1.1; white-space: normal; text-align: center; }
 .vitrine3 .nome { font: 600 1.2rem/1 var(--fonte-texto); letter-spacing: -0.02em; }
 .vitrine3 .nome--caixa { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
 .vitrine3 .nome--fino { font-weight: 400; font-size: 1.3rem; letter-spacing: -0.03em; }
@@ -121,9 +123,6 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
   .arte3 { height: 44%; }
   .arte3 svg { width: 88%; }
 }
-.juntos3 { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 10px; margin-top: clamp(24px, 3vw, 36px); text-align: center; font-size: var(--tam-legenda); color: #4D4D55; }
-.juntos3 .ponto { width: 7px; height: 7px; border-radius: 50%; background: var(--pg-roxo-claro); }
-.juntos3 b { font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cor-preto); }
 .faixa3 { overflow: hidden; padding-block: clamp(12px, 1.4vw, 18px); background: var(--cor-amarelo); color: var(--cor-preto); color-scheme: only light; }
 .trilho { display: flex; width: max-content; gap: 0; will-change: transform; }
 .anima .trilho { animation: corre-faixa var(--dur-faixa, 60s) linear infinite; }
@@ -200,6 +199,8 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
   .seta3 { display: none; }
   .vitrine3 { gap: 16px; padding: 0 12px; }
   .vitrine3 li { height: 48px; }
+  .vitrine3 img { width: calc(var(--w) * 0.45px); max-height: 40px; }
+  .vitrine3 .nome--duas { font-size: 0.78rem; }
   .vitrine3 .nome { font-size: 0.95rem; }
   .vitrine3 .nome--forte { font-size: 1.08rem; }
   .vitrine3 .nome--fino { font-size: 1rem; }
@@ -266,7 +267,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
         <span class="linha" style="--n:1"><span><span class="verbo" data-verbo="cria"><em>Criamos</em></span>.</span></span>
         <span class="linha" style="--n:2"><span><span class="verbo" data-verbo="grava">Gravamos</span>.</span></span>
       </h1>
-      <p class="apoio3">Agência, estúdio e audiovisual no mesmo time.</p>
+      <p class="apoio3">Agência, studio de IA e audiovisual no mesmo time.</p>
       <div class="acoes3">
         <a class="btn btn--primario" href="trabalhos.html">Ver trabalhos</a>
                 <a class="btn btn--linha" href="https://wa.me/5511948595084?text=Ol%C3%A1%2C%20HYMN%21%20Vim%20pelo%20site%20e%20quero%20conversar%20sobre%20um%20projeto%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Fale com a gente</a>
@@ -289,16 +290,21 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
             <div class="pilula3" data-marcas>
         <button class="seta3" type="button" aria-label="Marcas anteriores" data-marca-ant><svg class="ic"><use href="#i-seta-esq"/></svg></button>
         <ul class="vitrine3" aria-labelledby="t-clientes" aria-live="polite" data-vitrine>
-          <li><span class="nome nome--caixa">Scania</span></li>
-          <li data-teste><span class="nome nome--forte">Itaú</span></li>
-          <li data-teste><span class="nome nome--fino">Natura</span></li>
-          <li data-teste><span class="nome nome--caixa">Havaianas</span></li>
-          <li data-teste><span class="nome nome--forte">Nubank</span></li>
-          <li data-teste><span class="nome nome--caixa">Ambev</span></li>
-          <li data-teste><span class="nome nome--serifa">O Boticário</span></li>
-          <li data-teste><span class="nome nome--forte">Magalu</span></li>
-          <li data-teste><span class="nome">Embraer</span></li>
-          <li data-teste><span class="nome nome--serifa">Coca-Cola</span></li>
+          <li><img src="assets/logos/sony-branco.webp" alt="Sony Music" style="--w:236" decoding="async"></li>
+          <li><img src="assets/logos/scania-branco.webp" alt="Scania" style="--w:206" decoding="async"></li>
+          <li><img src="assets/logos/abras-branco.webp" alt="ABRAS" style="--w:230" decoding="async"></li>
+          <li><img src="assets/logos/matrix-branco.webp" alt="Matrix Energia" style="--w:184" decoding="async"></li>
+          <li><img src="assets/logos/carbonell-branco.webp" alt="Colégio Carbonell" style="--w:230" decoding="async"></li>
+          <li><img src="assets/logos/anin-branco.webp" alt="ANIN" style="--w:160" decoding="async"></li>
+          <li><img src="assets/logos/plantao-branco.webp" alt="Plantão Médico" style="--w:230" decoding="async"></li>
+          <li><img src="assets/logos/borelli-branco.webp" alt="Grupo Borelli" style="--w:159" decoding="async"></li>
+          <li><img src="assets/logos/automa-branco.webp" alt="Automa Power" style="--w:188" decoding="async"></li>
+          <li><span class="nome nome--duas">Instituto Beltrame</span></li>
+          <li><img src="assets/logos/nobelkraft-branco.webp" alt="Nobelkraft" style="--w:158" decoding="async"></li>
+          <li><img src="assets/logos/ondunorte-branco.webp" alt="Ondunorte" style="--w:230" decoding="async"></li>
+          <li><img src="assets/logos/rn-branco.webp" alt="RN Logística" style="--w:132" decoding="async"></li>
+          <li><img src="assets/logos/mirandinha-branco.webp" alt="Grupo Mirandinha" style="--w:197" decoding="async"></li>
+          <li><img src="assets/logos/conectedu-branco.webp" alt="Conect Edu" style="--w:229" decoding="async"></li>
         </ul>
         <button class="seta3" type="button" aria-label="Próximas marcas" data-marca-prox><svg class="ic"><use href="#i-seta"/></svg></button>
       </div>
@@ -317,7 +323,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
     <div class="cabeca-br">
       <p class="pergunta3">Do que a sua marca precisa?</p>
       <h2 id="t-bracos">Um time. Três braços<br> dentro de <em>casa.</em></h2>
-      <p class="apoio-br">Hoje somos um ecossistema completo para a sua empresa. Você contrata um braço ou os três, e tudo anda num cronograma só.</p>
+      <p class="apoio-br">Hoje somos um ecossistema completo para a sua empresa.</p>
     </div>
     <ul class="cartoes3" data-cartoes>
       <li class="cartao3 cartao3--agencia" data-arte="pensa" style="--n:0">
@@ -351,7 +357,6 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
         </div>
       </li>
     </ul>
-    <p class="juntos3"><span class="ponto" aria-hidden="true"></span><b>Os três juntos</b><span>Produção híbrida: gravação real e IA na mesma cena.</span></p>
   </section>
     <section class="trabalhos3" id="trabalhos" aria-labelledby="t-trabalhos" data-tom="claro">
     <div class="cabeca3 miolo">

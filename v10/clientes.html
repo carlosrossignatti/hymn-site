@@ -20,10 +20,11 @@
 .cliente { position: relative; }
 .logo-area { display: grid; place-items: center; aspect-ratio: 16 / 10; padding: 16px; }
 .logo-cl { color: var(--cor-preto); opacity: 0.26; font: 600 clamp(1.6rem, 2.6vw, 2.4rem)/1 var(--fonte-texto); letter-spacing: -0.03em; white-space: nowrap; transition: color 300ms ease, opacity 300ms ease, transform 500ms var(--pg-entrada); }
-.logo-cl img { display: block; max-width: 100%; max-height: 64px; filter: grayscale(1); transition: filter 300ms ease; }
+.logo-cl img { display: block; width: calc(var(--w) * 1px); max-width: 100%; height: auto; filter: grayscale(1); transition: filter 300ms ease; }
 .logo-cl.caixa { font-size: clamp(1.15rem, 1.9vw, 1.7rem); letter-spacing: 0.16em; text-transform: uppercase; }
 .logo-cl.fino { font-weight: 400; letter-spacing: -0.04em; }
 .logo-cl.serifa { font: italic 400 clamp(2rem, 3.3vw, 3rem)/1 var(--fonte-destaque, "Instrument Serif", serif); letter-spacing: 0; }
+.logo-cl.nome-cl { font-size: clamp(1.05rem, 1.7vw, 1.5rem); letter-spacing: -0.02em; white-space: normal; text-align: center; }
 .logo-cl.forte { letter-spacing: -0.06em; text-transform: lowercase; font-size: clamp(1.9rem, 3vw, 2.8rem); }
 .dados-cl { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 12px; border-top: var(--borda) solid rgb(0 0 0 / 10%); font-size: 14px; line-height: 1.3; color: #5C5C66; transition: border-color 300ms ease; }
 .dados-cl b { font-weight: 500; color: var(--cor-preto); }
@@ -35,13 +36,14 @@
   .cliente:hover .logo-cl img { filter: none; }
   .cliente:hover .dados-cl { border-color: var(--cor); }
 }
-.cliente--convite { grid-column: span 2; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 100%; padding: clamp(20px, 2.4vw, 32px); border-radius: 18px; background: var(--cor-amarelo); color: var(--cor-preto); color-scheme: only light; }
+.cliente--convite { grid-column: span 1; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 100%; padding: clamp(20px, 2.4vw, 32px); border-radius: 18px; background: var(--cor-amarelo); color: var(--cor-preto); color-scheme: only light; }
 .cliente--convite p { font: var(--peso-titulo) clamp(1.6rem, 2.6vw, 2.4rem)/1.05 var(--fonte-texto); letter-spacing: -0.03em; max-width: 14ch; }
 .cliente--convite .link3 { font-size: 16px; }
 .cliente--convite .link3:focus-visible { outline: 2px solid var(--cor-preto); outline-offset: 4px; border-radius: 4px; }
 @media (max-width: 1024px) {
   .grade-cl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .cliente--convite { grid-column: span 2; }
+  .cliente--convite { grid-column: 1 / -1; min-height: 200px; }
+  .logo-cl img { width: calc(var(--w) * 0.85px); }
 }
 @media (max-width: 700px) {
   .grade-cl { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 16px; }
@@ -51,7 +53,9 @@
   .logo-cl.caixa { font-size: 0.95rem; letter-spacing: 0.12em; }
   .logo-cl.serifa { font-size: 1.75rem; }
   .logo-cl.forte { font-size: 1.6rem; }
-  .cliente--convite { grid-column: 1 / -1; min-height: 200px; }
+  .logo-cl.nome-cl { font-size: 1.05rem; }
+  .cliente--convite { grid-column: span 1; min-height: 0; }
+  .logo-cl img { width: calc(var(--w) * 0.62px); }
 }
 </style>
 </head>
@@ -99,21 +103,26 @@
 </div>
 <main id="conteudo" tabindex="-1">
   <section class="cabeca-pg miolo claro" aria-labelledby="t-pg" data-tom="claro">
-    <h1 id="t-pg">Clientes<sup>10</sup></h1>
+    <h1 id="t-pg">Clientes<sup>15</sup></h1>
     <p class="apoio-pg">Marcas que confiam na HYMN para pensar, criar e gravar.</p>
   </section>
     <section class="lista-cl miolo claro" aria-label="Marcas" data-tom="claro">
     <ul class="grade-cl" data-clientes>
-      <li class="cliente" style="--cor:#041E42"><span class="logo-area"><span class="logo-cl caixa" aria-hidden="true">Scania</span></span><span class="dados-cl"><b>Scania</b><span>Transporte</span></span></li>
-      <li class="cliente" data-teste style="--cor:#EC7000"><span class="logo-area"><span class="logo-cl forte" aria-hidden="true">Itaú</span></span><span class="dados-cl"><b>Itaú</b><span>Banco</span></span></li>
-      <li class="cliente" data-teste style="--cor:#E8731A"><span class="logo-area"><span class="logo-cl fino" aria-hidden="true">natura</span></span><span class="dados-cl"><b>Natura</b><span>Beleza</span></span></li>
-      <li class="cliente" data-teste style="--cor:#E1251B"><span class="logo-area"><span class="logo-cl caixa" aria-hidden="true">Havaianas</span></span><span class="dados-cl"><b>Havaianas</b><span>Moda</span></span></li>
-      <li class="cliente" data-teste style="--cor:#820AD1"><span class="logo-area"><span class="logo-cl forte" aria-hidden="true">Nubank</span></span><span class="dados-cl"><b>Nubank</b><span>Banco digital</span></span></li>
-      <li class="cliente" data-teste style="--cor:#003DA5"><span class="logo-area"><span class="logo-cl caixa" aria-hidden="true">Ambev</span></span><span class="dados-cl"><b>Ambev</b><span>Bebidas</span></span></li>
-      <li class="cliente" data-teste style="--cor:#006B54"><span class="logo-area"><span class="logo-cl serifa" aria-hidden="true">O Boticário</span></span><span class="dados-cl"><b>O Boticário</b><span>Beleza</span></span></li>
-      <li class="cliente" data-teste style="--cor:#0086FF"><span class="logo-area"><span class="logo-cl forte" aria-hidden="true">Magalu</span></span><span class="dados-cl"><b>Magalu</b><span>Varejo</span></span></li>
-      <li class="cliente" data-teste style="--cor:#0B2D6B"><span class="logo-area"><span class="logo-cl" aria-hidden="true">Embraer</span></span><span class="dados-cl"><b>Embraer</b><span>Aviação</span></span></li>
-      <li class="cliente" data-teste style="--cor:#E41E2B"><span class="logo-area"><span class="logo-cl serifa" aria-hidden="true">Coca-Cola</span></span><span class="dados-cl"><b>Coca-Cola</b><span>Bebidas</span></span></li>
+      <li class="cliente" style="--cor:#E4002B"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/sony.webp" alt="" style="--w:236" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Sony Music</b><span>Música</span></span></li>
+      <li class="cliente" style="--cor:#041E42"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/scania.webp" alt="" style="--w:206" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Scania</b><span>Transporte</span></span></li>
+      <li class="cliente" style="--cor:#0048A8"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/abras.webp" alt="" style="--w:230" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>ABRAS</b><span>Supermercados</span></span></li>
+      <li class="cliente" style="--cor:#D84818"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/matrix.webp" alt="" style="--w:184" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Matrix Energia</b><span>Energia</span></span></li>
+      <li class="cliente" style="--cor:#183060"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/carbonell.webp" alt="" style="--w:230" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Colégio Carbonell</b><span>Educação</span></span></li>
+      <li class="cliente" style="--cor:#1F5C55"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/anin.webp" alt="" style="--w:160" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>ANIN</b><span>Papéis especiais</span></span></li>
+      <li class="cliente" style="--cor:#D7141A"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/plantao.webp" alt="" style="--w:230" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Plantão Médico</b><span>Saúde</span></span></li>
+      <li class="cliente" style="--cor:#5E9A1E"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/borelli.webp" alt="" style="--w:159" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Grupo Borelli</b><span>Transporte</span></span></li>
+      <li class="cliente" style="--cor:#0030F0"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/automa.webp" alt="" style="--w:188" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Automa Power</b><span>Energia</span></span></li>
+            <li class="cliente" style="--cor:#0A0A0A"><span class="logo-area"><span class="logo-cl nome-cl" aria-hidden="true">Instituto Beltrame</span></span><span class="dados-cl"><b>Instituto Beltrame</b></span></li>
+      <li class="cliente" style="--cor:#E0B000"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/nobelkraft.webp" alt="" style="--w:158" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Nobelkraft</b><span>Embalagens</span></span></li>
+      <li class="cliente" style="--cor:#0A0A0A"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/ondunorte.webp" alt="" style="--w:230" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Ondunorte</b></span></li>
+      <li class="cliente" style="--cor:#F09018"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/rn.webp" alt="" style="--w:132" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>RN Logística</b><span>Logística</span></span></li>
+      <li class="cliente" style="--cor:#E8323C"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/mirandinha.webp" alt="" style="--w:197" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Grupo Mirandinha</b></span></li>
+      <li class="cliente" style="--cor:#9EA22A"><span class="logo-area"><span class="logo-cl"><img src="assets/logos/conectedu.webp" alt="" style="--w:229" loading="lazy" decoding="async"></span></span><span class="dados-cl"><b>Conect Edu</b><span>Educação</span></span></li>
       <li class="cliente cliente--convite">
         <p>A próxima marca pode ser a sua.</p>
                 <a class="link3" href="https://wa.me/5511948595084?text=Ol%C3%A1%2C%20HYMN%21%20Vi%20os%20clientes%20no%20site%20e%20quero%20conversar%20sobre%20a%20minha%20marca." target="_blank" rel="noopener">Fale com a gente<svg class="ic"><use href="#i-seta"/></svg></a>
