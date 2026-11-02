@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="only dark">
+<title>Trabalhos | HYMN</title>
+<meta name="description" content="Campanhas, filmes e motion que a HYMN pensou, criou e gravou.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="componentes.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(28px, 3.5vw, 44px); }
+.filtro { display: inline-flex; align-items: center; gap: 8px; min-height: var(--toque-min); padding: 0 18px; border-radius: var(--raio-pilula); border: var(--borda) solid rgb(0 0 0 / 16%); background: transparent; color: var(--cor-preto); font: 500 15px/1 var(--fonte-texto); cursor: pointer; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 160ms var(--pg-entrada); -webkit-tap-highlight-color: transparent; }
+.filtro span { font-variant-numeric: tabular-nums; color: #6B6B74; transition: color 150ms ease; }
+.filtro:hover { background: rgb(0 0 0 / 5%); }
+.filtro:active { transform: scale(0.97); }
+.filtro[aria-pressed="true"] { background: var(--cor-preto); border-color: var(--cor-preto); color: var(--cor-branco); }
+.filtro[aria-pressed="true"] span { color: rgb(255 255 255 / 60%); }
+.filtro:focus-visible { outline: 2px solid var(--cor-preto); outline-offset: 2px; }
+.lista-trab { padding-bottom: var(--secao); }
+.obras { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(36px, 4.5vw, 64px) clamp(14px, 1.6vw, 24px); grid-auto-flow: dense; }
+.obra--cheia { grid-column: 1 / -1; }
+.obra figure { margin: 0; }
+.obra-img { position: relative; overflow: hidden; border-radius: 18px; aspect-ratio: 4 / 3; background: #EDEDF0; }
+.obra--cheia .obra-img { aspect-ratio: 2 / 1; }
+.obra-img img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transition: transform 700ms var(--pg-entrada); }
+.obra.is-pb .obra-img img { filter: grayscale(1) contrast(1.12); }
+.obra figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: var(--esp-4); margin-top: 14px; font-size: 17px; line-height: 1.35; }
+.obra figcaption b { font-weight: var(--peso-titulo); }
+.obra figcaption .tipo { color: #4D4D55; margin-left: 0.4em; }
+.etiquetas { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; flex: none; }
+.etiqueta { padding: 5px 11px; border-radius: var(--raio-pilula); border: var(--borda) solid rgb(0 0 0 / 14%); font-size: 13px; line-height: 1.2; color: #3D3D45; white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) {
+  .obra:hover .obra-img img { transform: scale(1.04); }
+}
+.obra[hidden] { display: none !important; }
+@media (max-width: 700px) {
+  .obras { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .obra--cheia .obra-img { aspect-ratio: 4 / 3; }
+  .obra-img { border-radius: 14px; }
+  .obra figcaption { flex-direction: column; gap: 10px; font-size: 16px; }
+  .etiquetas { justify-content: flex-start; }
+  .filtros { margin-inline: calc(var(--lateral) * -1) calc(var(--lateral-d) * -1); padding-inline: var(--lateral) var(--lateral-d); flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .filtros::-webkit-scrollbar { display: none; }
+  .filtro { flex: none; }
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+<defs>
+<symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-seta-esq" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-sobe" viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></symbol>
+<symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-pausa" viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></symbol>
+<symbol id="i-som" viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+<symbol id="i-copiar" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12" height="11" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></symbol>
+<symbol id="i-ia" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1L18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+<symbol id="i-alvo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-youtube" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6V16"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2.1-1-1 .8a4.6 4.6 0 0 1-2.1-2.1l.8-1-1-2.1z"/></symbol>
+</defs>
+</svg>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo3 is-claro" data-topo>
+  <a class="marca" href="index.html" aria-label="HYMN, início"><img class="logo-branco" src="assets/logo-branco.svg" alt="HYMN"><img class="logo-preto" src="assets/logo-preto.svg" alt=""></a>
+  <nav aria-label="Menu principal">
+    <a href="trabalhos.html" aria-current="page">Trabalhos</a>
+    <a href="index.html#sobre">Sobre</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <button class="btn-menu3" type="button" aria-expanded="false" aria-controls="menu-cel" data-abre-menu>Menu</button>
+</header>
+<div class="menu-cel" id="menu-cel" hidden>
+  <div class="cabeca"><img src="assets/logo-branco.svg" alt="HYMN"><button class="btn-menu3" type="button" style="display:inline-flex" data-fecha-menu>Fechar</button></div>
+  <ul>
+    <li style="--n:0"><a href="trabalhos.html" aria-current="page" data-fecha-menu>Trabalhos</a></li>
+    <li style="--n:1"><a href="index.html#sobre" data-fecha-menu>Sobre</a></li>
+    <li style="--n:2"><a href="clientes.html" data-fecha-menu>Clientes</a></li>
+    <li style="--n:3"><a href="#contato" data-fecha-menu>Contato</a></li>
+  </ul>
+  <div class="rodape-menu"><span>contato@hymn.com.br</span><span>(11) 94859-5084</span></div>
+</div>
+<main id="conteudo" tabindex="-1">
+  <section class="cabeca-pg miolo claro" aria-labelledby="t-pg" data-tom="claro">
+    <h1 id="t-pg">Trabalhos<sup data-total>15</sup></h1>
+    <p class="apoio-pg">Campanhas, filmes, motion e conteúdo que a HYMN pensou, criou e gravou.</p>
+    <div class="filtros" role="group" aria-label="Filtrar por frente">
+      <button class="filtro" type="button" aria-pressed="true" data-filtro="todos">Todos <span data-conta="todos"></span></button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="agencia">Agência <span data-conta="agencia"></span></button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="studio">Studio <span data-conta="studio"></span></button>
+      <button class="filtro" type="button" aria-pressed="false" data-filtro="audiovisual">Audiovisual <span data-conta="audiovisual"></span></button>
+    </div>
+    <p class="sr" aria-live="polite" data-aviso></p>
+  </section>
+    <section class="lista-trab miolo claro" aria-label="Lista de trabalhos" data-tom="claro">
+    <ul class="obras" data-obras>
+      <li class="obra obra--cheia" data-frente="audiovisual"><figure><div class="obra-img" style="--fx:52%;--fy:60%"><img src="assets/filme/f01.webp" srcset="assets/filme/f01-p.webp 1000w, assets/filme/f01.webp 1920w" sizes="(max-width: 700px) 100vw, 92vw" alt="Caminhão Scania na rua da fábrica ao amanhecer" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Filme institucional</span></span><span class="etiquetas"><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio"><figure><div class="obra-img"><img src="assets/exemplos/ex01.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Campanha com IA</span></span><span class="etiquetas"><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="agencia"><figure><div class="obra-img"><img src="assets/exemplos/ex02.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Conteúdo para redes</span></span><span class="etiquetas"><span class="etiqueta">Agência</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio"><figure><div class="obra-img"><img src="assets/exemplos/ex03.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Produto em 3D</span></span><span class="etiquetas"><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="agencia studio"><figure><div class="obra-img"><img src="assets/exemplos/ex10.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Lançamento</span></span><span class="etiquetas"><span class="etiqueta">Agência</span><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra obra--cheia" data-frente="audiovisual"><figure><div class="obra-img" style="--fx:50%;--fy:62%"><img src="assets/filme/f03.webp" srcset="assets/filme/f03-p.webp 1000w, assets/filme/f03.webp 1920w" sizes="(max-width: 700px) 100vw, 92vw" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Comercial</span></span><span class="etiquetas"><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio"><figure><div class="obra-img"><img src="assets/exemplos/ex04.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Moda com IA</span></span><span class="etiquetas"><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="agencia"><figure><div class="obra-img"><img src="assets/exemplos/ex09.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Campanha de anúncios</span></span><span class="etiquetas"><span class="etiqueta">Agência</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio"><figure><div class="obra-img"><img src="assets/exemplos/ex05.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Vídeo com IA</span></span><span class="etiquetas"><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio audiovisual"><figure><div class="obra-img"><img src="assets/exemplos/ex07.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Produção híbrida</span></span><span class="etiquetas"><span class="etiqueta">Studio</span><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+      <li class="obra obra--cheia is-pb" data-frente="audiovisual"><figure><div class="obra-img" style="--fx:60%;--fy:52%"><img src="assets/filme/f02.webp" srcset="assets/filme/f02-p.webp 1000w, assets/filme/f02.webp 1920w" sizes="(max-width: 700px) 100vw, 92vw" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Cobertura de evento</span></span><span class="etiquetas"><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="agencia"><figure><div class="obra-img"><img src="assets/exemplos/ex08.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Site e landing page</span></span><span class="etiquetas"><span class="etiqueta">Agência</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="studio"><figure><div class="obra-img"><img src="assets/exemplos/ex06.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Foto de produto</span></span><span class="etiquetas"><span class="etiqueta">Studio</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="audiovisual"><figure><div class="obra-img" style="--fx:54%;--fy:55%"><img src="assets/filme/f04-p.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Bastidores</span></span><span class="etiquetas"><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+      <li class="obra" data-frente="audiovisual"><figure><div class="obra-img" style="--fx:50%;--fy:55%"><img src="assets/filme/f05-p.webp" alt="" loading="lazy" decoding="async"></div><figcaption><span><b>Cliente</b><span class="tipo">Filme institucional</span></span><span class="etiquetas"><span class="etiqueta">Audiovisual</span></span></figcaption></figure></li>
+    </ul>
+  </section>
+  <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato data-tom="claro">
+    <div class="painel3 miolo">
+      <div class="topo-contato">
+        <div class="volta-centro" data-volta><a class="volta3" href="#conteudo"><svg class="ic"><use href="#i-sobe"/></svg><span>Voltar ao<br>topo</span></a></div>
+        <h2 id="t-contato">Vamos <em>conversar?</em></h2>
+                <a class="btn btn--whats" href="https://wa.me/5511948595084?text=Ol%C3%A1%2C%20HYMN%21%20Vi%20os%20trabalhos%20no%20site%20e%20quero%20pedir%20um%20or%C3%A7amento.%20O%20que%20eu%20preciso%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</a>
+      </div>
+      <div class="linhas3">
+        <div><span class="rot">E-mail</span><span class="valor"><span data-texto>contato@hymn.com.br</span><button class="copiar3" type="button" aria-label="Copiar e-mail" data-copia="contato@hymn.com.br"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+        <div><span class="rot">WhatsApp</span><span class="valor"><span data-texto>(11) 94859-5084</span><button class="copiar3" type="button" aria-label="Copiar número do WhatsApp" data-copia="11948595084"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+      </div>
+      <footer class="rodape3">
+        <span class="marca"><img src="assets/logo-preto.svg" alt="HYMN"></span>
+        <span class="redes">
+                    <a href="https://www.instagram.com/hymn.produtora/" target="_blank" rel="noopener" aria-label="Instagram da HYMN"><svg class="ic"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.youtube.com/@hymn6675" target="_blank" rel="noopener" aria-label="YouTube da HYMN"><svg class="ic"><use href="#i-youtube"/></svg></a>
+        </span>
+        <span>© 2026 HYMN · Privacidade</span>
+      </footer>
+    </div>
+  </section>
+</main>
+<script src="site.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var obras = $$('[data-obras] > li'), botoes = $$('[data-filtro]'), total = $('[data-total]'), aviso = $('[data-aviso]');
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NOMES = { todos: 'todas as frentes', agencia: 'Agência', studio: 'Studio', audiovisual: 'Audiovisual' };
+  function tem(o, f) { return f === 'todos' || (' ' + o.getAttribute('data-frente') + ' ').indexOf(' ' + f + ' ') > -1; }
+  botoes.forEach(function (b) { var f = b.getAttribute('data-filtro'); $('[data-conta]', b).textContent = obras.filter(function (o) { return tem(o, f); }).length; });
+  obras.forEach(function (o, i) { o.style.viewTransitionName = 'obra-' + i; });
+  function aplica(f) {
+    var n = 0;
+    obras.forEach(function (o) { var ok = tem(o, f); o.hidden = !ok; if (ok) n++; });
+    botoes.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-filtro') === f)); });
+    total.textContent = n;
+    aviso.textContent = n + (n === 1 ? ' trabalho' : ' trabalhos') + ' de ' + NOMES[f] + '.';
+    if (window.HYMN) window.HYMN.atualizaTopo();
+  }
+  botoes.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-filtro');
+      if (b.getAttribute('aria-pressed') === 'true') return;
+      if (document.startViewTransition && !reduz) document.startViewTransition(function () { aplica(f); });
+      else aplica(f);
+    });
+  });
+})();
+</script>
+</body>
+</html>
