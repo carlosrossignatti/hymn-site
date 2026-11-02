@@ -38,6 +38,16 @@
 .risco3 { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; fill: none; stroke: var(--pg-roxo-claro); stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 160ms ease 320ms; }
 .risco3 path { stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 320ms cubic-bezier(0.4, 0, 1, 1); }
 .verbo.is-desenhado .risco3 { opacity: 1; transition-delay: 0ms; }
+.verbo[data-verbo="visor"] .risco3 { opacity: 1; transition: none; stroke-linecap: square; stroke-linejoin: miter; }
+.verbo[data-verbo="visor"] .risco3 path { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 0; transform: translate(calc(var(--dx, 0) * var(--fora, 12px)), calc(var(--dy, 0) * var(--fora, 12px))); transition: opacity 120ms ease-out, transform 160ms var(--pg-entrada); }
+.verbo[data-verbo="visor"].is-desenhado .risco3 path { opacity: 1; transform: none; transition: opacity 180ms ease-out, transform 280ms var(--pg-entrada); }
+.verbo[data-verbo="visor"] .risco3 path:nth-child(1) { --dx: -1; --dy: -1; }
+.verbo[data-verbo="visor"] .risco3 path:nth-child(2) { --dx: 1; --dy: -1; }
+.verbo[data-verbo="visor"] .risco3 path:nth-child(3) { --dx: 1; --dy: 1; }
+.verbo[data-verbo="visor"] .risco3 path:nth-child(4) { --dx: -1; --dy: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .verbo[data-verbo="visor"] .risco3 path { transform: none; }   
+}
 .verbo.is-desenhado .risco3 path { stroke-dashoffset: 0; transition: stroke-dashoffset 760ms var(--pg-entrada) calc(var(--i, 0) * var(--passo, 110ms)); }
 .verbo[data-verbo="grava"] { --passo: 90ms; --abre: -20deg; --abre-loop: -8deg; }
 .verbo[data-verbo="grava"] .risco3 path:last-child { transform-box: fill-box; transform-origin: 2.57% 100%; transform: rotate(var(--abre)); transition: stroke-dashoffset 320ms cubic-bezier(0.4, 0, 1, 1), transform 0s linear 480ms; }
@@ -56,6 +66,7 @@
   92%, 100% { rotate: 0deg; }
 }
 html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !important; }
+html:not(.anima) .verbo[data-verbo="visor"] .risco3 path { transition: opacity 160ms ease !important; }   
 .marcas3 h2 a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; }
 .marcas3 h2 a .ic { width: 14px; height: 14px; transition: transform var(--dur-media) var(--pg-entrada); }
 .marcas3 h2 a:hover .ic { transform: translateX(3px); }
@@ -122,12 +133,24 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
   12.5%, 18% { rotate: 0deg; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
   33%, 100% { rotate: var(--abre); }
 }
+.anima .cartao3--agencia.is-desenhado .arte3 path { animation: circula3 3400ms linear 1300ms infinite; }
+.anima .cartao3--agencia.is-desenhado .arte3 .ponto3 { animation: acusa3 3400ms linear 1300ms infinite; }
+@keyframes circula3 {
+  0%, 24% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.4, 0, 0.5, 0); }   
+  40% { stroke-dashoffset: -1; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+  72%, 100% { stroke-dashoffset: -2; }
+}
+@keyframes acusa3 {
+  0%, 50% { scale: 1; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }   
+  54% { scale: 1.18; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  64%, 100% { scale: 1; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .verbo[data-verbo="grava"] .risco3 path, .cartao3--audiovisual .arte3 path { animation: none !important; }
+  .verbo[data-verbo="grava"] .risco3 path, .cartao3--audiovisual .arte3 path, .cartao3--agencia .arte3 path, .cartao3--agencia .arte3 .ponto3 { animation: none !important; }
 }
 .anima .cartao3--studio.is-desenhado .arte3 path { animation: brilha3 2600ms ease-in-out calc(1500ms + var(--i) * 700ms) infinite; }
 @keyframes brilha3 { 50% { transform: scale(0.84) rotate(8deg); } }
-.cartao3:not(.is-visivel) .arte3 path { animation-play-state: paused !important; }
+.cartao3:not(.is-visivel) .arte3 path, .cartao3:not(.is-visivel) .arte3 .ponto3 { animation-play-state: paused !important; }
 .corpo-br h3 { font: var(--peso-titulo) clamp(2.2rem, 3.4vw, 3.1rem)/1 var(--fonte-texto); letter-spacing: -0.04em; }
 .corpo-br h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .corpo-br p { margin-top: 10px; font-size: 16px; line-height: 1.4; color: var(--tinta-2); max-width: 32ch; text-wrap: pretty; }
@@ -288,7 +311,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
       <h1 class="titulo3" data-titulo>
         <span class="linha" style="--n:0"><span><span class="verbo" data-verbo="pensa">Pensamos</span>.</span></span>
         <span class="linha" style="--n:1"><span><span class="verbo" data-verbo="cria"><em>Criamos</em></span>.</span></span>
-                <span class="linha" style="--n:2"><span><span class="verbo">Gravamos</span>.</span></span>
+                <span class="linha" style="--n:2"><span><span class="verbo" data-verbo="visor">Gravamos</span>.</span></span>
       </h1>
       <p class="apoio3">Agência, studio de IA e audiovisual no mesmo time.</p>
       <div class="acoes3">
@@ -334,9 +357,9 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
     </div>
   </section>
     <section class="frase3 miolo" id="sobre" aria-label="Sobre a HYMN" data-frase data-tom="claro">
-    <p>Da estratégia ao vídeo final, tudo em um só lugar.</p>
+    <p>Da estratégia ao vídeo, tudo em um só lugar.</p>
   </section>
-    <section class="faixa3" aria-label="O que fazemos" data-tom="escuro">
+      <section class="faixa3" aria-label="O que fazemos" data-tom="claro">
     <p class="sr">Design, ads, SEO, conteúdo, marketing, site, branding, fotos e filmes.</p>
     <div class="trilho" aria-hidden="true" data-trilho>
       <span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span><span>Design</span><span>Ads</span><span>SEO</span><span>Conteúdo</span><span>Marketing</span><span>Site</span><span>Branding</span><span>Fotos</span><span>Filmes</span>
@@ -364,7 +387,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
         <p class="rot-br"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3.5Q11 10.5 18 10.5Q11 10.5 11 17.5Q11 10.5 4 10.5Q11 10.5 11 3.5Z"/><path d="M18.5 15.5Q18.5 18 21 18Q18.5 18 18.5 20.5Q18.5 18 16 18Q18.5 18 18.5 15.5Z"/></svg>Criamos</p>
         <div class="corpo-br">
           <h3><a href="trabalhos.html#studio">Studio</a></h3>
-          <p>Foto e vídeo com IA, sem mudar o seu produto.</p>
+          <p>Foto e vídeo com IA, sem mudar o&nbsp;seu&nbsp;produto.</p>
           <ul class="tags3" aria-label="O que o Studio faz"><li>Foto de produto</li><li>Filme de lançamento</li><li>Anúncios</li><li>Motion</li><li>Produção híbrida</li></ul>
           <span class="ver3" aria-hidden="true">Ver trabalhos<svg class="ic"><use href="#i-seta"/></svg></span>
         </div>
@@ -538,8 +561,28 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
         haste += ' M' + p(a, 0) + ' L' + p(a - k, -t);
       }
       return [corpo, faixa, haste];
+    },
+    visor: function (W, H, F, v) {   // cantos de visor de câmera (referência e-frames, sem o REC): enquadram "Gravamos." com folga, ponto final dentro do quadro
+      var L = v.parentElement.offsetWidth, g = glifo(v, H);   // largura da palavra com o ponto; topo das letras e linha de base, medidos na fonte real
+      var x0 = -F * 0.26, x1 = L + F * 0.2, y0 = g.topo - F * 0.15, y1 = g.base + F * 0.15;   // à direita o ponto já dá respiro
+      var bx = F * 0.3, by = Math.min(F * 0.22, (y1 - y0) * 0.3);   // braço deitado maior que o de pé, como no visor da referência
+      function n(x) { return x.toFixed(1); }
+      return [
+        'M' + n(x0) + ' ' + n(y0 + by) + ' L' + n(x0) + ' ' + n(y0) + ' L' + n(x0 + bx) + ' ' + n(y0),
+        'M' + n(x1 - bx) + ' ' + n(y0) + ' L' + n(x1) + ' ' + n(y0) + ' L' + n(x1) + ' ' + n(y0 + by),
+        'M' + n(x1) + ' ' + n(y1 - by) + ' L' + n(x1) + ' ' + n(y1) + ' L' + n(x1 - bx) + ' ' + n(y1),
+        'M' + n(x0 + bx) + ' ' + n(y1) + ' L' + n(x0) + ' ' + n(y1) + ' L' + n(x0) + ' ' + n(y1 - by)
+      ];
     }
   };
+  var regua = document.createElement('canvas').getContext('2d');
+  function glifo(el, H) {
+    var cs = getComputedStyle(el), m;
+    try { regua.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; m = regua.measureText(el.textContent); } catch (e) { m = null; }
+    if (!m || !m.fontBoundingBoxAscent) return { topo: H * 0.12, base: H * 0.88 };
+    var base = (H - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + m.fontBoundingBoxAscent;
+    return { topo: base - m.actualBoundingBoxAscent, base: base + Math.max(0, m.actualBoundingBoxDescent) };
+  }
   function desenha() {
     verbos.forEach(function (v) {
       var W = v.offsetWidth, H = v.offsetHeight, F = parseFloat(getComputedStyle(v).fontSize);
@@ -547,7 +590,8 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
       var svg = v._svg;
       svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       svg.style.strokeWidth = Math.max(1.6, F * 0.03).toFixed(2) + 'px';
-      svg.innerHTML = formas[v.getAttribute('data-verbo')](W, H, F).map(function (d, i) { return '<path pathLength="1" style="--i:' + i + '" d="' + d + '"/>'; }).join('');
+      svg.style.setProperty('--fora', (F * 0.14).toFixed(1) + 'px');   // de onde os cantos do visor partem
+      svg.innerHTML = formas[v.getAttribute('data-verbo')](W, H, F, v).map(function (d, i) { return '<path pathLength="1" style="--i:' + i + '" d="' + d + '"/>'; }).join('');
     });
   }
   var vez = null, abVisivel = true, mouseEm = null;
