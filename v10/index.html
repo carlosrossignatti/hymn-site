@@ -41,10 +41,8 @@
 .verbo[data-verbo="visor"] .risco3 { opacity: 1; transition: none; stroke-linecap: square; stroke-linejoin: miter; }
 .verbo[data-verbo="visor"] .risco3 path { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 0; transform: translate(calc(var(--dx, 0) * var(--fora, 12px)), calc(var(--dy, 0) * var(--fora, 12px))); transition: opacity 120ms ease-out, transform 160ms var(--pg-entrada); }
 .verbo[data-verbo="visor"].is-desenhado .risco3 path { opacity: 1; transform: none; transition: opacity 180ms ease-out, transform 280ms var(--pg-entrada); }
-.verbo[data-verbo="visor"] .risco3 path:nth-child(1) { --dx: -1; --dy: -1; }
-.verbo[data-verbo="visor"] .risco3 path:nth-child(2) { --dx: 1; --dy: -1; }
-.verbo[data-verbo="visor"] .risco3 path:nth-child(3) { --dx: 1; --dy: 1; }
-.verbo[data-verbo="visor"] .risco3 path:nth-child(4) { --dx: -1; --dy: 1; }
+.verbo[data-verbo="visor"] .risco3 path:nth-child(1) { --dx: -1; --dy: -1; }   
+.verbo[data-verbo="visor"] .risco3 path:nth-child(2) { --dx: 1; --dy: 1; }     
 @media (prefers-reduced-motion: reduce) {
   .verbo[data-verbo="visor"] .risco3 path { transform: none; }   
 }
@@ -562,16 +560,14 @@ html:not(.anima) .verbo[data-verbo="visor"] .risco3 path { transition: opacity 1
       }
       return [corpo, faixa, haste];
     },
-    visor: function (W, H, F, v) {   // cantos de visor de câmera (referência e-frames, sem o REC): enquadram "Gravamos." com folga, ponto final dentro do quadro
+    visor: function (W, H, F, v) {   // dois cantos de visor de câmera (referência e-frames, sem o REC): enquadram "Gravamos." com folga, ponto final dentro do quadro
       var L = v.parentElement.offsetWidth, g = glifo(v, H);   // largura da palavra com o ponto; topo das letras e linha de base, medidos na fonte real
       var x0 = -F * 0.26, x1 = L + F * 0.2, y0 = g.topo - F * 0.15, y1 = g.base + F * 0.15;   // à direita o ponto já dá respiro
       var bx = F * 0.3, by = Math.min(F * 0.22, (y1 - y0) * 0.3);   // braço deitado maior que o de pé, como no visor da referência
       function n(x) { return x.toFixed(1); }
-      return [
+      return [   // só dois cantos, o de cima à esquerda e o de baixo à direita (Carlos, 02/11 21h11: com os quatro "não ficou legal")
         'M' + n(x0) + ' ' + n(y0 + by) + ' L' + n(x0) + ' ' + n(y0) + ' L' + n(x0 + bx) + ' ' + n(y0),
-        'M' + n(x1 - bx) + ' ' + n(y0) + ' L' + n(x1) + ' ' + n(y0) + ' L' + n(x1) + ' ' + n(y0 + by),
-        'M' + n(x1) + ' ' + n(y1 - by) + ' L' + n(x1) + ' ' + n(y1) + ' L' + n(x1 - bx) + ' ' + n(y1),
-        'M' + n(x0 + bx) + ' ' + n(y1) + ' L' + n(x0) + ' ' + n(y1) + ' L' + n(x0) + ' ' + n(y1 - by)
+        'M' + n(x1) + ' ' + n(y1 - by) + ' L' + n(x1) + ' ' + n(y1) + ' L' + n(x1 - bx) + ' ' + n(y1)
       ];
     }
   };
