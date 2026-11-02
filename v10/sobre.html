@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="only dark">
+<title>Sobre | HYMN</title>
+<meta name="description" content="A HYMN nasceu produtora. Hoje somos um ecossistema: agência, estúdio de IA e audiovisual no mesmo time.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="componentes.css">
+<link rel="stylesheet" href="site.css">
+<style>
+.fotos-sb { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(12px, 1.4vw, 20px); padding-bottom: clamp(72px, 10vw, 152px); }
+.fotos-sb figure { margin: 0; overflow: hidden; border-radius: 18px; background: #EDEDF0; aspect-ratio: 4 / 3; }
+.fotos-sb figure:last-child { aspect-ratio: auto; }
+.fotos-sb img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); }
+.texto-sb { display: grid; gap: clamp(20px, 2.4vw, 36px); max-width: 30ch; padding-bottom: clamp(72px, 10vw, 152px); font: 500 clamp(1.6rem, 3.4vw, 3rem)/1.12 var(--fonte-texto); letter-spacing: -0.03em; text-wrap: pretty; }
+.texto-sb p { transition: color 400ms ease; }
+.texto-sb .forte { font-weight: var(--peso-titulo); }
+.texto-sb em { font: italic 400 1.1em/1 var(--fonte-destaque, "Instrument Serif", serif); letter-spacing: -0.01em; }
+.anima .texto-sb p { color: #C4C4CA; }
+.anima .texto-sb p.is-lida { color: var(--cor-preto); }
+.numeros-sb { background: var(--cor-amarelo); color: var(--cor-preto); color-scheme: only light; padding-block: clamp(48px, 6vw, 88px); }
+.numeros-sb ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--esp-6); }
+.numeros-sb b { display: block; font: var(--peso-titulo) clamp(2.6rem, 5.6vw, 5rem)/1 var(--fonte-texto); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.numeros-sb span { display: block; margin-top: 10px; font-size: clamp(1rem, 1.3vw, 1.25rem); font-weight: 500; }
+.bracos-sb { padding-block: clamp(72px, 10vw, 152px) clamp(56px, 7vw, 104px); }
+.rot-sb { font-size: var(--tam-legenda); font-weight: 500; color: #5C5C66; margin-bottom: var(--esp-5); }
+.linhas-sb { list-style: none; margin: 0; padding: 0; border-top: var(--borda) solid rgb(0 0 0 / 12%); }
+.linhas-sb li { border-bottom: var(--borda) solid rgb(0 0 0 / 12%); }
+.linhas-sb a { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) auto; align-items: center; gap: var(--esp-6); padding-block: clamp(18px, 2.4vw, 32px); -webkit-tap-highlight-color: transparent; }
+.linhas-sb .nome-sb { font: var(--peso-titulo) clamp(2.2rem, 6vw, 5.4rem)/0.95 var(--fonte-texto); letter-spacing: -0.04em; white-space: nowrap; }
+.linhas-sb .nome-sb span { color: #B3B3BA; transition: color 300ms ease; }
+.linhas-sb .diz { display: grid; gap: 4px; font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.35; color: #4D4D55; text-wrap: pretty; }
+.linhas-sb .diz i { font: italic 400 1.35em/1 var(--fonte-destaque, "Instrument Serif", serif); color: var(--cor-preto); }
+.linhas-sb .ic { width: 28px; height: 28px; transition: transform 300ms var(--pg-entrada); }
+.linhas-sb a:active { transform: scale(0.99); }
+.linhas-sb a:focus-visible { outline: 2px solid var(--cor-preto); outline-offset: 4px; border-radius: 6px; }
+@media (hover: hover) and (pointer: fine) {
+  .linhas-sb a:hover .nome-sb span { color: var(--cor-preto); }
+  .linhas-sb a:hover .ic { transform: translateX(6px); }
+}
+.pilares-sb { padding-bottom: var(--secao); }
+.pilares-sb h2 { font: var(--peso-titulo) clamp(2.2rem, 5vw, 4.25rem)/1 var(--fonte-texto); letter-spacing: -0.04em; margin-bottom: clamp(28px, 3.6vw, 52px); }
+.pilares-sb ul { list-style: none; margin: 0; padding: 0; border-top: var(--borda) solid rgb(0 0 0 / 12%); }
+.pilares-sb li { display: flex; justify-content: space-between; align-items: baseline; gap: var(--esp-6); padding-block: clamp(16px, 2vw, 26px); border-bottom: var(--borda) solid rgb(0 0 0 / 12%); }
+.pilares-sb li b { font: 500 clamp(1.25rem, 2.2vw, 2rem)/1.2 var(--fonte-texto); letter-spacing: -0.02em; text-wrap: pretty; }
+.pilares-sb li span { flex: none; font: italic 400 clamp(1.25rem, 2vw, 1.85rem)/1 var(--fonte-destaque, "Instrument Serif", serif); color: #5C5C66; }
+@media (max-width: 860px) {
+  .numeros-sb ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--esp-7) var(--esp-5); }
+  .linhas-sb a { grid-template-columns: minmax(0, 1fr) auto; gap: var(--esp-3) var(--esp-4); }
+  .linhas-sb .diz { grid-column: 1; grid-row: 2; }
+  .linhas-sb .ic { grid-column: 2; grid-row: 1; }
+}
+@media (max-width: 600px) {
+  .fotos-sb { grid-template-columns: minmax(0, 1fr); }
+  .fotos-sb figure:last-child { aspect-ratio: 4 / 3; }
+  .fotos-sb figure { border-radius: 14px; }
+  .texto-sb { font-size: clamp(1.5rem, 6.6vw, 1.9rem); }
+  .linhas-sb .nome-sb { font-size: clamp(1.9rem, 9.6vw, 2.6rem); }
+  .pilares-sb li { display: grid; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+<defs>
+<symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-seta-esq" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-sobe" viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></symbol>
+<symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-pausa" viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></symbol>
+<symbol id="i-som" viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+<symbol id="i-copiar" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12" height="11" rx="2"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></symbol>
+<symbol id="i-ia" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1L18 10.5l-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+<symbol id="i-alvo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-youtube" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6V16"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2.1-1-1 .8a4.6 4.6 0 0 1-2.1-2.1l.8-1-1-2.1z"/></symbol>
+</defs>
+</svg>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo3 is-claro" data-topo>
+  <a class="marca" href="index.html" aria-label="HYMN, início"><img class="logo-branco" src="assets/logo-branco.svg" alt="HYMN"><img class="logo-preto" src="assets/logo-preto.svg" alt=""></a>
+  <nav aria-label="Menu principal">
+    <a href="trabalhos.html">Trabalhos</a>
+    <a href="sobre.html" aria-current="page">Sobre</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <button class="btn-menu3" type="button" aria-expanded="false" aria-controls="menu-cel" data-abre-menu>Menu</button>
+</header>
+<div class="menu-cel" id="menu-cel" hidden>
+  <div class="cabeca"><img src="assets/logo-branco.svg" alt="HYMN"><button class="btn-menu3" type="button" style="display:inline-flex" data-fecha-menu>Fechar</button></div>
+  <ul>
+    <li style="--n:0"><a href="trabalhos.html" data-fecha-menu>Trabalhos</a></li>
+    <li style="--n:1"><a href="sobre.html" aria-current="page" data-fecha-menu>Sobre</a></li>
+    <li style="--n:2"><a href="clientes.html" data-fecha-menu>Clientes</a></li>
+    <li style="--n:3"><a href="#contato" data-fecha-menu>Contato</a></li>
+  </ul>
+  <div class="rodape-menu"><span>contato@hymn.com.br</span><span>(11) 94859-5084</span></div>
+</div>
+<main id="conteudo" tabindex="-1">
+  <section class="cabeca-pg miolo claro" aria-labelledby="t-pg" data-tom="claro">
+    <h1 id="t-pg">Sobre</h1>
+  </section>
+    <section class="miolo claro" aria-label="Fotos" data-tom="claro">
+    <div class="fotos-sb">
+      <figure style="--fx:50%;--fy:60%"><img src="assets/filme/f03.webp" srcset="assets/filme/f03-p.webp 1000w, assets/filme/f03.webp 1920w" sizes="(max-width: 600px) 100vw, 55vw" alt="Caminhão na rua da fábrica, foto da HYMN Audiovisual" decoding="async"></figure>
+      <figure style="--fx:58%;--fy:55%"><img src="assets/filme/f05-p.webp" alt="" decoding="async"></figure>
+    </div>
+  </section>
+  <section class="miolo claro" aria-label="Quem somos" data-tom="claro">
+    <div class="texto-sb" data-texto-sb>
+      <p class="forte">A HYMN nasceu produtora.</p>
+      <p>São dez anos de set, mais de mil projetos entregues e um estúdio de filmagem próprio.</p>
+      <p>Com o tempo, os clientes passaram a pedir mais do que o vídeo: estratégia, conteúdo, anúncios e criação com IA.</p>
+      <p class="forte">Hoje somos um ecossistema.</p>
+      <p>Uma agência que pensa, um estúdio que cria com IA e uma produtora que grava, no mesmo time e no mesmo cronograma.</p>
+      <p>Vídeo é a parte mais difícil do marketing. Na HYMN, ele não sai de casa.</p>
+      <p class="forte">Quem pensa também <em>grava.</em></p>
+    </div>
+  </section>
+  <section class="numeros-sb miolo" aria-label="A HYMN em números" data-tom="claro">
+    <ul data-numeros>
+      <li><b data-conta-ate="10">10</b><span>anos de mercado</span></li>
+      <li><b data-conta-ate="1000" data-mais>+1.000</b><span>projetos entregues</span></li>
+      <li><b>Estúdio</b><span>de filmagem próprio</span></li>
+      <li><b>Equipe</b><span>completa</span></li>
+    </ul>
+  </section>
+  <section class="bracos-sb miolo claro" aria-labelledby="t-bracos-sb" data-tom="claro">
+    <h2 class="rot-sb" id="t-bracos-sb">O ecossistema</h2>
+    <ul class="linhas-sb">
+      <li><a href="trabalhos.html#agencia"><span class="nome-sb"><span>HYMN</span> Agência</span><span class="diz"><i>Pensamos.</i>O que a sua marca diz, para quem e quando.</span><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="trabalhos.html#studio"><span class="nome-sb"><span>HYMN</span> Studio</span><span class="diz"><i>Criamos.</i>Foto e vídeo com IA, sem mudar o seu produto.</span><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+      <li><a href="trabalhos.html#audiovisual"><span class="nome-sb"><span>HYMN</span> Audiovisual</span><span class="diz"><i>Gravamos.</i>Gente, produtos e lugares de verdade, no estúdio próprio, na sua empresa ou fora dela.</span><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg></a></li>
+    </ul>
+  </section>
+  <section class="pilares-sb miolo claro" aria-labelledby="t-pilares" data-tom="claro">
+    <h2 id="t-pilares">Do que a gente não abre mão</h2>
+    <ul>
+      <li><b>O seu produto não muda com a IA.</b><span>Respeito</span></li>
+      <li><b>Escopo e valor por escrito, antes de começar.</b><span>Clareza</span></li>
+      <li><b>Se for atrasar, a gente avisa antes.</b><span>Palavra</span></li>
+      <li><b>Cada peça sai pronta para o canal onde vai rodar.</b><span>Entrega</span></li>
+      <li><b>Um time só, da estratégia ao vídeo final.</b><span>Time</span></li>
+    </ul>
+  </section>
+  <section class="contato3" id="contato" aria-labelledby="t-contato" data-contato data-tom="claro">
+    <div class="painel3 miolo">
+      <div class="topo-contato">
+        <div class="volta-centro" data-volta><a class="volta3" href="#conteudo"><svg class="ic"><use href="#i-sobe"/></svg><span>Voltar ao<br>topo</span></a></div>
+        <h2 id="t-contato">Vamos <em>conversar?</em></h2>
+                <a class="btn btn--whats" href="https://wa.me/5511948595084?text=Ol%C3%A1%2C%20HYMN%21%20Vi%20os%20trabalhos%20no%20site%20e%20quero%20pedir%20um%20or%C3%A7amento.%20O%20que%20eu%20preciso%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</a>
+      </div>
+            <div class="linhas3">
+        <div><span class="rot">E-mail</span><span class="valor"><span data-texto>contato@hymn.com.br</span><button class="copiar3" type="button" aria-label="Copiar e-mail" data-copia="contato@hymn.com.br"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+        <div><span class="rot">WhatsApp</span><span class="valor"><span data-texto>(11) 94859-5084</span><button class="copiar3" type="button" aria-label="Copiar número do WhatsApp" data-copia="11948595084"><svg class="ic"><use href="#i-copiar"/></svg></button></span></div>
+        <div><span class="rot">Instagram</span><span class="insta3">
+          <a href="https://www.instagram.com/hymn.agencia/" target="_blank" rel="noopener"><span class="arroba">@hymn.agencia</span><span class="de">Agência e Studio</span></a>
+          <a href="https://www.instagram.com/hymn.produtora/" target="_blank" rel="noopener"><span class="arroba">@hymn.produtora</span><span class="de">Audiovisual</span></a>
+        </span></div>
+      </div>
+      <footer class="rodape3">
+        <span class="marca"><img src="assets/logo-preto.svg" alt="HYMN"></span>
+        <span class="redes">
+                    <a href="https://www.instagram.com/hymn.agencia/" target="_blank" rel="noopener" aria-label="Instagram da HYMN Agência (@hymn.agencia)"><svg class="ic"><use href="#i-instagram"/></svg><span>Agência</span></a>
+          <a href="https://www.instagram.com/hymn.produtora/" target="_blank" rel="noopener" aria-label="Instagram da HYMN Audiovisual (@hymn.produtora)"><svg class="ic"><use href="#i-instagram"/></svg><span>Produtora</span></a>
+          <a href="https://www.youtube.com/@hymn6675" target="_blank" rel="noopener" aria-label="YouTube da HYMN"><svg class="ic"><use href="#i-youtube"/></svg><span>YouTube</span></a>
+        </span>
+        <span>© 2026 HYMN · Privacidade</span>
+      </footer>
+    </div>
+  </section>
+</main>
+<script src="site.js"></script>
+<script>
+(function () {
+  var raiz = document.documentElement;
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduz || !('IntersectionObserver' in window)) return;
+  raiz.classList.add('anima');
+  var frases = Array.prototype.slice.call(document.querySelectorAll('[data-texto-sb] p'));
+  var pedido = false;
+  function acende() {
+    pedido = false;
+    var linha = window.innerHeight * 0.62;
+    frases.forEach(function (p) { p.classList.toggle('is-lida', p.getBoundingClientRect().top < linha); });
+  }
+  window.addEventListener('scroll', function () { if (!pedido) { pedido = true; requestAnimationFrame(acende); } }, { passive: true });
+  window.addEventListener('resize', acende);
+  acende();
+  var nums = Array.prototype.slice.call(document.querySelectorAll('[data-conta-ate]'));
+  var faixa = document.querySelector('[data-numeros]');
+  var io = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    var t0 = performance.now(), dur = 1100;
+    (function passo(agora) {
+      var p = Math.min(1, (agora - t0) / dur), k = 1 - Math.pow(1 - p, 4);
+      nums.forEach(function (b) {
+        var v = Math.round(parseInt(b.getAttribute('data-conta-ate'), 10) * k);
+        b.textContent = (b.hasAttribute('data-mais') ? '+' : '') + v.toLocaleString('pt-BR');
+      });
+      if (p < 1) requestAnimationFrame(passo);
+    })(t0);
+  }, { threshold: 0.5 });
+  io.observe(faixa);
+})();
+</script>
+</body>
+</html>
