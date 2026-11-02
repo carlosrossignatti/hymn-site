@@ -39,10 +39,22 @@
 .risco3 path { stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 320ms cubic-bezier(0.4, 0, 1, 1); }
 .verbo.is-desenhado .risco3 { opacity: 1; transition-delay: 0ms; }
 .verbo.is-desenhado .risco3 path { stroke-dashoffset: 0; transition: stroke-dashoffset 760ms var(--pg-entrada) calc(var(--i, 0) * var(--passo, 110ms)); }
-.verbo[data-verbo="grava"] { --passo: 16ms; }
-.verbo[data-verbo="grava"] .risco3 path { transform-box: fill-box; transform-origin: 50% 50%; }
-.anima .verbo[data-verbo="grava"].is-desenhado .risco3 path { animation: onda3 820ms ease-in-out calc(700ms + var(--i) * -97ms) infinite alternate; }
-@keyframes onda3 { to { transform: scaleY(0.55); } }
+.verbo[data-verbo="grava"] { --passo: 90ms; --abre: -20deg; --abre-loop: -8deg; }
+.verbo[data-verbo="grava"] .risco3 path:last-child { transform-box: fill-box; transform-origin: 2.57% 100%; transform: rotate(var(--abre)); transition: stroke-dashoffset 320ms cubic-bezier(0.4, 0, 1, 1), transform 0s linear 480ms; }
+.anima .verbo[data-verbo="grava"].is-desenhado .risco3 path:last-child { transform: rotate(0deg); transition: stroke-dashoffset 760ms var(--pg-entrada) calc(var(--i) * var(--passo)), transform 136ms cubic-bezier(0.5, 0, 0.75, 0) 600ms; animation: repica3 260ms linear 736ms, claque3 3000ms linear 996ms infinite; }
+@keyframes repica3 {
+  0% { rotate: 0deg; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+  40% { rotate: -2.5deg; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  100% { rotate: 0deg; }
+}
+@keyframes claque3 {
+  0%, 52% { rotate: 0deg; animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1); }
+  66% { rotate: var(--abre-loop); }
+  80% { rotate: var(--abre-loop); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  84.5% { rotate: 0deg; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+  88% { rotate: -1.5deg; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  92%, 100% { rotate: 0deg; }
+}
 html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !important; }
 .marcas3 h2 a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; }
 .marcas3 h2 a .ic { width: 14px; height: 14px; transition: transform var(--dur-media) var(--pg-entrada); }
@@ -87,7 +99,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
 .cartao3::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.08; mix-blend-mode: overlay; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .cartao3--agencia { --tinta: var(--cor-preto); --tinta-2: rgb(0 0 0 / 74%); --borda-tag: rgb(0 0 0 / 26%); --risco: #9747FF; background: radial-gradient(120% 90% at 88% 0%, #FFFBA6 0%, rgb(255 251 166 / 0%) 55%), radial-gradient(100% 80% at 0% 100%, #EFD900 0%, rgb(239 217 0 / 0%) 70%), #FFF21A; }
 .cartao3--studio { --risco: #FFFFFF; background: radial-gradient(110% 80% at 85% 0%, #B56BFF 0%, rgb(181 107 255 / 0%) 60%), radial-gradient(100% 80% at 0% 100%, #2A0F5C 0%, rgb(42 15 92 / 0%) 72%), #6B2BD9; }
-.cartao3--audiovisual { --risco: #D075F8; --passo: 18ms; background: radial-gradient(110% 70% at 50% 0%, #2A1650 0%, rgb(42 22 80 / 0%) 68%), #0B0B0E; }
+.cartao3--audiovisual { --risco: #D075F8; --passo: 150ms; --abre: -18deg; background: radial-gradient(110% 70% at 50% 0%, #2A1650 0%, rgb(42 22 80 / 0%) 68%), #0B0B0E; }
 .cartao3:has(a:focus-visible) { outline: 2px solid var(--cor-preto); outline-offset: 4px; }
 .cartao3 a:focus-visible { outline: none; }
 .cartao3:active { transform: scale(0.985); transition-duration: 160ms; }
@@ -101,7 +113,18 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
 .anima .arte3 .ponto3 { opacity: 0; transform: scale(0.4); }
 .anima .cartao3.is-desenhado .arte3 path { stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms var(--pg-entrada) calc(150ms + var(--i, 0) * var(--passo, 160ms)); }
 .anima .cartao3.is-desenhado .arte3 .ponto3 { opacity: 1; transform: none; transition: opacity 300ms ease 900ms, transform 800ms var(--pg-entrada) 900ms; }
-.anima .cartao3--audiovisual.is-desenhado .arte3 path { animation: onda3 860ms ease-in-out calc(1400ms + var(--i) * -97ms) infinite alternate; }
+.cartao3--audiovisual .arte3 path:last-child { transform-origin: 1.22% 100%; rotate: var(--abre); }
+.anima .cartao3--audiovisual.is-desenhado .arte3 path:last-child { animation: bate3 3400ms linear 1300ms infinite; }
+@keyframes bate3 {
+  0% { rotate: var(--abre); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  4.5% { rotate: 0deg; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+  8.5% { rotate: -2.5deg; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  12.5%, 18% { rotate: 0deg; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  33%, 100% { rotate: var(--abre); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .verbo[data-verbo="grava"] .risco3 path, .cartao3--audiovisual .arte3 path { animation: none !important; }
+}
 .anima .cartao3--studio.is-desenhado .arte3 path { animation: brilha3 2600ms ease-in-out calc(1500ms + var(--i) * 700ms) infinite; }
 @keyframes brilha3 { 50% { transform: scale(0.84) rotate(8deg); } }
 .cartao3:not(.is-visivel) .arte3 path { animation-play-state: paused !important; }
@@ -348,7 +371,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
       </li>
       <li class="cartao3 cartao3--audiovisual" data-arte="grava" style="--n:2">
         <div class="arte3" aria-hidden="true"></div>
-        <p class="rot-br"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 10.5v3"/></svg>Gravamos</p>
+        <p class="rot-br"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11h17v7.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M3.5 11 19.67 5.75l-1.05-3.23L2.45 7.77z"/><path d="M10.2 8.8 7.1 6.3M15.4 7.1 12.3 4.6"/></svg>Gravamos</p>
         <div class="corpo-br">
           <h3><a href="trabalhos.html#audiovisual">Audiovisual</a></h3>
           <p>Gente, produtos e lugares de verdade, no estúdio próprio, na sua empresa ou fora dela.</p>
@@ -501,15 +524,20 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
       function brilho(cx, cy, r) { var c = cx.toFixed(1) + ' ' + cy.toFixed(1); return 'M' + cx.toFixed(1) + ' ' + (cy - r).toFixed(1) + ' Q' + c + ' ' + (cx + r).toFixed(1) + ' ' + cy.toFixed(1) + ' Q' + c + ' ' + cx.toFixed(1) + ' ' + (cy + r).toFixed(1) + ' Q' + c + ' ' + (cx - r).toFixed(1) + ' ' + cy.toFixed(1) + ' Q' + c + ' ' + cx.toFixed(1) + ' ' + (cy - r).toFixed(1) + 'Z'; }
       return [brilho(W + F * 0.2, F * 0.04, F * 0.21), brilho(W + F * 0.47, F * 0.36, F * 0.1), brilho(-F * 0.16, H * 0.74, F * 0.09)];
     },
-    grava: function (W, H, F) {   
-      var n = Math.max(18, Math.round(W / (F * 0.13))), ds = [], y = H + F * 0.12, x0 = W * 0.04, x1 = W * 0.96;
-      for (var i = 0; i < n; i++) {
-        var t = i / (n - 1), env = Math.sin(Math.PI * (0.08 + t * 0.84));
-        var a = env * (0.45 + 0.55 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.6)));
-        var x = x0 + (x1 - x0) * t, h = Math.max(F * 0.018, F * 0.13 * a);
-        ds.push('M' + x.toFixed(1) + ' ' + (y - h).toFixed(1) + ' V' + (y + h).toFixed(1));
+    grava: function (W, H, F) {   // claquete à mão no canto da palavra: corpo, faixa fixa e haste (último path, gira na dobradiça); listras em V para ler como claquete também fechada
+      var livre = (document.documentElement.clientWidth - W) / 2 + F * 0.12 - F * 0.34 - 16;   // título centralizado: do fim da palavra até 16 px da borda, tirando o respiro
+      var e = Math.max(0.8, Math.min(F < 64 ? 1.15 : 1, livre / (F * 0.84)));
+      var w = F * 0.8 * e, h = F * 0.46 * e, t = F * 0.15 * e, k = t * 0.62, ox = W + F * 0.34, oy = F * 0.12, g = -0.14, c = Math.cos(g), s = Math.sin(g), r = h * 0.2;
+      function p(x, y) { return (ox + x * c - y * s).toFixed(1) + ' ' + (oy + x * s + y * c).toFixed(1); }
+      var corpo = 'M' + p(0, 0) + ' Q' + p(w * 0.5, -h * 0.02) + ' ' + p(w - r, 0) + ' Q' + p(w, 0) + ' ' + p(w, r) + ' Q' + p(w * 1.014, h * 0.5) + ' ' + p(w, h - r)
+        + ' Q' + p(w, h) + ' ' + p(w - r, h) + ' Q' + p(w * 0.5, h * 1.04) + ' ' + p(r * 0.8, h) + ' Q' + p(0, h) + ' ' + p(0, h - r) + ' Q' + p(-w * 0.01, h * 0.45) + ' ' + p(-w * 0.014, -h * 0.1);
+      var faixa = 'M' + p(0, t) + ' Q' + p(w * 0.5, t * 1.1) + ' ' + p(w, t * 0.94), haste = 'M' + p(0, 0) + ' L' + p(w, 0) + ' L' + p(w, -t) + ' L' + p(0, -t) + 'Z';
+      for (var n = F < 64 ? 3 : 4, i = 0; i < n; i++) {
+        var a = w * (0.17 + i * 0.645 / (n - 1));
+        faixa += ' M' + p(a - k, t) + ' L' + p(a, 0);
+        haste += ' M' + p(a, 0) + ' L' + p(a - k, -t);
       }
-      return ds;
+      return [corpo, faixa, haste];
     }
   };
   function desenha() {
@@ -552,7 +580,7 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
     if (anima) setTimeout(function () { reveza(!temMouse); }, 250);
   }
   if (anima) { (fontes || Promise.resolve()).then(function () { setTimeout(prontoTitulo, 1750); }); setTimeout(prontoTitulo, 2600); }
-  else prontoTitulo();
+  else { prontoTitulo(); if (fontes) fontes.then(desenha); }
   var tDes = null;
   window.addEventListener('resize', function () { clearTimeout(tDes); tDes = setTimeout(function () { if (pronto) desenha(); }, 120); });
   
@@ -677,15 +705,18 @@ html:not(.anima) .risco3, html:not(.anima) .risco3 path { transition: none !impo
     cria: function () {
       return [brilho(190, 138, 84), brilho(302, 58, 36), brilho(96, 214, 22)].map(function (d, i) { return '<path pathLength="1" style="--i:' + i + '" d="' + d + '"/>'; }).join('');
     },
-    grava: function () {
-      var n = 40, out = [], y = 130, x0 = 24, x1 = 376;
-      for (var i = 0; i < n; i++) {
-        var t = i / (n - 1), env = Math.sin(Math.PI * (0.06 + t * 0.88));
-        var a = env * (0.4 + 0.6 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.6)));
-        var x = (x0 + (x1 - x0) * t).toFixed(1), h = Math.max(3, 96 * a).toFixed(1);
-        out.push('<path pathLength="1" style="--i:' + i + '" d="M' + x + ' ' + (y - h).toFixed(1) + ' V' + (y + +h).toFixed(1) + '"/>');
+    grava: function () {   // claquete grande: corpo, faixa fixa e haste (último path, gira na dobradiça)
+      var w = 204, h = 114, t = 36, k = t * 0.62, ox = 98, oy = 108, g = -0.07, c = Math.cos(g), s = Math.sin(g), r = 19;
+      function p(x, y) { return (ox + x * c - y * s).toFixed(1) + ' ' + (oy + x * s + y * c).toFixed(1); }
+      var corpo = 'M' + p(0, 0) + ' Q' + p(w * 0.5, -h * 0.02) + ' ' + p(w - r, 0) + ' Q' + p(w, 0) + ' ' + p(w, r) + ' Q' + p(w * 1.014, h * 0.5) + ' ' + p(w, h - r)
+        + ' Q' + p(w, h) + ' ' + p(w - r, h) + ' Q' + p(w * 0.5, h * 1.04) + ' ' + p(r * 0.8, h) + ' Q' + p(0, h) + ' ' + p(0, h - r) + ' Q' + p(-w * 0.01, h * 0.45) + ' ' + p(-w * 0.014, -h * 0.1);
+      var faixa = 'M' + p(0, t) + ' Q' + p(w * 0.5, t * 1.1) + ' ' + p(w, t * 0.94), haste = 'M' + p(0, 0) + ' L' + p(w, 0) + ' L' + p(w, -t) + ' L' + p(0, -t) + 'Z';
+      for (var i = 0; i < 4; i++) {
+        var a = w * (0.17 + i * 0.215);
+        faixa += ' M' + p(a - k, t) + ' L' + p(a, 0);
+        haste += ' M' + p(a, 0) + ' L' + p(a - k, -t);
       }
-      return out.join('');
+      return [corpo, faixa, haste].map(function (d, i) { return '<path pathLength="1" style="--i:' + i + '" d="' + d + '"/>'; }).join('');
     }
   };
   var cartoes = $$('[data-arte]');
